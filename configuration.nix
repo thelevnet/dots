@@ -62,9 +62,8 @@
       imperio = "sudo ";
     };
     
-    completionInit = ''
+    shellInit = ''
       fpath=(/home/lev/.zsh/completions $fpath)
-      autoload -U compinit && compinit
     '';
 
     interactiveShellInit = ''
