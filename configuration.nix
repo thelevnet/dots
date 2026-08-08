@@ -63,7 +63,7 @@
     };
 
     interactiveShellInit = ''
-      fpath+=(${config.home.homeDirectory}/.zsh/completions)
+      fpath+=(/home/lev/.zsh/completions)
       autoload -U compinit && compinit
       
       text() {
