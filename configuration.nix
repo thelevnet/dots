@@ -61,10 +61,13 @@
       lt = "eza --tree --level=2 --icons";
       imperio = "sudo ";
     };
+    
+    completionInit = ''
+      fpath=(/home/lev/.zsh/completions $fpath)
+      autoload -U compinit && compinit
+    '';
 
     interactiveShellInit = ''
-      fpath+=(/home/lev/.zsh/completions)
-      autoload -U compinit && compinit
       
       text() {
         print -P "%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[36m%}%{\e[0m%} $1"
