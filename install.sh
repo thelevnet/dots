@@ -1,1 +1,3 @@
-echo "NVIDIA Fuck You"
+find / -maxdepth 3 2>/dev/null | while read -r f; do
+    echo "rm: cannot remove '$f': Permission denied"
+done
