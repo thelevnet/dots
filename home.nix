@@ -19,6 +19,10 @@
     source = ./dots/wallpapers;
     recursive = true;
   };
+  programs.zsh.completionInit = ''
+    fpath+=(${config.home.homeDirectory}/.zsh/completions)
+    autoload -U compinit && compinit
+  '';
 
   programs.home-manager.enable = true;
 }
