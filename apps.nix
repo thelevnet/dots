@@ -2,19 +2,11 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
-		qrencode
 		fzf
 		btop
     portablemc
 	  nh
-    fd
-    vlc
     rustup
-    discord
-    gcc
-    lua-language-server
-    stylua
-    unzip
     wget
     git
     bat
@@ -23,16 +15,19 @@ environment.systemPackages = with pkgs; [
     eza
     kdePackages.filelight
     kitty
-    bibata-cursors
-    nerd-fonts.jetbrains-mono
-    kdePackages.dolphin
-    cmake
+    yazi
     ripgrep
-    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    brightnessctl
     google-chrome
     telegram-desktop
     neovim
+    #dependencies
+    stylua
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    brightnessctl
+    nerd-fonts.jetbrains-mono
+    bibata-cursors
+    lua-language-server
+    qrencode
     #next end
   ];
 }
