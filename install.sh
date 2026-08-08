@@ -1,1 +1,1 @@
-echo "NFY"
+echo "NVIDIA Fuck You"
