@@ -35,7 +35,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # ── Users & Shells ───────────────────────────────────────────────────
-  users.users.refu = {
+  users.users.lev = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" ];
     shell = pkgs.zsh;
@@ -132,7 +132,7 @@
     NIX_CONFIG = "experimental-features = nix-command flakes";
   };
   environment.shellAliases = {
-    next = "/home/refu/Projects/Rust/next/target/release/next ";
+    next = "/home/lev/Projects/Rust/next/target/release/next ";
   };
 
   # ── Desktop ──────────────────────────────────────────────────────────

@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, ... }:
+ config, pkgs, inputs, ... }:
 
 {
-  home.username = "refu";
-  home.homeDirectory = "/home/refu";
+  home.username = "lev";
+  home.homeDirectory = "/home/lev";
   home.stateVersion = "26.05";
 
   xdg.configFile = {
