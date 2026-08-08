@@ -63,6 +63,9 @@
     };
 
     interactiveShellInit = ''
+      fpath+=(${config.home.homeDirectory}/.zsh/completions)
+      autoload -U compinit && compinit
+      
       text() {
         print -P "%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[36m%}%{\e[0m%} $1"
       }
