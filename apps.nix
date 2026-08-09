@@ -23,7 +23,7 @@ environment.systemPackages = with pkgs; [
     google-chrome
     telegram-desktop
     neovim
-    #dependencies
+    #next dependencies
     stylua
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     brightnessctl
