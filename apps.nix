@@ -7,7 +7,6 @@ environment.systemPackages = with pkgs; [
 		home-manager
 		gcc
 		fzf
-		btop
     portablemc
 	  nh
     rustup
