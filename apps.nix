@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+		btop
 		ripgrep
 		jq
 		home-manager
