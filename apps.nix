@@ -5,7 +5,6 @@ environment.systemPackages = with pkgs; [
 		firefox
 		next
 		btop
-		ripgrep
 		jq
 		home-manager
 		gcc
