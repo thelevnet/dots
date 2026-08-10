@@ -33,6 +33,7 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # ── Users & Shells ───────────────────────────────────────────────────
   users.users.lev = {
