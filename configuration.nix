@@ -132,13 +132,18 @@
   nixpkgs.config.allowBroken = true;
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      next = prev.callPackage ./next-cli.nix {};
+    })
+  ];
 
   # ── Environment ──────────────────────────────────────────────────────
   environment.variables = {
     NIX_CONFIG = "experimental-features = nix-command flakes";
   };
   environment.shellAliases = {
-    next = "/home/lev/Projects/Rust/next/target/release/next ";
+    build-next = "/home/lev/Projects/Rust/next/target/release/next ";
   };
 
   # ── Desktop ──────────────────────────────────────────────────────────

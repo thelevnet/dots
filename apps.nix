@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+		next
 		btop
 		ripgrep
 		jq
