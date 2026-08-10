@@ -406,6 +406,22 @@
         "type": "github"
       }
     },
+    "next-repo": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786365772,
+        "narHash": "sha256-lyXXq87RtWQ1IEAMwBULrr6P4Urb7wGod/10/b08mfc=",
+        "owner": "thelevnet",
+        "repo": "next",
+        "rev": "3600b2e152d393e023a853364c03801114a9d2eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thelevnet",
+        "repo": "next",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1785828668,
@@ -535,6 +551,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "next-repo": "next-repo",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
         "playit-nixos-module": "playit-nixos-module"

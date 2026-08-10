@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    next-repo = {
+      url = "github:thelevnet/next"; # Или github:твой_юзер/next
+      flake = false; # Нам нужны просто исходники
+    };
   };
   outputs = { self, nixpkgs, hyprland, playit-nixos-module, home-manager, ... } @ inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {

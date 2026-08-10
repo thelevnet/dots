@@ -1,12 +1,12 @@
-{ lib, rustPlatform, installShellFiles }:
+{ lib, rustPlatform, installShellFiles, next-repo }:
 
 rustPlatform.buildRustPackage {
   pname = "next";
   version = "1.1.0";
 
-  src = /home/lev/Projects/Rust/next;
+  src = next-repo;
 
-  cargoLock.lockFile = /home/lev/Projects/Rust/next/Cargo.lock;
+  cargoLock.lockFile = "${next-repo}/Cargo.lock";
 
   nativeBuildInputs = [ installShellFiles ];
 

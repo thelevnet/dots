@@ -134,7 +134,7 @@
   programs.nix-ld.enable = true;
   nixpkgs.overlays = [
     (final: prev: {
-      next = prev.callPackage ./next-cli.nix {};
+      next = prev.callPackage ./next-cli.nix { next-repo = inputs.next-repo; };
     })
   ];
 
