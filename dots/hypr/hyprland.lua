@@ -36,10 +36,10 @@ hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
 
--- Applications --
+-- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(super .. "+E", hl.dsp.exec_cmd("kitty yazi"))
-hl.bind(super .. "+W", hl.dsp.exec_cmd("google-chrome"))
+hl.bind(super .. "+W", hl.dsp.exec_cmd("firefox"))
 hl.bind(super .. "+X", hl.dsp.exec_cmd("kitty nvim"))
 hl.bind(super .. "+Q", hl.dsp.exec_cmd("Telegram"))
 

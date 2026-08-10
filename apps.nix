@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+		firefox
 		next
 		btop
 		ripgrep
@@ -21,7 +22,6 @@ environment.systemPackages = with pkgs; [
     kdePackages.filelight
     kitty
     yazi
-    google-chrome
     telegram-desktop
     neovim
     #next dependencies
