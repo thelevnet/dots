@@ -409,11 +409,11 @@
     "next-repo": {
       "flake": false,
       "locked": {
-        "lastModified": 1786383145,
-        "narHash": "sha256-Ipa+XDSfwdX1jt1hGlPzPS1tKycBjhxpfXfvITDxLo0=",
+        "lastModified": 1786385443,
+        "narHash": "sha256-xiACh6/++JW1yD886IgreAZmcyxQuSYZOsI4QfUAYzs=",
         "owner": "thelevnet",
         "repo": "next",
-        "rev": "24c2e39315bce6cae526d24ce88e9fda4db199c4",
+        "rev": "c9b048fe7ce4e893459d5963eb620876abb6bac5",
         "type": "github"
       },
       "original": {
