@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage {
   pname = "next";
-  version = "1.1.0";
+  version = "1.1.2";
 
   src = next-repo;
 
