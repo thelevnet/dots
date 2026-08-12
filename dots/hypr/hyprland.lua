@@ -35,6 +35,7 @@ hl.bind(super .. "+S", hl.dsp.workspace.toggle_special("special"))
 hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
+hl.bind(super .. "+T", hl.dsp.window.resize({ x = 100, y = 100, "exact" }))
 
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
