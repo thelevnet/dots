@@ -35,7 +35,7 @@ hl.bind(super .. "+S", hl.dsp.workspace.toggle_special("special"))
 hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
-hl.bind(super .. "+T", hl.dsp.window.resize({ x = 100, y = 100, "exact" }))
+hl.bind(super .. "+T", hl.dsp.window.resize({ x = 700, y = 700, "exact" }))
 
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
@@ -99,9 +99,9 @@ hl.monitor({
 
 hl.monitor({
 	output = "eDP-1",
-	mode = "1280x720@144",
+	mode = "1920x1080@144",
 	position = "1920x0",
-	scale = 0.666667,
+	scale = 1,
 })
 
 hl.gesture({
