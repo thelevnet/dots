@@ -35,9 +35,8 @@ hl.bind(super .. "+S", hl.dsp.workspace.toggle_special("special"))
 hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
-hl.bind(super .. "+O", function()
-	hl.dsp.exec_cmd("kitty -- fetch --size 15.0 --no-info --infinite -s 2.0")
-end)
+hl.bind(super .. "+O", hl.dsp.exec_cmd("kitty --title fetch-float -- fetch --size 15.0 --no-info --infinite -s 2.0"))
+
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(super .. "+E", hl.dsp.exec_cmd("kitty yazi"))
@@ -321,6 +320,7 @@ hl.config({
 		force_zero_scaling = true,
 	},
 })
+hl.window_rule({ match = { title = "^(fetch-float)$" }, float = true, size = { 700, 700 }, center = true })
 hl.window_rule({ match = { class = "dev.noctalia.Noctalia" }, float = true, size = { 1080, 920 } })
 hl.window_rule({ match = { title = "^(Open File)(.*)$" }, center = true })
 hl.window_rule({ match = { title = "^(Open File)(.*)$" }, float = true })
