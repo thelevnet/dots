@@ -36,7 +36,7 @@ hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
 hl.bind(super .. "+O", function()
-	hl.dsp.exec_cmd("kitty -- fetch --size 15.0 --no-info --infinite -s 2.0", { "float", "size 700 700", "center" })
+	hl.dsp.exec_cmd("kitty -- fetch --size 15.0 --no-info --infinite -s 2.0")
 end)
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
