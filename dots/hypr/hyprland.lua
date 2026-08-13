@@ -24,7 +24,7 @@ hl.bind(super .. "+A", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
 hl.bind(super .. "+Slash", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("ALT + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher"))
 hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
-hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen; notify-send \"Screenshot\"))
+hl.bind("Print", hl.dsp.exec_cmd(ipc .. 'screenshot-fullscreen; notify-send "Screenshot"'))
 
 -- Window Management & Layouts --
 hl.bind(super .. "+C", hl.dsp.window.close())
