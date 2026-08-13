@@ -14,7 +14,22 @@
     device = "nodev";
   };
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
-  boot.blacklistedKernelModules = [ "mt7921e" "mt7921u" "mt7921s" ];
+  boot.blacklistedKernelModules = [
+    "mt7921e"
+    "mt7921u"
+    "mt7921s"
+    "nouveau"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidiafb"
+    "i2c_nvidia_gpu"
+  ];
+  services.udev.extraRules = ''
+    # Remove NVIDIA VGA/3D controller from system bus
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+  '';
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
