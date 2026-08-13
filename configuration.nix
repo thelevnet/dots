@@ -29,6 +29,8 @@
   services.udev.extraRules = ''
     # Remove NVIDIA VGA/3D controller from system bus
     ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA Audio controller from system bus
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
   '';
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_6_12;
