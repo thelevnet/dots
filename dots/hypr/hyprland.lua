@@ -24,6 +24,7 @@ hl.bind(super .. "+A", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
 hl.bind(super .. "+Slash", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("ALT + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher"))
 hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
+hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen; notify-send \"Screenshot\"))
 
 -- Window Management & Layouts --
 hl.bind(super .. "+C", hl.dsp.window.close())
@@ -35,7 +36,7 @@ hl.bind(super .. "+S", hl.dsp.workspace.toggle_special("special"))
 hl.bind(super .. "+Semicolon", hl.dsp.layout("splitratio -0.1"))
 hl.bind(super .. "+Apostrophe", hl.dsp.layout("splitratio +0.1"))
 hl.bind(super .. "+Backslash", hl.dsp.window.resize({ x = 1200, y = 800, "exact" }))
-hl.bind(super .. "+O", hl.dsp.exec_cmd("kitty --title fetch-float -- fetch --size 15.0 --no-info --infinite -s 2.0"))
+hl.bind("Home", hl.dsp.exec_cmd("kitty --title fetch-float -- fetch --size 15.0 --no-info --infinite -s 2.0"))
 
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
