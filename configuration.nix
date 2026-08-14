@@ -44,13 +44,25 @@
     enable = true;
     secretPath = "/var/lib/playit/playit.toml";
   };
+  
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      "3cbcc293-c7d9-48f3-a139-c2461d4502a0" = {
+        credentialsFile = "/home/lev/.cloudflared/3cbcc293-c7d9-48f3-a139-c2461d4502a0.json";
+        ingress = {
+          "ssh.lev-net.xyz" = "ssh://localhost:22";
+        };
+        default = "http_status:404";
+      };
+    };
+  };
 
   # ── Network & Locale ─────────────────────────────────────────────────
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   # ── Users & Shells ───────────────────────────────────────────────────
   users.users.lev = {
