@@ -44,19 +44,8 @@
     enable = true;
     secretPath = "/var/lib/playit/playit.toml";
   };
-  
-  services.cloudflared = {
-    enable = true;
-    tunnels = {
-      "3cbcc293-c7d9-48f3-a139-c2461d4502a0" = {
-        credentialsFile = "/home/lev/.cloudflared/3cbcc293-c7d9-48f3-a139-c2461d4502a0.json";
-        ingress = {
-          "ssh.lev-net.xyz" = "ssh://localhost:22";
-        };
-        default = "http_status:404";
-      };
-    };
-  };
+
+  services.tailscale.enable = true;
 
   # ── Network & Locale ─────────────────────────────────────────────────
   networking.hostName = "nix";
