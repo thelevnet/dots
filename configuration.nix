@@ -46,6 +46,11 @@
   };
 
   services.tailscale.enable = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
 
   # ── Network & Locale ─────────────────────────────────────────────────
   networking.hostName = "nix";
