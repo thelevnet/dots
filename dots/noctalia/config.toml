@@ -20,17 +20,19 @@ order = [ "default", "top" ]
     thickness = 58
 
     [bar.top]
-    auto_hide = true
+    auto_hide = false
     capsule = true
     center = [ "workspaces" ]
     enabled = true
     end = [ "keyboard_layout", "ai", "settings" ]
-    layer = "overlay"
-    margin_ends = 500
-    radius = 80
-    radius_top_left = 0
+    layer = "top"
+    margin_ends = 0
+    position = "right"
+    radius = 30
+    radius_bottom_right = 0
+    radius_top_left = 80
     radius_top_right = 0
-    reserve_space = false
+    reserve_space = true
     show_on_workspace_switch = false
     start = [ "network", "bluetooth", "group:g1" ]
     thickness = 58
@@ -213,6 +215,7 @@ titlebar = false
 enabled = [ "nightwatch75/file-search", "yuuto/calculator", "yocraft/qrcode", "nightwatch75/todo" ]
 
 [shell]
+avatar_path = "/home/lev/Wallpapers/torii.jpg"
 button_borders = false
 card_borders = false
 corner_radius_scale = 1.2500000186264515
@@ -233,6 +236,7 @@ screen_time_enabled = true
 
     [shell.panel]
     clipboard_placement = "attached"
+    clipboard_position = "auto"
     launcher_placement = "floating"
     open_near_click_clipboard = true
     open_near_click_launcher = true
@@ -250,7 +254,8 @@ screen_time_enabled = true
     show_cursor = true
 
 [theme]
-community_palette = "Everforest"
+builtin = "Tokyo-Night"
+community_palette = "Cream"
 custom_palette = "torii-ts"
 mode = "dark"
 source = "wallpaper"
@@ -265,16 +270,16 @@ wallpaper_scheme = "m3-tonal-spot"
 transition = [ "zoom" ]
 
     [wallpaper.default]
-    path = "/home/refu/Pictures/Wallpapers/torii.jpg"
+    path = "/home/lev/Pictures/Wallpapers/torii.jpg"
 
     [wallpaper.last]
-    path = "/home/refu/Pictures/Wallpapers/torii.jpg"
+    path = "/home/lev/Pictures/Wallpapers/torii.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
     path = "/home/refu/Pictures/Wallpapers/torii.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/refu/Pictures/Wallpapers/torii.jpg"
+    path = "/home/lev/Pictures/Wallpapers/torii.jpg"
 
 [widget.ai]
 glyph = "flare-filled"
