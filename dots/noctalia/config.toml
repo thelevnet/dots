@@ -4,7 +4,7 @@ order = [ "default", "top" ]
     [bar.default]
     capsule = true
     capsule_padding = 14.0
-    capsule_thickness = 0.79999998584389687
+    capsule_thickness = 0.75999998673796654
     center = [ "widget", "clock", "todo" ]
     end = [ "bar", "caffeine", "session" ]
     font_weight = 900
@@ -15,37 +15,32 @@ order = [ "default", "top" ]
     radius = 30
     radius_bottom_left = 0
     radius_top_left = 0
-    shadow = false
+    shadow = true
     start = [ "clipboard", "screenshot", "battery" ]
     thickness = 58
 
     [bar.top]
     auto_hide = false
     capsule = true
+    capsule_group = []
+    capsule_padding = 14.0
     center = [ "workspaces" ]
     enabled = true
     end = [ "keyboard_layout", "ai", "settings" ]
+    font_weight = 900
     layer = "top"
     margin_ends = 0
+    padding = 10
+    panel_overlap = 0
     position = "right"
     radius = 30
     radius_bottom_right = 0
-    radius_top_left = 80
+    radius_top_left = 30
     radius_top_right = 0
     reserve_space = true
     show_on_workspace_switch = false
-    start = [ "network", "bluetooth", "group:g1" ]
+    start = [ "network", "bluetooth", "output_volume" ]
     thickness = 58
-
-        [[bar.top.capsule_group]]
-        accordion = false
-        accordion_direction = "end"
-        enabled = true
-        fill = "surface_variant"
-        id = "g1"
-        members = [ "input_volume", "output_volume" ]
-        opacity = 1.0
-        padding = 6.0
 
 [calendar]
 enabled = true
@@ -69,15 +64,17 @@ widget_order = []
 
 [dock]
 auto_hide = true
+background_opacity = 0.99999997764825821
 enabled = true
-inactive_opacity = 0.79999998211860657
+inactive_opacity = 0.99999997764825821
 inactive_scale = 1.0
-launcher_position = "end"
-layer = "overlay"
-magnification_scale = 1.2000000029802322
-position = "right"
+launcher_position = "none"
+layer = "top"
+magnification_scale = 1.6000000089406967
+pinned = [ "firefox", "org.telegram.desktop", "kitty" ]
+position = "bottom"
 reserve_space = false
-shadow = false
+shadow = true
 
 [hot_corners]
 enabled = false
@@ -326,6 +323,7 @@ show_label = false
 
 [widget.keyboard_layout]
 scale = 1.5
+show_glyph = false
 
 [widget.launcher]
 scale = 2.0
