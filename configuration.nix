@@ -110,7 +110,7 @@
 
       _my_accept_line() {
         PROMPT=$MY_BOTTOM_PROMPT
-        RPROMPT=\'\'
+        RPROMPT=""
         zle reset-prompt
         zle .accept-line
       }
@@ -118,7 +118,7 @@
 
       preexec() {
         PROMPT=$MY_BOTTOM_PROMPT
-        RPROMPT=
+        RPROMPT=""
       }
 
       precmd() {
