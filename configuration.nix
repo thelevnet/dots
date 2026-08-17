@@ -118,7 +118,7 @@
 
       preexec() {
         PROMPT=$MY_BOTTOM_PROMPT
-        RPROMPT=\'\'
+        RPROMPT=
       }
 
       precmd() {
