@@ -63,18 +63,26 @@ widget_order = []
     [desktop_widgets.widget]
 
 [dock]
-auto_hide = true
+auto_hide = false
 background_opacity = 0.99999997764825821
+border = "primary"
+border_width = 3.0
 enabled = true
 inactive_opacity = 0.99999997764825821
 inactive_scale = 1.0
 launcher_position = "none"
 layer = "top"
-magnification_scale = 1.6000000089406967
+magnification_scale = 2.0
+main_axis_padding = 57
+margin_edge = 16
 pinned = [ "firefox", "org.telegram.desktop", "kitty" ]
 position = "bottom"
+radius = 58
 reserve_space = false
 shadow = true
+show_dots = true
+show_instance_count = false
+smart_auto_hide = true
 
 [hot_corners]
 enabled = false
