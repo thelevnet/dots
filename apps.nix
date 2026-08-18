@@ -4,7 +4,6 @@ environment.systemPackages = with pkgs; [
     #next start
 		libnotify
 		fetch
-		firefox
 		next
 		btop
 		jq

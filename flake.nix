@@ -8,16 +8,22 @@
     };
     playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
 
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     next-repo = {
-      url = "github:thelevnet/next"; # Или github:твой_юзер/next
-      flake = false; # Нам нужны просто исходники
+      url = "github:thelevnet/next";
+      flake = false;
     };
   };
-  outputs = { self, nixpkgs, hyprland, playit-nixos-module, home-manager, ... } @ inputs: {
+
+  outputs = { self, nixpkgs, hyprland, playit-nixos-module, home-manager, zen-browser, ... } @ inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [

@@ -554,7 +554,8 @@
         "next-repo": "next-repo",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
-        "playit-nixos-module": "playit-nixos-module"
+        "playit-nixos-module": "playit-nixos-module",
+        "zen-browser": "zen-browser"
       }
     },
     "systems": {
@@ -625,6 +626,26 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786685380,
+        "narHash": "sha256-3ZuubfWk7CHPF/60w5BVrVkzdO7Oed1MgZ+ugLsgww8=",
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
+        "rev": "e1e4aa6433a352f07059aeb8483ae42deb61f9b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
