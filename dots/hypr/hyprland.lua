@@ -41,7 +41,7 @@ hl.bind("Home", hl.dsp.exec_cmd("kitty --title fetch-float -- fetch --size 15.0 
 -- Apps --
 hl.bind(super .. "+Return", hl.dsp.exec_cmd("kitty"))
 hl.bind(super .. "+E", hl.dsp.exec_cmd("kitty yazi"))
-hl.bind(super .. "+W", hl.dsp.exec_cmd("firefox"))
+hl.bind(super .. "+W", hl.dsp.exec_cmd("zen"))
 hl.bind(super .. "+X", hl.dsp.exec_cmd("kitty nvim"))
 hl.bind(super .. "+Q", hl.dsp.exec_cmd("Telegram"))
 
