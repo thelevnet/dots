@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+    inputs.zen-browser.packages.${pkgs.system}.default
 		libnotify
 		fetch
 		next
