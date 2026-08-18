@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+		antigravity-cli
 		gemini-cli
     inputs.zen-browser.packages.${pkgs.system}.default
 		libnotify
