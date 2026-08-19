@@ -19,7 +19,7 @@
     insmod part_gpt
     insmod fat
     search --no-floppy --fs-uuid --set=root A478-D3EB
-    chainloader /EFI/fedora/shimx64.efi
+    configfile /EFI/fedora/grub.cfg
   }
 '';
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
