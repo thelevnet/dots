@@ -12,6 +12,7 @@
     enable = true;
     efiSupport = true;
     device = "nodev";
+    useOSProber = true;
   };
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
   boot.blacklistedKernelModules = [
