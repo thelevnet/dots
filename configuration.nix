@@ -14,6 +14,14 @@
     device = "nodev";
     useOSProber = true;
   };
+  boot.loader.grub.extraEntries = ''
+  menuentry "Fedora Linux" {
+    insmod part_gpt
+    insmod fat
+    search --no-floppy --fs-uuid --set=root A478-D3EB
+    chainloader /EFI/fedora/shimx64.efi
+  }
+'';
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
   boot.blacklistedKernelModules = [
     "mt7921e"
