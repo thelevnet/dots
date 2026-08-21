@@ -14,33 +14,6 @@
     device = "nodev";
     useOSProber = true;
   };
-  boot.loader.grub.extraEntries = ''
-  menuentry "Fedora Linux" {
-    insmod part_gpt
-    insmod fat
-    search --no-floppy --fs-uuid --set=root A478-D3EB
-    configfile /EFI/fedora/grub.cfg
-  }
-'';
-  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821au ];
-  boot.blacklistedKernelModules = [
-    "mt7921e"
-    "mt7921u"
-    "mt7921s"
-    "nouveau"
-    "nvidia"
-    "nvidia_drm"
-    "nvidia_modeset"
-    "nvidia_uvm"
-    "nvidiafb"
-    "i2c_nvidia_gpu"
-  ];
-  services.udev.extraRules = ''
-    # Remove NVIDIA VGA/3D controller from system bus
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
-    # Remove NVIDIA Audio controller from system bus
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
-  '';
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_6_12;
 
