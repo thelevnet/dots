@@ -6,8 +6,6 @@
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    playit-nixos-module.url = "github:pedorich-n/playit-nixos-module";
-
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,11 +21,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, hyprland, playit-nixos-module, home-manager, zen-browser, ... } @ inputs: {
+  outputs = { self, nixpkgs, hyprland, home-manager, zen-browser, ... } @ inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        inputs.playit-nixos-module.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
