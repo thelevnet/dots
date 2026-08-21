@@ -12,7 +12,6 @@
     "fastfetch".source = ./dots/fastfetch;
     "noctalia".source = ./dots/noctalia;
     "mimeapps.list".source = ./dots/mimeapps.list;
-    "chrome-flags.conf".source = ./dots/chrome-flags.conf;
   };
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
   home.file."Pictures/Wallpapers" = {
