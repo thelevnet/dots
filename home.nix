@@ -11,7 +11,6 @@
     "nvim".source = ./dots/nvim;
     "fastfetch".source = ./dots/fastfetch;
     "noctalia".source = ./dots/noctalia;
-    "mimeapps.list".source = ./dots/mimeapps.list;
   };
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
   home.file."Pictures/Wallpapers" = {
