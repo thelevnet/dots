@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+# Reconnect stdin to the interactive terminal when running via curl pipe (curl | sh)
+if [ ! -t 0 ] && [ -e /dev/tty ]; then
+    exec < /dev/tty
+fi
+
 echo "NVIDIA Fuck You"
 echo
 
