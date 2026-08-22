@@ -8,31 +8,17 @@
   ];
 
   # ── Boot & Hardware ──────────────────────────────────────────────────
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
-    useOSProber = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "i2c-dev" ];
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
 
-  services.playit = {
-    enable = true;
-    secretPath = "/var/lib/playit/playit.toml";
-  };
-
   services.tailscale.enable = true;
-  services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore";
-    HandleLidSwitchDocked = "ignore";
-  };
 
   # ── Network & Locale ─────────────────────────────────────────────────
   networking.hostName = "nix";
@@ -122,8 +108,6 @@
   # ── System Services ──────────────────────────────────────────────────
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
-  services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
   services.openssh = {
     enable = true;
     openFirewall = true;
