@@ -120,24 +120,36 @@ if [[ "$MODE" == "2" ]]; then
     mkfs.fat -F 32 -n BOOT "$BOOT_PART"
     mkfs.ext4 -F -L nixos "$ROOT_PART"
 
-    echo "==> Mounting filesystems..."
+    echo "==> Mounting filesystems for Impermanence (tmpfs root + /nix persistent)..."
     mkdir -p /mnt
-    mount "$ROOT_PART" /mnt
+    mount -t tmpfs -o mode=755,size=4G none /mnt
+
+    mkdir -p /mnt/nix
+    mount "$ROOT_PART" /mnt/nix
+
     mkdir -p /mnt/boot
     mount "$BOOT_PART" /mnt/boot
 
-    echo "==> Generating hardware configuration..."
-    nixos-generate-config --root /mnt
-    cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hardware-configuration.nix
+    mkdir -p /mnt/nix/persist
+    mkdir -p /mnt/persist
+    mount --bind /mnt/nix/persist /mnt/persist
 
     echo "==> Cloning dotfiles..."
+    mkdir -p /mnt/persist/etc
+    rm -rf /mnt/persist/etc/nixos
+    git clone https://github.com/thelevnet/dots /mnt/persist/etc/nixos
+
     mkdir -p /mnt/etc
-    rm -rf /mnt/etc/nixos
-    git clone https://github.com/thelevnet/dots /mnt/etc/nixos
-    cp /tmp/hardware-configuration.nix /mnt/etc/nixos/hardware-configuration.nix
+    mount --bind /mnt/persist/etc/nixos /mnt/etc/nixos 2>/dev/null || mkdir -p /mnt/etc/nixos
+
+    echo "==> Updating hardware-configuration.nix UUIDs..."
+    ROOT_UUID=$(blkid -s UUID -o value "$ROOT_PART")
+    BOOT_UUID=$(blkid -s UUID -o value "$BOOT_PART")
+    sed -i "s|/dev/disk/by-uuid/[^\"']*|/dev/disk/by-uuid/$ROOT_UUID|g" /mnt/persist/etc/nixos/hardware-configuration.nix
+    sed -i "s|by-uuid/9790-B359|by-uuid/$BOOT_UUID|g" /mnt/persist/etc/nixos/hardware-configuration.nix
 
     echo "==> Running nixos-install..."
-    nixos-install --flake /mnt/etc/nixos#nix
+    nixos-install --flake /mnt/persist/etc/nixos#nix
 
     echo
     echo "========================================================="

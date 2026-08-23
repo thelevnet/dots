@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     inputs.hyprland.nixosModules.default
     ./apps.nix
+    ./impermanence.nix
   ];
 
   # ── Boot & Hardware ──────────────────────────────────────────────────
@@ -111,6 +112,16 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+      {
+        path = "/persist/etc/ssh/ssh_host_rsa_key";
+        type = "rsa";
+      }
+    ];
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "no";
