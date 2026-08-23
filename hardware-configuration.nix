@@ -15,8 +15,8 @@
   boot.extraModulePackages = [ ];
 
   boot.initrd.systemd.services.initrd-find-nixos-closure = {
-    after = [ "sysroot-nix.mount" ];
-    requires = [ "sysroot-nix.mount" ];
+    after = [ "initrd-root-fs.target" ];
+    requires = [ "initrd-root-fs.target" ];
   };
 
   fileSystems."/" = {
