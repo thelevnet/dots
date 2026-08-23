@@ -12,6 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
+  boot.initrd.systemd.enable = false;
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -14,10 +14,6 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.systemd.services.initrd-find-nixos-closure = {
-    after = [ "initrd-root-fs.target" ];
-    requires = [ "initrd-root-fs.target" ];
-  };
 
   fileSystems."/" = {
     device = "tmpfs";
