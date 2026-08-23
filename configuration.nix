@@ -13,6 +13,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
   boot.initrd.systemd.enable = false;
+  boot.kernelParams = [ "root=tmpfs" ];
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
