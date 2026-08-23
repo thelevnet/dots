@@ -34,6 +34,7 @@ environment.systemPackages = with pkgs; [
     bibata-cursors
     lua-language-server
     qrencode
+    (llama-cpp.override { vulkanSupport = true; })
     #next end
   ];
 }

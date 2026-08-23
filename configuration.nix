@@ -5,15 +5,12 @@
     ./hardware-configuration.nix
     inputs.hyprland.nixosModules.default
     ./apps.nix
-    ./impermanence.nix
   ];
 
   # ── Boot & Hardware ──────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.initrd.systemd.enable = false;
-  boot.kernelParams = [ "root=tmpfs" ];
   boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -35,6 +32,7 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" ];
     shell = pkgs.zsh;
+    initialPassword = "pass";
   };
   programs.zsh = {
     enable = true;
@@ -117,11 +115,11 @@
     openFirewall = true;
     hostKeys = [
       {
-        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        path = "/etc/ssh/ssh_host_ed25519_key";
         type = "ed25519";
       }
       {
-        path = "/persist/etc/ssh/ssh_host_rsa_key";
+        path = "/etc/ssh/ssh_host_rsa_key";
         type = "rsa";
       }
     ];
