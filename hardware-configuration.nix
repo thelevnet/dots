@@ -10,8 +10,14 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
   boot.initrd.kernelModules = [ ];
+  boot.initrd.supportedFilesystems = [ "ext4" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+
+  boot.initrd.systemd.services.initrd-find-nixos-closure = {
+    after = [ "sysroot-nix.mount" ];
+    requires = [ "sysroot-nix.mount" ];
+  };
 
   fileSystems."/" = {
     device = "none";
