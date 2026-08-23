@@ -41,8 +41,8 @@ if [ -d /etc/NetworkManager/system-connections ] && [ "$(ls -A /etc/NetworkManag
     sudo cp -aT /etc/NetworkManager/system-connections /nix/persist/etc/NetworkManager/system-connections
 fi
 
-echo "==> Copying user files & Antigravity data for 'lev'..."
-for target in Downloads Pictures Projects .gemini .gnupg .ssh .local .cache .zsh_history .gitconfig; do
+echo "==> Copying user files & Antigravity / Minecraft data for 'lev'..."
+for target in Downloads Pictures Projects .gemini .minecraft .gnupg .ssh .local .cache .zsh_history .gitconfig; do
     if [ -e "/home/lev/$target" ]; then
         echo "    Copying /home/lev/$target..."
         sudo cp -a "/home/lev/$target" /nix/persist/home/lev/ 2>/dev/null || true
@@ -51,6 +51,8 @@ done
 
 echo "==> Setting ownership..."
 sudo chown -R lev:users /nix/persist/home/lev
+sudo chown -R lev:users /nix/persist/etc/nixos
+sudo chown -R lev:users /etc/nixos
 
 echo "========================================================="
 echo " [✓] Persist migration directory prepped successfully!"

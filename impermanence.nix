@@ -33,6 +33,7 @@
         ".config/zen"
         ".mozilla"
         ".config/telegram-desktop"
+        ".minecraft"
       ];
       files = [
         ".zsh_history"
@@ -49,7 +50,7 @@
     "d /persist/var/lib/bluetooth 0700 root root -"
     "d /persist/var/lib/tailscale 0700 root root -"
     "d /persist/etc/NetworkManager/system-connections 0700 root root -"
-    "d /persist/etc/nixos 0755 root root -"
+    "d /persist/etc/nixos 0755 lev users -"
     "d /persist/home/lev 0700 lev users -"
   ];
 }
