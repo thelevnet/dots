@@ -36,6 +36,8 @@ environment.systemPackages = with pkgs; [
     lua-language-server
     qrencode
     (llama-cpp.override { vulkanSupport = true; })
+    python3
+    aria2
     #next end
   ];
 }

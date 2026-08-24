@@ -45,6 +45,7 @@
       plugins = [
         "git"
         "colored-man-pages"
+        "thefuck"
       ];
     };
 
