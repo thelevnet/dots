@@ -145,6 +145,7 @@
   };
   environment.shellAliases = {
     build-next = "/home/lev/Projects/Rust/next/target/release/next ";
+    lea = "~/Projects/lea/target/release/lea"
   };
 
   # ── Desktop ──────────────────────────────────────────────────────────
