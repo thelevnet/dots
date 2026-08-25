@@ -65,7 +65,7 @@
       text() {
         print -P "%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[36m%}%{\e[0m%} $1"
       }
-
+      clear
       text "fastfetch"
       fastfetch
       text "こんにちは、レフ！"
