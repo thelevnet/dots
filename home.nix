@@ -13,7 +13,6 @@
     "noctalia".source = ./dots/noctalia;
   };
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
-  home.file.".local/state/noctalia/settings.toml".source = ./dots/noctalia/settings.toml;
   home.file."Pictures/Wallpapers" = {
     source = ./dots/wallpapers;
     recursive = true;
