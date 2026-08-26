@@ -2,6 +2,7 @@
 {
 environment.systemPackages = with pkgs; [
     #next start
+		antigravity-cli
 		tldr
 		opencode
     inputs.zen-browser.packages.${pkgs.system}.default
