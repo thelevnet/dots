@@ -132,6 +132,11 @@
     todo = "~/Projects/todo/target/release/todo";
   };
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+  ];
+
   programs.nix-ld.enable = true;
   programs.hyprland = {
     enable = true;
