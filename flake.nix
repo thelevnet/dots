@@ -1,12 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
-    impermanence.url = "github:nix-community/impermanence";
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,17 +21,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    next-repo = {
+
+    next = {
       url = "github:thelevnet/next";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, hyprland, home-manager, impermanence, zen-browser, ... } @ inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        impermanence.nixosModules.impermanence
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
