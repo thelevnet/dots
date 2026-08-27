@@ -106,7 +106,6 @@
     bat
     fastfetch
     eza
-    kdePackages.filelight
     kitty
     yazi
     telegram-desktop
