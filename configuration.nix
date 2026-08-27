@@ -13,6 +13,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
+    inputs.nix-minecraft.overlays.default
     (final: prev: {
       next = inputs.next.packages.${prev.stdenv.hostPlatform.system}.default;
       noctalia = inputs.noctalia.packages.${prev.stdenv.hostPlatform.system}.default;
@@ -49,30 +50,69 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 25566 ];
-  networking.firewall.allowedUDPPorts = [ 25565 25566 ];
+  services.minecraft-servers = {
+    enable = true;
+    eula = true;
+    openFirewall = true;
 
-  systemd.services.mc-server = {
-    description = "Minecraft Main Server";
-    serviceConfig = {
-      Type = "simple";
-      User = "lev";
-      WorkingDirectory = "/home/lev/.minecraft/server";
-      ExecStart = "${pkgs.temurin-bin-21}/bin/java -Xmx4G -Xms2G -jar server.jar nogui";
-      Restart = "no";
+    servers.server = {
+      enable = true;
+      autoStart = false;
+      package = pkgs.vanillaServers.vanilla-1_21_1;
+      jvmOpts = "-Xmx4G -Xms2G";
+      serverProperties = {
+        server-port = 25565;
+        difficulty = "normal";
+        gamemode = "survival";
+        motd = "Main Server";
+        online-mode = false;
+      };
+    };
+
+    servers.second-server = {
+      enable = true;
+      autoStart = false;
+      package = pkgs.vanillaServers.vanilla-1_21_1;
+      jvmOpts = "-Xmx4G -Xms2G";
+      serverProperties = {
+        server-port = 25566;
+        difficulty = "normal";
+        gamemode = "survival";
+        motd = "Second Server";
+        online-mode = false;
+      };
     };
   };
 
-  systemd.services.mc-second-server = {
-    description = "Minecraft Second Server";
+  systemd.services.minecraft-cloud-sync = {
+    description = "Sync Minecraft worlds to Google Drive";
     serviceConfig = {
-      Type = "simple";
+      Type = "oneshot";
       User = "lev";
-      WorkingDirectory = "/home/lev/.minecraft/second-server";
-      ExecStart = "${pkgs.temurin-bin-21}/bin/java -Xmx4G -Xms2G -jar server.jar nogui";
-      Restart = "no";
+      ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
+        if [ -d "/home/lev/.minecraft/server/world" ]; then
+          ${pkgs.rclone}/bin/rclone sync /home/lev/.minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
+        fi
+        if [ -d "/home/lev/.minecraft/second-server/world" ]; then
+          ${pkgs.rclone}/bin/rclone sync /home/lev/.minecraft/second-server/world gdrive:MinecraftBackups/second-server/world --fast-list -q
+        fi
+        if [ -d "/var/lib/minecraft/server/world" ]; then
+          ${pkgs.rclone}/bin/rclone sync /var/lib/minecraft/server/world gdrive:MinecraftBackups/nixos-server/world --fast-list -q
+        fi
+      '';
     };
   };
+
+  systemd.timers.minecraft-cloud-sync = {
+    description = "Sync Minecraft worlds to Google Drive every 15 minutes";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "2m";
+      OnUnitActiveSec = "15m";
+      Persistent = true;
+    };
+  };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -129,6 +169,7 @@
     rustup
     git
     gh
+    rclone
     bat
     fastfetch
     eza

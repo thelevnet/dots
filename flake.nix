@@ -26,12 +26,18 @@
       url = "github:thelevnet/next";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nix-minecraft, ... }@inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
+        inputs.nix-minecraft.nixosModules.minecraft-servers
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
