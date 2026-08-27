@@ -48,6 +48,31 @@
       LLAMA_ARG_FIT = "off";
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 25565 25566 ];
+  networking.firewall.allowedUDPPorts = [ 25565 25566 ];
+
+  systemd.services.mc-server = {
+    description = "Minecraft Main Server";
+    serviceConfig = {
+      Type = "simple";
+      User = "lev";
+      WorkingDirectory = "/home/lev/.minecraft/server";
+      ExecStart = "${pkgs.temurin-bin-21}/bin/java -Xmx4G -Xms2G -jar server.jar nogui";
+      Restart = "no";
+    };
+  };
+
+  systemd.services.mc-second-server = {
+    description = "Minecraft Second Server";
+    serviceConfig = {
+      Type = "simple";
+      User = "lev";
+      WorkingDirectory = "/home/lev/.minecraft/second-server";
+      ExecStart = "${pkgs.temurin-bin-21}/bin/java -Xmx4G -Xms2G -jar server.jar nogui";
+      Restart = "no";
+    };
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
