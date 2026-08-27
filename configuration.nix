@@ -90,7 +90,6 @@
   environment.systemPackages = with pkgs; [
     #next start
 		dust
-		du-dust
     antigravity-cli
     zen-browser
     libnotify
