@@ -161,6 +161,9 @@
 
     shellInit = ''
       fpath=(/home/lev/.zsh/completions $fpath)
+      mkdir -p ~/.cache/zsh
+      autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompdump
+      zsh-newuser-install() { :; }
     '';
 
     interactiveShellInit = ''
