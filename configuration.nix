@@ -8,6 +8,7 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -38,6 +39,15 @@
 
   services.tailscale.enable = true;
   services.blueman.enable = true;
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+    environmentVariables = {
+      HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+      OLLAMA_KEEP_ALIVE = "2m";
+      LLAMA_ARG_FIT = "off";
+    };
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -107,7 +117,7 @@
     bibata-cursors
     lua-language-server
     qrencode
-    (llama-cpp.override { vulkanSupport = true; })
+    ollama
     #next end
   ];
 
