@@ -102,6 +102,7 @@
     nh
     rustup
     git
+    gh
     bat
     fastfetch
     eza
