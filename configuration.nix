@@ -57,7 +57,7 @@
 
     servers.server = {
       enable = true;
-      autoStart = false;
+      autoStart = true;
       package = pkgs.vanillaServers.vanilla-1_21_1;
       jvmOpts = "-Xmx4G -Xms2G";
       serverProperties = {
