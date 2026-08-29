@@ -431,7 +431,6 @@ size = 100
 titlebar = false
 
 [plugins]
-auto_update = true
 enabled = [ "nightwatch75/file-search", "yuuto/calculator", "yocraft/qrcode", "nightwatch75/todo", "noctalia/notes" ]
 
     [[plugins.source]]
