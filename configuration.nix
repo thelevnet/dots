@@ -41,6 +41,13 @@
   services.tailscale.enable = true;
   services.blueman.enable = true;
 
+  services.udev.extraRules = ''
+    # AULA F75 (and F87/F99 family, SinoWealth 258A) WebHID rules
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", MODE="0666"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="fa09", MODE="0666"
+  '';
+
+
   services.minecraft-servers = {
     enable = true;
     eula = true;
