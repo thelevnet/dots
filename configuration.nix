@@ -40,15 +40,6 @@
 
   services.tailscale.enable = true;
   services.blueman.enable = true;
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-rocm;
-    environmentVariables = {
-      HSA_OVERRIDE_GFX_VERSION = "11.0.0";
-      OLLAMA_KEEP_ALIVE = "2m";
-      LLAMA_ARG_FIT = "off";
-    };
-  };
 
   services.minecraft-servers = {
     enable = true;
@@ -184,7 +175,6 @@
     bibata-cursors
     lua-language-server
     qrencode
-    ollama
     #next end
   ];
 
