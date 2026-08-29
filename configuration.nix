@@ -59,20 +59,6 @@
         online-mode = false;
       };
     };
-
-    servers.second-server = {
-      enable = true;
-      autoStart = false;
-      package = pkgs.vanillaServers.vanilla-1_21_1;
-      jvmOpts = "-Xmx4G -Xms2G";
-      serverProperties = {
-        server-port = 25566;
-        difficulty = "normal";
-        gamemode = "survival";
-        motd = "Second Server";
-        online-mode = false;
-      };
-    };
   };
 
   systemd.services.minecraft-cloud-sync = {
@@ -114,16 +100,6 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
-    hostKeys = [
-      {
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-      {
-        path = "/etc/ssh/ssh_host_rsa_key";
-        type = "rsa";
-      }
-    ];
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "no";
@@ -171,7 +147,6 @@
     #next dependencies
     stylua
     noctalia
-    nerd-fonts.jetbrains-mono
     bibata-cursors
     lua-language-server
     qrencode
@@ -183,9 +158,6 @@
     la = "eza -a --icons --group-directories-first";
     lt = "eza --tree --level=2 --icons";
     imperio = "sudo ";
-    build-next = "/home/lev/Projects/Rust/next/target/release/next ";
-    vox = "~/Projects/vox/target/release/vox";
-    todo = "~/Projects/todo/target/release/todo";
   };
 
   fonts.packages = with pkgs; [
@@ -217,8 +189,6 @@
 
     shellInit = ''
       fpath=(/home/lev/.zsh/completions $fpath)
-      mkdir -p ~/.cache/zsh
-      autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompdump
       zsh-newuser-install() { :; }
     '';
 
