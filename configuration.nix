@@ -42,9 +42,11 @@
   services.blueman.enable = true;
 
   services.udev.extraRules = ''
-    # AULA F75 (and F87/F99 family, SinoWealth 258A) WebHID rules
+    # AULA F75 (and F87/F99 family, SinoWealth 258A) WebHID & libusb rules
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", MODE="0666"
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="fa09", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="258a", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="fa09", MODE="0666"
   '';
 
 
@@ -56,7 +58,7 @@
     servers.server = {
       enable = true;
       autoStart = true;
-      package = pkgs.vanillaServers.vanilla-1_21_1;
+      package = pkgs.vanillaServers.vanilla-1_21_11;
       jvmOpts = "-Xmx4G -Xms2G";
       serverProperties = {
         server-port = 25565;
@@ -165,6 +167,7 @@
     la = "eza -a --icons --group-directories-first";
     lt = "eza --tree --level=2 --icons";
     imperio = "sudo ";
+    aula = "/home/lev/.local/bin/aula";
   };
 
   fonts.packages = with pkgs; [
