@@ -205,7 +205,7 @@
 
     interactiveShellInit = ''
       text() {
-        print -P "%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[36m%}%{\e[0m%} $1"
+        print -P "%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[32m%}%{\e[0m%} $1"
       }
       clear
       text "fastfetch"
@@ -213,9 +213,9 @@
       text "こんにちは、レフ！"
       echo
 
-      MY_TOP_PROMPT=$'%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}󰉋 %~%{\e[0m%}%{\e[36m%}%{\e[0m%} %{\e[36m%} %{\e[0m%}'
-      MY_RPROMPT=$'%{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%}%D{%H:%M}%{\e[0m%}%{\e[36m%}%{\e[0m%} %{\e[36m%}%{\e[0m%}%{\e[46m\e[37m%} %{\e[0m%}%{\e[36m%}%{\e[0m%}'
-      MY_BOTTOM_PROMPT=$'%{\e[36m%} %{\e[0m%}'
+      MY_TOP_PROMPT=$'%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}󰉋 %~%{\e[0m%}%{\e[32m%}%{\e[0m%} %{\e[32m%} %{\e[0m%}'
+      MY_RPROMPT=$'%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}%D{%H:%M}%{\e[0m%}%{\e[32m%}%{\e[0m%} %{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%} %{\e[0m%}%{\e[32m%}%{\e[0m%}'
+      MY_BOTTOM_PROMPT=$'%{\e[32m%} %{\e[0m%}'
 
       PROMPT=$MY_TOP_PROMPT
       RPROMPT=$MY_RPROMPT
