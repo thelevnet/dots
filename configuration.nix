@@ -82,8 +82,8 @@
         if [ -d "/home/lev/.minecraft/second-server/world" ]; then
           ${pkgs.rclone}/bin/rclone sync /home/lev/.minecraft/second-server/world gdrive:MinecraftBackups/second-server/world --fast-list -q
         fi
-        if [ -d "/var/lib/minecraft/server/world" ]; then
-          ${pkgs.rclone}/bin/rclone sync /var/lib/minecraft/server/world gdrive:MinecraftBackups/nixos-server/world --fast-list -q
+        if [ -d "/srv/minecraft/server/world" ]; then
+          ${pkgs.rclone}/bin/rclone sync /srv/minecraft/server/world gdrive:MinecraftBackups/nixos-server/world --fast-list -q
         fi
       '';
     };
@@ -124,7 +124,7 @@
 
   users.users.lev = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "minecraft" ];
     shell = pkgs.zsh;
   };
 
@@ -153,6 +153,7 @@
     yazi
     telegram-desktop
     neovim
+    tmux
     #next dependencies
     stylua
     noctalia
