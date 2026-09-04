@@ -779,6 +779,12 @@ wallpaper_scheme = "m3-tonal-spot"
     enable_builtin_templates = true
     enable_community_templates = true
 
+    [theme.templates.user.kitty]
+    enabled = true
+    input_path = "templates/kitty.conf"
+    output_path = "$XDG_CACHE_HOME/noctalia/kitty-theme.conf"
+    post_hook = "pkill -USR1 kitty"
+
 [wallpaper]
 directory = ""
 directory_dark = ""
