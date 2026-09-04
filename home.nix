@@ -14,7 +14,7 @@
   };
 
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
-  home.file."Pictures/Wallpapers" = {
+  home.file."Pictures/" = {
     source = ./dots/wallpapers;
     recursive = true;
   };
