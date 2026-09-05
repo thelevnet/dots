@@ -148,7 +148,6 @@
     telegram-desktop
     neovim
     tmux
-    #next dependencies
     stylua
     noctalia
     bibata-cursors
@@ -160,7 +159,7 @@
   environment.shellAliases = {
     ls = "eza --icons --group-directories-first";
     la = "eza -a --icons --group-directories-first";
-    lt = "eza --tree --level=2 --icons";
+    lt = "eza --tree --level=4";
     imperio = "sudo ";
     aula = "/home/lev/.local/bin/aula";
   };
