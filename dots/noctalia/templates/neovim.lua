@@ -1,6 +1,8 @@
  local M = {}
 
 function M.setup()
+  vim.g.colors_name = 'base16'
+
   require('base16-colorscheme').setup({
     base00 = '{{colors.surface.default.hex}}',
     base01 = '{{colors.surface_container.default.hex}}',
@@ -36,6 +38,15 @@ function M.setup()
   hi('TelescopeSelection',      { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface_container_high.default.hex}}' })
   hi('TelescopeSelectionCaret', { fg = '{{colors.primary.default.hex}}',             bg = '{{colors.surface_container_high.default.hex}}' })
   hi('TelescopeMatching',       { fg = '{{colors.primary.default.hex}}',             bold = true })
+
+  hi('NeoTreeNormal',           { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface_container_low.default.hex}}' })
+  hi('NeoTreeNormalNC',         { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface_container_low.default.hex}}' })
+  hi('SnacksNormal',            { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface.default.hex}}' })
+  hi('WhichKeyNormal',          { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface.default.hex}}' })
+
+  pcall(function()
+    require('lualine').setup({ options = { theme = 'base16' } })
+  end)
 end
 
 -- Register a signal handler for SIGUSR1 (matugen updates).
