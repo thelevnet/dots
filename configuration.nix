@@ -71,19 +71,13 @@
   };
 
   systemd.services.minecraft-cloud-sync = {
-    description = "Sync Minecraft worlds to Google Drive";
+    description = "Sync Minecraft world to Google Drive";
     serviceConfig = {
       Type = "oneshot";
-      User = "lev";
       ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
-        if [ -d "/home/lev/.minecraft/server/world" ]; then
-          ${pkgs.rclone}/bin/rclone sync /home/lev/.minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
-        fi
-        if [ -d "/home/lev/.minecraft/second-server/world" ]; then
-          ${pkgs.rclone}/bin/rclone sync /home/lev/.minecraft/second-server/world gdrive:MinecraftBackups/second-server/world --fast-list -q
-        fi
         if [ -d "/srv/minecraft/server/world" ]; then
-          ${pkgs.rclone}/bin/rclone sync /srv/minecraft/server/world gdrive:MinecraftBackups/nixos-server/world --fast-list -q
+          ${pkgs.rclone}/bin/rclone --config /home/lev/.config/rclone/rclone.conf \
+            sync /srv/minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
         fi
       '';
     };
