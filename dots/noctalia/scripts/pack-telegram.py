@@ -55,10 +55,3 @@ try:
 except Exception:
     pass
 
-# If Telegram is running, prompt to send/share so it can be applied in chat
-try:
-    p = subprocess.run(["pgrep", "-f", "Telegram"], stdout=subprocess.PIPE)
-    if p.returncode == 0:
-        subprocess.Popen(["Telegram", str(out_zip)])
-except Exception:
-    pass
