@@ -20,38 +20,19 @@ out_zip.parent.mkdir(parents=True, exist_ok=True)
 # Also save in cache
 cache_zip = home / ".cache/noctalia/noctalia.tdesktop-theme"
 
-# Find current wallpaper via noctalia msg wallpaper-get
-wallpaper_path = None
-try:
-    res = subprocess.run(["noctalia", "msg", "wallpaper-get"], capture_output=True, text=True)
-    wp = res.stdout.strip()
-    if wp and os.path.exists(wp):
-        wallpaper_path = wp
-except Exception:
-    pass
-
-bg_jpg = Path("/tmp/telegram-background.jpg")
-has_bg = False
-if wallpaper_path and os.path.exists(wallpaper_path):
-    try:
-        subprocess.run(
-            ["magick", wallpaper_path, "-resize", "1920x1080^", "-gravity", "center", "-extent", "1920x1080", str(bg_jpg)],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        has_bg = bg_jpg.exists()
-    except Exception:
-        pass
-
-# Pack into ZIP
-with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as zf:
+# Pack into ZIP with ONLY colors.tdesktop-theme (no background image)
+with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zf:
     zf.write(colors_file, arcname="colors.tdesktop-theme")
-    if has_bg:
-        zf.write(bg_jpg, arcname="background.jpg")
 
 try:
     cache_zip.write_bytes(out_zip.read_bytes())
 except Exception:
     pass
 
+# If Telegram is running, prompt to send/share so it can be applied in chat
+try:
+    p = subprocess.run(["pgrep", "-f", "Telegram"], stdout=subprocess.PIPE)
+    if p.returncode == 0:
+        subprocess.Popen(["Telegram", str(out_zip)])
+except Exception:
+    pass
