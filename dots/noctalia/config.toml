@@ -785,6 +785,19 @@ wallpaper_scheme = "m3-tonal-spot"
     output_path = "$XDG_CACHE_HOME/noctalia/kitty-theme.conf"
     post_hook = "pkill -USR1 kitty"
 
+    [theme.templates.user.neovim]
+    enabled = true
+    input_path = "templates/neovim.lua"
+    output_path = "$XDG_CACHE_HOME/noctalia/matugen.lua"
+    post_hook = "pkill -SIGUSR1 nvim"
+
+    [theme.templates.user.telegram]
+    enabled = true
+    input_path = "templates/telegram.tdesktop-theme"
+    output_path = "$XDG_CACHE_HOME/noctalia/telegram/colors.tdesktop-theme"
+    post_hook = "kitty +runpy \"import runpy; runpy.run_path('$HOME/.config/noctalia/scripts/pack-telegram.py')\""
+
+
 [wallpaper]
 directory = ""
 directory_dark = ""
