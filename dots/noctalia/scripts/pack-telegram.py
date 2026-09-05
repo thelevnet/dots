@@ -59,6 +59,7 @@ if wallpaper_path and os.path.exists(wallpaper_path):
 # Pack into ZIP with colors and blurred background.jpg
 with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zf:
     zf.write(colors_file, arcname="colors.tdesktop-theme")
+    zf.write(colors_file, arcname="colors.tdesktop-palette")
     if has_bg:
         zf.write(bg_jpg, arcname="background.jpg")
 
