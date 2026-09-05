@@ -55,10 +55,3 @@ try:
 except Exception:
     pass
 
-# If Telegram is running, prompt preview
-try:
-    p = subprocess.run(["pgrep", "-f", "Telegram"], stdout=subprocess.PIPE)
-    if p.returncode == 0:
-        subprocess.Popen(["Telegram", str(out_zip)])
-except Exception:
-    pass
