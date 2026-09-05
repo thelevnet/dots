@@ -41,17 +41,6 @@
   services.tailscale.enable = true;
   services.blueman.enable = true;
 
-  services.kmscon = {
-    enable = true;
-    config = {
-      hwaccel = true;
-      font-engine = "pango";
-      font-name = "JetBrainsMono Nerd Font";
-      font-size = 14;
-    };
-  };
-
-
   services.minecraft-servers = {
     enable = true;
     eula = true;
