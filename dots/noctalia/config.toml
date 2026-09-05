@@ -783,13 +783,13 @@ wallpaper_scheme = "m3-tonal-spot"
     enabled = true
     input_path = "templates/kitty.conf"
     output_path = "$XDG_CACHE_HOME/noctalia/kitty-theme.conf"
-    post_hook = "pkill -USR1 kitty"
+    post_hook = "pkill -f -USR1 kitty"
 
     [theme.templates.user.neovim]
     enabled = true
     input_path = "templates/neovim.lua"
     output_path = "$XDG_CACHE_HOME/noctalia/matugen.lua"
-    post_hook = "pkill -SIGUSR1 nvim"
+    post_hook = "pkill -f -SIGUSR1 nvim"
 
     [theme.templates.user.telegram]
     enabled = true
