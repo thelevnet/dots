@@ -1,4 +1,4 @@
- local M = {}
+local M = {}
 
 function M.setup()
   vim.g.colors_name = 'base16'
@@ -43,10 +43,6 @@ function M.setup()
   hi('NeoTreeNormalNC',         { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface_container_low.default.hex}}' })
   hi('SnacksNormal',            { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface.default.hex}}' })
   hi('WhichKeyNormal',          { fg = '{{colors.on_surface.default.hex}}',          bg = '{{colors.surface.default.hex}}' })
-
-  pcall(function()
-    require('lualine').setup({ options = { theme = 'base16' } })
-  end)
 end
 
 -- Register a signal handler for SIGUSR1 (matugen updates).
@@ -64,6 +60,11 @@ signal:start(
   vim.schedule_wrap(function()
     package.loaded['matugen'] = nil
     require('matugen').setup()
+    if package.loaded['lualine'] then
+      pcall(function()
+        require('lualine').setup()
+      end)
+    end
   end)
 )
 
