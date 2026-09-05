@@ -35,7 +35,19 @@ has_bg = False
 if wallpaper_path and os.path.exists(wallpaper_path):
     try:
         subprocess.run(
-            ["magick", wallpaper_path, "-resize", "1920x1080^", "-gravity", "center", "-extent", "1920x1080", str(bg_jpg)],
+            [
+                "magick",
+                wallpaper_path,
+                "-resize",
+                "1920x1080^",
+                "-gravity",
+                "center",
+                "-extent",
+                "1920x1080",
+                "-blur",
+                "0x25",
+                str(bg_jpg),
+            ],
             check=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
@@ -44,7 +56,7 @@ if wallpaper_path and os.path.exists(wallpaper_path):
     except Exception:
         pass
 
-# Pack into ZIP with colors and background.jpg
+# Pack into ZIP with colors and blurred background.jpg
 with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED, strict_timestamps=False) as zf:
     zf.write(colors_file, arcname="colors.tdesktop-theme")
     if has_bg:
@@ -54,4 +66,3 @@ try:
     cache_zip.write_bytes(out_zip.read_bytes())
 except Exception:
     pass
-
