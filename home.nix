@@ -10,13 +10,8 @@
     ./modules/fastfetch.nix
     ./modules/noctalia.nix
     ./modules/neovim.nix
+    ./modules/theme-assets.nix
   ];
-
-  home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
-  home.file."Pictures/" = {
-    source = ./dots/wallpapers;
-    recursive = true;
-  };
 
   programs.home-manager.enable = true;
 }
