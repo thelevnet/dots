@@ -9,7 +9,11 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
+    max-jobs = 4;
+    cores = 4;
   };
+
+  zramSwap.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
