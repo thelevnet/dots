@@ -7,11 +7,11 @@
   imports = [
     ./modules/hyprland.nix
     ./modules/kitty.nix
+    ./modules/fastfetch.nix
   ];
 
   xdg.configFile = {
     "nvim".source = ./dots/nvim;
-    "fastfetch".source = ./dots/fastfetch;
     "noctalia".source = ./dots/noctalia;
   };
 

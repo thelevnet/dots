@@ -1,0 +1,50 @@
+{ config, pkgs, lib, ... }:
+
+{
+  programs.fastfetch = {
+    enable = true;
+
+    settings = {
+      "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
+      logo = {
+        source = "${config.xdg.configHome}/fastfetch/ascii.txt";
+        type = "auto";
+        color = {
+          "1" = "32";
+          "2" = "32";
+        };
+      };
+      display = {
+        separator = " ";
+        color = {
+          separator = "32";
+          title = "32";
+        };
+      };
+      modules = [
+        { key = "╭────╮"; keyColor = "32"; type = "custom"; }
+        { key = "│   │"; keyColor = "32"; type = "title"; format = "{user-name}@{host-name}"; }
+        { key = "│   │"; keyColor = "32"; type = "os"; format = "{name}"; }
+        { key = "│   │"; keyColor = "32"; type = "shell"; format = "{1}"; }
+        { key = "│ 󰏓  │"; keyColor = "32"; type = "packages"; format = "{all}"; }
+        { key = "│   │"; keyColor = "32"; type = "terminal"; format = "{1}"; }
+        { key = "│   │"; keyColor = "32"; type = "wm"; format = "{1}"; }
+        { key = "│ 󰝚  │"; keyColor = "32"; type = "media"; format = "{artist} - {title}"; }
+        { key = "╰────╯"; keyColor = "32"; type = "custom"; }
+      ];
+    };
+  };
+
+  # Fastfetch custom ASCII art
+  xdg.configFile."fastfetch/ascii.txt".text = ''
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⣶⡄
+⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡴⠖⢂⣽⣿⣿⣷⣔⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠟
+⠀⠀⠀⠀⣀⣤⡶⢿⣋⣥⣤⣶⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄⣀⡀⢀⣠⣾⠿⠋⠀
+⠀⢀⣴⣿⠟⠉⠀⠀⠀⠈⠉⠛⠻⣿⣿⣿⣿⡿⠛⠋⠉⣀⣤⠶⠟⠋⠁⠀⠀⠀
+⢰⣿⡟⠁⠀⠀⠀ ⠀⠀⠀⠀⠀⠈⣿⣿⣟⣀⡤⠖⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀
+⠘⠿⣧⣀       ⠀⠀⠀⢹⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠉⠀⠀⠀  ⠀⠀⠀⠀⠀⠈⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+'';
+}
