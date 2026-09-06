@@ -84,9 +84,22 @@ in
     serviceConfig = {
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
-        if [ -d "/srv/minecraft/server/world" ]; then
+        WORLD_DIR="/srv/minecraft/server/world"
+        SOCK="/run/minecraft/server.sock"
+        TMUX="${pkgs.tmux}/bin/tmux"
+
+        if [ -d "$WORLD_DIR" ]; then
+          if [ -S "$SOCK" ] && $TMUX -S "$SOCK" has-session 2>/dev/null; then
+            # Pause autosaving and force an immediate flush of world state to disk
+            $TMUX -S "$SOCK" send-keys C-u "save-off" Enter
+            $TMUX -S "$SOCK" send-keys C-u "save-all flush" Enter
+            sleep 2
+            # Guarantee save-on is restored upon exit even if rclone encounters an error
+            trap '$TMUX -S "$SOCK" send-keys C-u "save-on" Enter' EXIT
+          fi
+
           ${pkgs.rclone}/bin/rclone --config ${config.users.users.${user}.home}/.config/rclone/rclone.conf \
-            sync /srv/minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
+            sync "$WORLD_DIR" gdrive:MinecraftBackups/server/world --fast-list -q
         fi
       '';
     };
@@ -183,6 +196,14 @@ in
   ];
 
   programs.nix-ld.enable = true;
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+      extraArgs = "--keep 5 --keep-since 4d";
+    };
+    flake = "/etc/nixos";
+  };
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
