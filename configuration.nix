@@ -9,11 +9,22 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-    max-jobs = 4;
-    cores = 4;
   };
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 100;
+    priority = 5;
+  };
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32 * 1024; # 32 GB
+      priority = 1;
+    }
+  ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
