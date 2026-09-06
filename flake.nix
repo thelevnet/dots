@@ -45,6 +45,7 @@
         ./hosts/desktop
       ];
     };
+    nixosConfigurations."nix" = self.nixosConfigurations."desktop";
 
     homeConfigurations."lev" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
