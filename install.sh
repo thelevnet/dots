@@ -61,7 +61,17 @@ sudo git -C /etc/nixos add -f hardware-configuration.nix
 echo "==> Setting ownership of /etc/nixos to ${REAL_USER}:${REAL_GROUP}..."
 sudo chown -R "${REAL_USER}:${REAL_GROUP}" /etc/nixos
 
-# 5. GitHub authentication
+# 5. Build and apply NixOS system configuration with nerfed resource limits
+# Limit parallel build jobs and CPU cores so RAM and CPU don't get choked
+MAX_JOBS=4
+CORES_PER_JOB=4
+
+echo
+echo "==> Rebuilding and applying NixOS configuration..."
+echo "==> (Throttled to max-jobs=${MAX_JOBS}, cores=${CORES_PER_JOB} with low CPU priority to prevent freezing)"
+sudo nice -n 15 nixos-rebuild switch --flake /etc/nixos#nix --max-jobs "$MAX_JOBS" --cores "$CORES_PER_JOB"
+
+# 6. GitHub authentication (run after rebuild so browser and graphical environment are available)
 echo
 echo "==> GitHub CLI authentication..."
 if command -v gh &>/dev/null; then
@@ -69,11 +79,6 @@ if command -v gh &>/dev/null; then
 else
     echo "[!] Warning: 'gh' command not found. Skipping GitHub authentication."
 fi
-
-# 6. Build and apply NixOS system configuration
-echo
-echo "==> Rebuilding and applying NixOS configuration..."
-sudo nixos-rebuild switch --flake /etc/nixos#nix
 
 echo
 echo "========================================================="
