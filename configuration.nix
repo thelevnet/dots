@@ -1,8 +1,5 @@
 { config, pkgs, inputs, lib, ... }:
 
-let
-  user = "lev";
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,29 +9,6 @@ in
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
-  };
-
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    secrets."example_secret" = {
-      mode = "0440";
-      owner = user;
-      group = "users";
-    };
-    secrets."gh_hosts" = {
-      mode = "0600";
-      owner = user;
-      group = "users";
-      path = "/home/lev/.config/gh/hosts.yml";
-    };
-    secrets."rclone_conf" = {
-      mode = "0600";
-      owner = user;
-      group = "users";
-      path = "/home/lev/.config/rclone/rclone.conf";
-    };
   };
 
   zramSwap = {
@@ -107,22 +81,9 @@ in
     serviceConfig = {
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
-        WORLD_DIR="/srv/minecraft/server/world"
-        SOCK="/run/minecraft/server.sock"
-        TMUX="${pkgs.tmux}/bin/tmux"
-
-        if [ -d "$WORLD_DIR" ]; then
-          if [ -S "$SOCK" ] && $TMUX -S "$SOCK" has-session 2>/dev/null; then
-            # Pause autosaving and force an immediate flush of world state to disk
-            $TMUX -S "$SOCK" send-keys C-u "save-off" Enter
-            $TMUX -S "$SOCK" send-keys C-u "save-all flush" Enter
-            sleep 2
-            # Guarantee save-on is restored upon exit even if rclone encounters an error
-            trap '$TMUX -S "$SOCK" send-keys C-u "save-on" Enter' EXIT
-          fi
-
-          ${pkgs.rclone}/bin/rclone --config ${config.sops.secrets.rclone_conf.path} \
-            sync "$WORLD_DIR" gdrive:MinecraftBackups/server/world --fast-list -q
+        if [ -d "/srv/minecraft/server/world" ]; then
+          ${pkgs.rclone}/bin/rclone --config /home/lev/.config/rclone/rclone.conf \
+            sync /srv/minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
         fi
       '';
     };
@@ -149,8 +110,7 @@ in
     enable = true;
     openFirewall = true;
     settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
+      PasswordAuthentication = true;
       PermitRootLogin = "no";
     };
   };
@@ -162,12 +122,13 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  users.users.${user} = {
+  users.users.lev = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" "minecraft" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINcoLI6VTUqHm8P5yMxiKC6JOPTKEQilSDDTkIjYPM+K"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHPcfzYJqGIBUNTqT7AoB10ZNgBHHjFnfVAGEy8bpg/g phone"
     ];
   };
 
@@ -202,9 +163,6 @@ in
     bibata-cursors
     lua-language-server
     qrencode
-    sops
-    age
-    ssh-to-age
     #next end
   ];
 
@@ -222,14 +180,6 @@ in
   ];
 
   programs.nix-ld.enable = true;
-  programs.nh = {
-    enable = true;
-    clean = {
-      enable = true;
-      extraArgs = "--keep 5 --keep-since 4d";
-    };
-    flake = "/etc/nixos";
-  };
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -252,7 +202,7 @@ in
     };
 
     shellInit = ''
-      fpath=($HOME/.zsh/completions $fpath)
+      fpath=(/home/lev/.zsh/completions $fpath)
       zsh-newuser-install() { :; }
     '';
 
