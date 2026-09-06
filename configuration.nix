@@ -23,6 +23,18 @@ in
       owner = user;
       group = "users";
     };
+    secrets."gh_hosts" = {
+      mode = "0600";
+      owner = user;
+      group = "users";
+      path = "/home/lev/.config/gh/hosts.yml";
+    };
+    secrets."rclone_conf" = {
+      mode = "0600";
+      owner = user;
+      group = "users";
+      path = "/home/lev/.config/rclone/rclone.conf";
+    };
   };
 
   zramSwap = {
@@ -109,7 +121,7 @@ in
             trap '$TMUX -S "$SOCK" send-keys C-u "save-on" Enter' EXIT
           fi
 
-          ${pkgs.rclone}/bin/rclone --config ${config.users.users.${user}.home}/.config/rclone/rclone.conf \
+          ${pkgs.rclone}/bin/rclone --config ${config.sops.secrets.rclone_conf.path} \
             sync "$WORLD_DIR" gdrive:MinecraftBackups/server/world --fast-list -q
         fi
       '';
