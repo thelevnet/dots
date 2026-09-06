@@ -3,6 +3,7 @@
 {
   programs.noctalia = {
     enable = true;
+    systemd.enable = true;
     checkConfig = true;
 
     settings = {
