@@ -86,7 +86,6 @@
 
             echo "WARNING: This will replace your current /etc/nixos configuration"
             echo "         with the repository from ''${REPO_URL}"
-            echo "         A backup will be saved to /etc/nixos.bak"
             echo
             read -rp "Do you want to proceed with the installation? [y/N]: " CONFIRM
             if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
@@ -96,10 +95,8 @@
 
             echo
 
-            echo "==> Backing up and cleaning existing /etc/nixos..."
+            echo "==> Cleaning existing /etc/nixos..."
             if [ -d "/etc/nixos" ]; then
-                sudo rm -rf /etc/nixos.bak
-                sudo cp -r /etc/nixos /etc/nixos.bak 2>/dev/null || true
                 sudo rm -rf /etc/nixos
             fi
 
