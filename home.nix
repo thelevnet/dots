@@ -4,9 +4,11 @@
   home.username = "lev";
   home.homeDirectory = "/home/lev";
   home.stateVersion = "26.05";
+  imports = [
+    ./modules/hyprland.nix
+  ];
 
   xdg.configFile = {
-    "hypr".source = ./dots/hypr;
     "kitty".source = ./dots/kitty;
     "nvim".source = ./dots/nvim;
     "fastfetch".source = ./dots/fastfetch;
