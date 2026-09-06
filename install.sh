@@ -24,19 +24,31 @@ REAL_USER="${SUDO_USER:-$USER}"
 REAL_GROUP=$(id -gn "$REAL_USER" 2>/dev/null || echo "users")
 REPO_URL="https://github.com/thelevnet/dots.git"
 
+echo "WARNING: This will replace your current /etc/nixos configuration"
+echo "         with the repository from ${REPO_URL}"
+echo "         A backup will be saved to /etc/nixos.bak"
+echo
+read -rp "Do you want to proceed with the installation? [y/N]: " CONFIRM
+if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
+    echo "Installation aborted."
+    exit 0
+fi
+
+echo
+
 # 2. Clean old /etc/nixos and clone new repo
-echo "==> Cleaning old /etc/nixos configuration..."
+echo "==> Backing up and cleaning existing /etc/nixos..."
 if [ -d "/etc/nixos" ]; then
     sudo rm -rf /etc/nixos.bak
     sudo cp -r /etc/nixos /etc/nixos.bak 2>/dev/null || true
     sudo rm -rf /etc/nixos
 fi
 
-echo "==> Cloning fresh configuration from ${REPO_URL} into /etc/nixos..."
+echo "==> Cloning repository from ${REPO_URL} into /etc/nixos..."
 sudo git clone "${REPO_URL}" /etc/nixos
 
 # 3. Delete existing hardware-configuration.nix and generate a fresh one
-echo "==> Removing any old hardware-configuration.nix..."
+echo "==> Removing existing hardware-configuration.nix..."
 sudo rm -f /etc/nixos/hardware-configuration.nix
 
 echo "==> Generating fresh hardware-configuration.nix for this machine..."
