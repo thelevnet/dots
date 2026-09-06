@@ -9,11 +9,8 @@
     ./modules/kitty.nix
     ./modules/fastfetch.nix
     ./modules/noctalia.nix
+    ./modules/neovim.nix
   ];
-
-  xdg.configFile = {
-    "nvim".source = ./dots/nvim;
-  };
 
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
   home.file."Pictures/" = {
