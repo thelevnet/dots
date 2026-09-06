@@ -1,162 +1,69 @@
 #!/usr/bin/env bash
 set -e
 
-# Reconnect stdin to the interactive terminal when running via curl pipe (curl | sh)
+# Reconnect stdin to interactive terminal (supports: curl -fsSL ... | bash)
 if [ ! -t 0 ] && [ -e /dev/tty ]; then
     exec < /dev/tty
 fi
 
-echo "NVIDIA Fuck You"
+# Ensure we're not inside /etc/nixos when removing it
+cd /tmp
+
+echo "========================================================="
+echo "               NIXOS CONFIG INSTALLER                    "
+echo "========================================================="
 echo
 
-echo "========================================================="
-echo "               NIXOS CONFIG & INSTALLER                 "
-echo "========================================================="
-echo "1) Apply Config on Existing System (nixos-rebuild switch)"
-echo "2) Fresh Install from Live USB ISO (partition + nixos-install)"
-echo "3) Exit"
-echo "========================================================="
-read -rp "Select an option [1-3] (Default: 1): " MODE
-MODE=${MODE:-1}
-
-if [[ "$MODE" == "3" ]]; then
-    echo "Exiting."
-    exit 0
+# 1. Check if running on NixOS
+if ! command -v nixos-rebuild &>/dev/null; then
+    echo "[!] Error: 'nixos-rebuild' not found. This script must be run on a NixOS system."
+    exit 1
 fi
 
-# -------------------------------------------------------------
-# MODE 1: APPLY CONFIG ON RUNNING NIXOS
-# -------------------------------------------------------------
-if [[ "$MODE" == "1" ]]; then
-    echo
-    echo "==> Applying dots configuration to current system..."
-    
-    if ! command -v nixos-rebuild &>/dev/null; then
-        echo "[!] Error: nixos-rebuild not found. Are you in a live USB installer? If so, select option 2."
-        exit 1
-    fi
+REAL_USER="${SUDO_USER:-$USER}"
+REAL_GROUP=$(id -gn "$REAL_USER" 2>/dev/null || echo "users")
+REPO_URL="https://github.com/thelevnet/dots.git"
 
-    # Ensure /etc/nixos exists
-    sudo mkdir -p /etc/nixos
-
-    # Backup existing hardware-configuration if present
-    if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-        echo "==> Preserving local hardware-configuration.nix..."
-        sudo cp /etc/nixos/hardware-configuration.nix /tmp/hardware-configuration.nix
-    fi
-
-    # Clone or update dots in /etc/nixos
-    if [ -d "/etc/nixos/.git" ]; then
-        echo "==> Updating /etc/nixos from Git..."
-        sudo git -C /etc/nixos pull --rebase
-    else
-        echo "==> Cloning dots to /etc/nixos..."
-        sudo rm -rf /etc/nixos/*
-        sudo git clone https://github.com/thelevnet/dots /etc/nixos
-    fi
-
-    # Restore hardware configuration
-    if [ -f "/tmp/hardware-configuration.nix" ]; then
-        sudo cp /tmp/hardware-configuration.nix /etc/nixos/hardware-configuration.nix
-    fi
-
-    echo "==> Rebuilding and switching NixOS configuration..."
-    sudo nixos-rebuild switch --flake /etc/nixos#nix
-
-    echo
-    echo "========================================================="
-    echo " [✓] System & Home Manager applied successfully!"
-    echo "========================================================="
-    exit 0
+# 2. Clean old /etc/nixos and clone new repo
+echo "==> Cleaning old /etc/nixos configuration..."
+if [ -d "/etc/nixos" ]; then
+    sudo rm -rf /etc/nixos.bak
+    sudo cp -r /etc/nixos /etc/nixos.bak 2>/dev/null || true
+    sudo rm -rf /etc/nixos
 fi
 
-# -------------------------------------------------------------
-# MODE 2: FRESH INSTALL FROM LIVE ISO
-# -------------------------------------------------------------
-if [[ "$MODE" == "2" ]]; then
-    if [[ $EUID -ne 0 ]]; then
-        echo "[!] Please run fresh installation as root (sudo bash install.sh)."
-        exit 1
-    fi
+echo "==> Cloning fresh configuration from ${REPO_URL} into /etc/nixos..."
+sudo git clone "${REPO_URL}" /etc/nixos
 
-    echo
-    echo "==================== AVAILABLE DISKS ===================="
-    lsblk -d -o NAME,SIZE,MODEL,TYPE | grep -E "disk|NAME"
-    echo "========================================================="
-    echo
+# 3. Delete existing hardware-configuration.nix and generate a fresh one
+echo "==> Removing any old hardware-configuration.nix..."
+sudo rm -f /etc/nixos/hardware-configuration.nix
 
-    read -rp "Enter target drive [/dev/nvme0n1]: " TARGET_DISK
-    TARGET_DISK=${TARGET_DISK:-/dev/nvme0n1}
+echo "==> Generating fresh hardware-configuration.nix for this machine..."
+sudo nixos-generate-config --show-hardware-config | sudo tee /etc/nixos/hardware-configuration.nix > /dev/null
 
-    if [[ ! -b "$TARGET_DISK" ]]; then
-        echo "[!] Error: Disk $TARGET_DISK not found!"
-        exit 1
-    fi
+# Track hardware-configuration.nix in git so Nix Flakes can evaluate it
+sudo git -C /etc/nixos add -f hardware-configuration.nix
 
-    echo
-    echo "[!] WARNING: ALL DATA ON $TARGET_DISK WILL BE DESTROYED!"
-    read -rp "Type 'YES' to format $TARGET_DISK and proceed: " FINAL_CHECK
-    if [[ "$FINAL_CHECK" != "YES" ]]; then
-        echo "Aborted."
-        exit 0
-    fi
+# 4. Set ownership of /etc/nixos to regular user
+echo "==> Setting ownership of /etc/nixos to ${REAL_USER}:${REAL_GROUP}..."
+sudo chown -R "${REAL_USER}:${REAL_GROUP}" /etc/nixos
 
-    echo "==> Partitioning $TARGET_DISK (1GB EFI, 100% Root)..."
-    wipefs -a "$TARGET_DISK"
-    parted -s "$TARGET_DISK" -- mklabel gpt
-    parted -s "$TARGET_DISK" -- mkpart ESP fat32 1MiB 1024MiB
-    parted -s "$TARGET_DISK" -- set 1 esp on
-    parted -s "$TARGET_DISK" -- mkpart primary ext4 1024MiB 100%
-
-    if [[ "$TARGET_DISK" =~ [0-9]$ ]]; then
-        BOOT_PART="${TARGET_DISK}p1"
-        ROOT_PART="${TARGET_DISK}p2"
-    else
-        BOOT_PART="${TARGET_DISK}1"
-        ROOT_PART="${TARGET_DISK}2"
-    fi
-
-    echo "==> Formatting partitions..."
-    mkfs.fat -F 32 -n BOOT "$BOOT_PART"
-    mkfs.ext4 -F -L nixos "$ROOT_PART"
-
-    echo "==> Mounting filesystems for Impermanence (tmpfs root + /nix persistent)..."
-    mkdir -p /mnt
-    mount -t tmpfs -o mode=755,size=4G none /mnt
-
-    mkdir -p /mnt/nix
-    mount "$ROOT_PART" /mnt/nix
-
-    mkdir -p /mnt/boot
-    mount "$BOOT_PART" /mnt/boot
-
-    mkdir -p /mnt/nix/persist
-    mkdir -p /mnt/persist
-    mount --bind /mnt/nix/persist /mnt/persist
-
-    echo "==> Cloning dotfiles..."
-    mkdir -p /mnt/persist/etc
-    rm -rf /mnt/persist/etc/nixos
-    git clone https://github.com/thelevnet/dots /mnt/persist/etc/nixos
-
-    mkdir -p /mnt/etc
-    mount --bind /mnt/persist/etc/nixos /mnt/etc/nixos 2>/dev/null || mkdir -p /mnt/etc/nixos
-
-    echo "==> Updating hardware-configuration.nix UUIDs..."
-    ROOT_UUID=$(blkid -s UUID -o value "$ROOT_PART")
-    BOOT_UUID=$(blkid -s UUID -o value "$BOOT_PART")
-    sed -i "s|/dev/disk/by-uuid/[^\"']*|/dev/disk/by-uuid/$ROOT_UUID|g" /mnt/persist/etc/nixos/hardware-configuration.nix
-    sed -i "s|by-uuid/9790-B359|by-uuid/$BOOT_UUID|g" /mnt/persist/etc/nixos/hardware-configuration.nix
-
-    echo "==> Running nixos-install..."
-    nixos-install --flake /mnt/persist/etc/nixos#nix
-
-    echo
-    echo "========================================================="
-    echo " [✓] Installation complete! You can now reboot into NixOS."
-    echo "========================================================="
-    read -rp "Reboot now? [y/N]: " REBOOT_NOW
-    if [[ "$REBOOT_NOW" =~ ^[Yy]$ ]]; then
-        reboot
-    fi
+# 5. GitHub authentication
+echo
+echo "==> GitHub CLI authentication..."
+if command -v gh &>/dev/null; then
+    sudo -u "$REAL_USER" gh auth login
+else
+    echo "[!] Warning: 'gh' command not found. Skipping GitHub authentication."
 fi
+
+# 6. Build and apply NixOS system configuration
+echo
+echo "==> Rebuilding and applying NixOS configuration..."
+sudo nixos-rebuild switch --flake /etc/nixos#nix
+
+echo
+echo "========================================================="
+echo " [✓] NixOS configuration successfully installed and applied!"
+echo "========================================================="
