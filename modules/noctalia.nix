@@ -672,7 +672,7 @@
           speed = 1.0;
         };
         app_icon_colorize = false;
-        avatar_path = "/home/lev/Pictures/hole.png";
+        avatar_path = "${config.home.homeDirectory}/Pictures/hole.png";
         button_borders = false;
         card_borders = false;
         clipboard_auto_paste = "auto";

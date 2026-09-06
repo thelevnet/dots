@@ -1,5 +1,8 @@
 { config, pkgs, inputs, lib, ... }:
 
+let
+  user = "lev";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -82,7 +85,7 @@
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
         if [ -d "/srv/minecraft/server/world" ]; then
-          ${pkgs.rclone}/bin/rclone --config /home/lev/.config/rclone/rclone.conf \
+          ${pkgs.rclone}/bin/rclone --config ${config.users.users.${user}.home}/.config/rclone/rclone.conf \
             sync /srv/minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
         fi
       '';
@@ -110,7 +113,8 @@
     enable = true;
     openFirewall = true;
     settings = {
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
     };
   };
@@ -122,10 +126,13 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  users.users.lev = {
+  users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" "minecraft" ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINcoLI6VTUqHm8P5yMxiKC6JOPTKEQilSDDTkIjYPM+K"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -198,7 +205,7 @@
     };
 
     shellInit = ''
-      fpath=(/home/lev/.zsh/completions $fpath)
+      fpath=($HOME/.zsh/completions $fpath)
       zsh-newuser-install() { :; }
     '';
 

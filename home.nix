@@ -2,7 +2,7 @@
 
 {
   home.username = "lev";
-  home.homeDirectory = "/home/lev";
+  home.homeDirectory = "/home/${config.home.username}";
   home.stateVersion = "26.05";
   imports = [
     ./modules/hyprland.nix
