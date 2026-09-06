@@ -8,11 +8,11 @@
     ./modules/hyprland.nix
     ./modules/kitty.nix
     ./modules/fastfetch.nix
+    ./modules/noctalia.nix
   ];
 
   xdg.configFile = {
     "nvim".source = ./dots/nvim;
-    "noctalia".source = ./dots/noctalia;
   };
 
   home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ./dots/fonts/GoogleSansFlex.ttf;
