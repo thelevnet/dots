@@ -76,6 +76,7 @@
   environment.systemPackages = with pkgs; [
     git
     home-manager
+    next
   ];
 
   # Home Manager Integration
