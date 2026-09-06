@@ -38,26 +38,22 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-minecraft, sops-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        sops-nix.nixosModules.sops
-        inputs.nix-minecraft.nixosModules.minecraft-servers
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.lev = import ./home.nix;
-        }
-        ./configuration.nix
+        ./hosts/nix
       ];
     };
+
     homeConfigurations."lev" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        overlays = import ./overlays { inherit inputs; };
+      };
       extraSpecialArgs = { inherit inputs; };
-      modules = [ ./home.nix ];
+      modules = [ ./users/lev ];
     };
   };
 }

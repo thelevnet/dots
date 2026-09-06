@@ -47,15 +47,15 @@ fi
 echo "==> Cloning repository from ${REPO_URL} into /etc/nixos..."
 sudo git clone "${REPO_URL}" /etc/nixos
 
-# 3. Delete existing hardware-configuration.nix and generate a fresh one
-echo "==> Removing existing hardware-configuration.nix..."
-sudo rm -f /etc/nixos/hardware-configuration.nix
+# 3. Delete existing hardware.nix and generate a fresh one
+echo "==> Removing existing hardware.nix..."
+sudo rm -f /etc/nixos/hosts/nix/hardware.nix
 
-echo "==> Generating fresh hardware-configuration.nix for this machine..."
-sudo nixos-generate-config --show-hardware-config | sudo tee /etc/nixos/hardware-configuration.nix > /dev/null
+echo "==> Generating fresh hardware.nix for host 'nix'..."
+sudo nixos-generate-config --show-hardware-config | sudo tee /etc/nixos/hosts/nix/hardware.nix > /dev/null
 
-# Track hardware-configuration.nix in git so Nix Flakes can evaluate it
-sudo git -C /etc/nixos add -f hardware-configuration.nix
+# Track hardware.nix in git so Nix Flakes can evaluate it
+sudo git -C /etc/nixos add -f hosts/nix/hardware.nix
 
 # 4. Set ownership of /etc/nixos to regular user
 echo "==> Setting ownership of /etc/nixos to ${REAL_USER}:${REAL_GROUP}..."
