@@ -6,10 +6,10 @@
   home.stateVersion = "26.05";
   imports = [
     ./modules/hyprland.nix
+    ./modules/kitty.nix
   ];
 
   xdg.configFile = {
-    "kitty".source = ./dots/kitty;
     "nvim".source = ./dots/nvim;
     "fastfetch".source = ./dots/fastfetch;
     "noctalia".source = ./dots/noctalia;
