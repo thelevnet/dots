@@ -31,12 +31,18 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-minecraft, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nix-minecraft, sops-nix, ... }@inputs: {
     nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
+        sops-nix.nixosModules.sops
         inputs.nix-minecraft.nixosModules.minecraft-servers
         home-manager.nixosModules.home-manager
         {

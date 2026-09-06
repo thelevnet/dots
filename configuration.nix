@@ -14,6 +14,17 @@ in
     auto-optimise-store = true;
   };
 
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets."example_secret" = {
+      mode = "0440";
+      owner = user;
+      group = "users";
+    };
+  };
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -179,6 +190,9 @@ in
     bibata-cursors
     lua-language-server
     qrencode
+    sops
+    age
+    ssh-to-age
     #next end
   ];
 

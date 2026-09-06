@@ -1,0 +1,12 @@
+keys:
+  - &host_nix age1d06ygvj45me4ssakc2zyzvhr8pgxu5pxpxs36tmzgegvtywdz50q0nzpyv
+  - &user_lev age172fll0m7rymx0fd7g92sxm4zh9eetkucp9mfqyz772msfmy3tc5qcy89hm
+  - &user_ssh age1rq55k465f4xnkakc2u9y4lr02jsc35ypn2ew29l92p9206r2mgeslaydcw
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *host_nix
+          - *user_lev
+          - *user_ssh
