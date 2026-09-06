@@ -49,13 +49,13 @@ sudo git clone "${REPO_URL}" /etc/nixos
 
 # 3. Delete existing hardware.nix and generate a fresh one
 echo "==> Removing existing hardware.nix..."
-sudo rm -f /etc/nixos/hosts/nix/hardware.nix
+sudo rm -f /etc/nixos/hosts/desktop/hardware.nix
 
-echo "==> Generating fresh hardware.nix for host 'nix'..."
-sudo nixos-generate-config --show-hardware-config | sudo tee /etc/nixos/hosts/nix/hardware.nix > /dev/null
+echo "==> Generating fresh hardware.nix for host 'desktop'..."
+sudo nixos-generate-config --show-hardware-config | sudo tee /etc/nixos/hosts/desktop/hardware.nix > /dev/null
 
 # Track hardware.nix in git so Nix Flakes can evaluate it
-sudo git -C /etc/nixos add -f hosts/nix/hardware.nix
+sudo git -C /etc/nixos add -f hosts/desktop/hardware.nix
 
 # 4. Set ownership of /etc/nixos to regular user
 echo "==> Setting ownership of /etc/nixos to ${REAL_USER}:${REAL_GROUP}..."
@@ -69,7 +69,7 @@ CORES_PER_JOB=4
 echo
 echo "==> Rebuilding and applying NixOS configuration..."
 echo "==> (Throttled to max-jobs=${MAX_JOBS}, cores=${CORES_PER_JOB} with low CPU priority to prevent freezing)"
-sudo nice -n 15 nixos-rebuild switch --flake /etc/nixos#nix --max-jobs "$MAX_JOBS" --cores "$CORES_PER_JOB"
+sudo nice -n 15 nixos-rebuild switch --flake /etc/nixos#desktop --max-jobs "$MAX_JOBS" --cores "$CORES_PER_JOB"
 
 # 6. GitHub authentication (run after rebuild so browser and graphical environment are available)
 echo

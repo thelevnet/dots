@@ -39,10 +39,10 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations."nix" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."desktop" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        ./hosts/nix
+        ./hosts/desktop
       ];
     };
 
