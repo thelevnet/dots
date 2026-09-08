@@ -3,6 +3,8 @@
 {
   home.packages = with pkgs; [
     #next start
+		antigravity-cli
+		antigravity-cli
 		zoxide
     dust
     zen-browser
