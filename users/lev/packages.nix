@@ -5,7 +5,6 @@
     #next start
 		zoxide
     dust
-    antigravity-cli
     zen-browser
     libnotify
     fetch
