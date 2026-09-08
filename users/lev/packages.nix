@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     #next start
-		z-lua
     dust
     antigravity-cli
     zen-browser
