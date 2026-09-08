@@ -70,6 +70,7 @@
         TRAPALRM() {
           refresh_prompt
         }
+        eval "$(zoxide init zsh)"
       '')
     ];
   };
