@@ -4,6 +4,7 @@
   imports = [
     inputs.sops-nix.nixosModules.sops
     inputs.home-manager.nixosModules.home-manager
+    ../../modules/nixos/sops.nix
   ];
 
   # Nix Package Manager settings
