@@ -2,12 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    #next start
-		antigravity-cli
-		antigravity-cli
-		antigravity-cli
-		zoxide
-    dust
+    antigravity-cli
+    zoxide
     zen-browser
     libnotify
     fetch
@@ -29,6 +25,5 @@
     bibata-cursors
     lua-language-server
     qrencode
-    #next end
   ];
 }
