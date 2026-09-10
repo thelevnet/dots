@@ -5,6 +5,7 @@
     #next start
 		antigravity-cli
 		antigravity-cli
+		antigravity-cli
 		zoxide
     dust
     zen-browser
