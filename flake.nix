@@ -56,6 +56,40 @@
       modules = [ ./users/lev ];
     };
 
+    devShells = let
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+    in forAllSystems (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = pkgs.mkShell {
+          name = "nixos-config-dev";
+          packages = with pkgs; [
+            git
+            gh
+            nh
+            nix-output-monitor
+            nvd
+            neovim
+            nil
+            nixfmt
+            alejandra
+            statix
+            deadnix
+            sops
+            age
+            ripgrep
+            fd
+            fzf
+            jq
+          ];
+          shellHook = ''
+            echo "Entering NixOS configuration environment in $(pwd)"
+          '';
+        };
+      }
+    );
+
     apps = let
       mkInstaller = system:
         let
