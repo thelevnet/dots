@@ -7,11 +7,8 @@
     zen-browser
     libnotify
     fetch
-    jq
     gcc
-    fzf
     portablemc
-    nh
     rustup
     git
     gh

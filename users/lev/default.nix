@@ -12,6 +12,7 @@
     ../../modules/home/terminal/kitty.nix
     ../../modules/home/terminal/fastfetch.nix
     ../../modules/home/terminal/zsh.nix
+    ../../modules/home/terminal/starship.nix
     ../../modules/home/editors/neovim.nix
     ../../modules/home/theme
   ];

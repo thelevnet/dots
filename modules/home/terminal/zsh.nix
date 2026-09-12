@@ -37,39 +37,6 @@
         text "こんにちは、レフ！"
         echo
 
-        MY_TOP_PROMPT=$'%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}󰉋 %~%{\e[0m%}%{\e[32m%}%{\e[0m%} %{\e[32m%} %{\e[0m%}'
-        MY_RPROMPT=$'%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}%D{%H:%M}%{\e[0m%}%{\e[32m%}%{\e[0m%} %{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%} %{\e[0m%}%{\e[32m%}%{\e[0m%}'
-        MY_BOTTOM_PROMPT=$'%{\e[32m%} %{\e[0m%}'
-
-        PROMPT=$MY_TOP_PROMPT
-        RPROMPT=$MY_RPROMPT
-
-        _my_accept_line() {
-          PROMPT=$MY_BOTTOM_PROMPT
-          RPROMPT=""
-          zle reset-prompt
-          zle .accept-line
-        }
-        zle -N accept-line _my_accept_line
-
-        preexec() {
-          PROMPT=$MY_BOTTOM_PROMPT
-          RPROMPT=""
-        }
-
-        precmd() {
-          PROMPT=$MY_TOP_PROMPT
-          RPROMPT=$MY_RPROMPT
-        }
-
-        refresh_prompt() {
-          zle && zle reset-prompt
-        }
-
-        TMOUT=60
-        TRAPALRM() {
-          refresh_prompt
-        }
         eval "$(zoxide init zsh)"
       '')
     ];
