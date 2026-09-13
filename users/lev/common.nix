@@ -17,22 +17,16 @@
   ];
 
   home.packages = with pkgs; [
-    antigravity-cli
     zoxide
     libnotify
     fetch
-    gcc
-    rustup
     git
-    gh
     rclone
     bat
     eza
     yazi
     tmux
-    stylua
     bibata-cursors
-    lua-language-server
     qrencode
   ];
 
