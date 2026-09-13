@@ -43,7 +43,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, ... }@inputs: {
     nixosConfigurations."desktop" = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
@@ -56,16 +56,6 @@
       modules = [
         ./hosts/laptop
       ];
-    };
-
-    homeConfigurations."lev" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-        overlays = import ./overlays { inherit inputs; };
-      };
-      extraSpecialArgs = { inherit inputs; };
-      modules = [ ./users/lev ];
     };
 
     devShells = let

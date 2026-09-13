@@ -15,12 +15,6 @@
       defaultSopsFormat = "yaml";
       age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-      secrets."example_secret" = {
-        mode = "0440";
-        owner = "lev";
-        group = "users";
-      };
-
       secrets."gh_hosts" = {
         mode = "0600";
         owner = "lev";
