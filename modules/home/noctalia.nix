@@ -885,7 +885,7 @@ transition_on_startup = true
 
     [wallpaper.automation]
     enabled = true
-    interval_seconds = 1800
+    interval_seconds = 300
     order = "random"
     recursive = true
 
