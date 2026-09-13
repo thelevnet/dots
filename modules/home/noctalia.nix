@@ -1023,6 +1023,7 @@ type = "yocraft/qrcode:widget"
 
 [widget.workspaces]
 active_pill_size = 2.0
+label_source = "name"
 scale = 1.5
 type = "workspaces"
 urgent_color = "secondary"

@@ -34,6 +34,10 @@ in
               	hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE")
               	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE")
               	hl.exec_cmd("systemctl --user start graphical-session.target")
+              	local kanji = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" }
+              	for i, name in ipairs(kanji) do
+              		hl.dispatch(hl.dsp.workspace.rename({ workspace = i, name = name }))
+              	end
               end
             '')
           ];
@@ -272,10 +276,22 @@ in
       ];
 
       # Workspace Rules
-      workspace_rule = {
-        workspace = "special:special";
-        gaps_out = 30;
-      };
+      workspace_rule = [
+        {
+          workspace = "special:special";
+          gaps_out = 30;
+        }
+        { workspace = "1"; default_name = "一"; }
+        { workspace = "2"; default_name = "二"; }
+        { workspace = "3"; default_name = "三"; }
+        { workspace = "4"; default_name = "四"; }
+        { workspace = "5"; default_name = "五"; }
+        { workspace = "6"; default_name = "六"; }
+        { workspace = "7"; default_name = "七"; }
+        { workspace = "8"; default_name = "八"; }
+        { workspace = "9"; default_name = "九"; }
+        { workspace = "10"; default_name = "十"; }
+      ];
     };
   };
   };
