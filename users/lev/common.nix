@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 
 {
-  home.username = lib.mkDefault "lev";
-  home.homeDirectory = lib.mkDefault "/home/lev";
+  home.username = "lev";
+  home.homeDirectory = "/home/lev";
   home.stateVersion = "26.05";
 
   imports = [
@@ -11,7 +11,6 @@
 
   # Enabled user modules
   modules = {
-    gui.enable = lib.mkDefault true;
     hyprland.enable = lib.mkDefault true;
     noctalia.enable = lib.mkDefault true;
     kitty.enable = lib.mkDefault true;
@@ -22,16 +21,19 @@
     theme.enable = lib.mkDefault true;
   };
 
-  # Common CLI tools
   home.packages = with pkgs; [
     antigravity-cli
+    zen-browser
     zoxide
     fetch
     gh
+    portablemc
     git
+    telegram-desktop
     bat
     eza
     yazi
+    bibata-cursors
     qrencode
   ];
 

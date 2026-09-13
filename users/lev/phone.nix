@@ -1,37 +1,21 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    ./common.nix
-  ];
-
-  # Termux on Android environment
   home = {
-    username = lib.mkDefault "termux";
+    username = "termux";
     homeDirectory = "/data/data/com.termux/files/home";
+    stateVersion = "26.05";
+
+    packages = with pkgs; [
+      openssh
+      antigravity-cli
+      git
+      gh
+      bat
+      eza
+      yazi
+    ];
   };
 
-  # Disable desktop/GUI modules; enable CLI tools
-  modules = {
-    gui.enable = false;
-    hyprland.enable = false;
-    noctalia.enable = false;
-    kitty.enable = false;
-    theme.enable = false;
-
-    zsh.enable = true;
-    starship.enable = true;
-    neovim.enable = true;
-    fastfetch.enable = true;
-  };
-
-  # Phone & Termux-specific packages
-  home.packages = with pkgs; [
-    tmux
-    ripgrep
-    fd
-    fzf
-    jq
-    next
-  ];
+  programs.home-manager.enable = true;
 }
