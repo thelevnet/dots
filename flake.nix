@@ -58,14 +58,19 @@
       ];
     };
 
-    homeConfigurations."termux" = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "aarch64-linux";
-        config.allowUnfree = true;
-        overlays = import ./overlays { inherit inputs; };
+    homeConfigurations = let
+      mkPhone = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "aarch64-linux";
+          config.allowUnfree = true;
+          overlays = import ./overlays { inherit inputs; };
+        };
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./users/lev/phone.nix ];
       };
-      extraSpecialArgs = { inherit inputs; };
-      modules = [ ./users/lev/termux.nix ];
+    in {
+      "phone" = mkPhone;
+      "termux" = mkPhone;
     };
 
     devShells = let
