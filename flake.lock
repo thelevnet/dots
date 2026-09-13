@@ -434,11 +434,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789307317,
-        "narHash": "sha256-fo+OUyFnUgVPV3JQrTrfqu4dKjJMWAhXBWwhyRWHH64=",
+        "lastModified": 1789307437,
+        "narHash": "sha256-05A++Y6mKb4MYnkHSZmjaGOqYR5sA9vFRZFH1j/PLT4=",
         "owner": "thelevnet",
         "repo": "next",
-        "rev": "8c7c8e9760980c8fdb935c9e225a6f0879ad4a4b",
+        "rev": "e2eeebc148f2b685e81d2fe5a1426ac0c09a3e35",
         "type": "github"
       },
       "original": {
