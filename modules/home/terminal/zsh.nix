@@ -26,6 +26,8 @@
         zsh-newuser-install() { :; }
       '')
       (lib.mkAfter ''
+        compdef _next next 2>/dev/null || true
+
         _text() {
           print -P "%{\e[32m%}%{\e[0m%}%{\e[42m\e[30m%}󰍪 %{\e[0m%}%{\e[32m%}%{\e[0m%} $1"
         }
