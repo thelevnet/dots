@@ -1,40 +1,22 @@
 { pkgs, lib, ... }:
 
 {
-  home.username = "lev";
-  home.homeDirectory = "/home/lev";
+  home.username = lib.mkDefault "lev";
+  home.homeDirectory = lib.mkDefault "/home/lev";
   home.stateVersion = "26.05";
 
   imports = [
     ../../modules/home
   ];
 
-  # Enabled user modules
-  modules = {
-    hyprland.enable = lib.mkDefault true;
-    noctalia.enable = lib.mkDefault true;
-    kitty.enable = lib.mkDefault true;
-    fastfetch.enable = lib.mkDefault true;
-    zsh.enable = lib.mkDefault true;
-    starship.enable = lib.mkDefault true;
-    neovim.enable = lib.mkDefault true;
-    theme.enable = lib.mkDefault true;
-  };
-
+  # Base CLI tools common to all devices (desktop, laptop, phone)
   home.packages = with pkgs; [
-    antigravity-cli
-    zen-browser
-    zoxide
-    fetch
-    gh
-    portablemc
+    antigravity-cli # agy
     git
-    telegram-desktop
+    gh
     bat
     eza
     yazi
-    bibata-cursors
-    qrencode
   ];
 
   programs.home-manager.enable = true;

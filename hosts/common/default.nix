@@ -6,8 +6,12 @@
     ../../modules/nixos
   ];
 
-  # Enabled base modules
-  modules.sops.enable = lib.mkDefault true;
+  # Enabled base modules across all NixOS hosts
+  modules = {
+    sops.enable = lib.mkDefault true;
+    hyprland.enable = lib.mkDefault true;
+    tailscale.enable = lib.mkDefault true;
+  };
 
   # Nix Package Manager settings
   nix.settings = {
@@ -17,6 +21,15 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ../../overlays { inherit inputs; };
+
+  # Common Bootloader & Kernel
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "i2c-dev" ];
+
+  # Common Hardware Features
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Memory & ZRAM
   zramSwap = {
@@ -84,11 +97,37 @@
     next
   ];
 
-  # Home Manager Integration
+  # Home Manager Integration & Workstation Profile
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
+    users.lev = {
+      imports = [ ../../users/lev/common.nix ];
+
+      # Workstation modules enabled on all NixOS hosts
+      modules = {
+        hyprland.enable = lib.mkDefault true;
+        noctalia.enable = lib.mkDefault true;
+        kitty.enable = lib.mkDefault true;
+        fastfetch.enable = lib.mkDefault true;
+        zsh.enable = lib.mkDefault true;
+        starship.enable = lib.mkDefault true;
+        neovim.enable = lib.mkDefault true;
+        theme.enable = lib.mkDefault true;
+      };
+
+      # Common desktop GUI & workstation packages
+      home.packages = with pkgs; [
+        zen-browser
+        telegram-desktop
+        portablemc
+        bibata-cursors
+        zoxide
+        fetch
+        qrencode
+      ];
+    };
   };
 
   system.stateVersion = "26.05";

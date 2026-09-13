@@ -8,24 +8,13 @@
 
   networking.hostName = "desktop";
 
-  # Enabled modules
-  modules = {
-    hyprland.enable = true;
-    minecraft.enable = true;
-    tailscale.enable = true;
-  };
+  # Desktop-specific modules
+  modules.minecraft.enable = true;
 
-  # Boot loader & kernel
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Desktop-specific bootloader & kernel
   boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.kernelModules = [ "i2c-dev" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Hardware features
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # User profile
+  # Desktop user profile
   home-manager.users.lev = import ../../users/lev/desktop.nix;
 }

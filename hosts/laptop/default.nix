@@ -8,17 +8,9 @@
 
   networking.hostName = "laptop";
 
-  # Enabled modules
-  modules = {
-    hyprland.enable = true;
-    tailscale.enable = true;
-  };
-
-  # Boot loader & kernel
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "i2c-dev" "asus-nb-wmi" "8821au" ];
+  # Laptop-specific kernel & Wi-Fi module
   boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelModules = [ "asus-nb-wmi" "8821au" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.rtl8821au ];
 
   # Completely cut power to NVIDIA dGPU and blacklist modules
@@ -102,10 +94,6 @@
     };
   };
 
-  # Hardware features
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # User profile
+  # Laptop user profile
   home-manager.users.lev = import ../../users/lev/laptop.nix;
 }
