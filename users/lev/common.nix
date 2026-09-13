@@ -9,7 +9,6 @@
     ../../modules/home
   ];
 
-  # Enabled user modules
   modules = {
     hyprland.enable = lib.mkDefault true;
     noctalia.enable = lib.mkDefault true;
