@@ -23,7 +23,6 @@
 
     initContent = lib.mkMerge [
       (lib.mkBefore ''
-        fpath=(/home/lev/.zsh/completions $fpath)
         zsh-newuser-install() { :; }
       '')
       (lib.mkAfter ''
