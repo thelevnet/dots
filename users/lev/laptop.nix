@@ -7,7 +7,6 @@
 
   # Laptop-specific packages
   home.packages = with pkgs; [
-    zen-browser
     brightnessctl
   ];
 }

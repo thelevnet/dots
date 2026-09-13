@@ -7,13 +7,10 @@
 
   # Desktop-specific packages
   home.packages = with pkgs; [
-    zen-browser
     telegram-desktop
     portablemc
     rclone
     tmux
-
-    # Development tools
     gcc
     rustup
     gh

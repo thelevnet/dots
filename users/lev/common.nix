@@ -18,6 +18,7 @@
 
   home.packages = with pkgs; [
     antigravity-cli
+    zen-browser
     zoxide
     fetch
     git
