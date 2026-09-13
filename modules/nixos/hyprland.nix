@@ -5,20 +5,26 @@
     inputs.hyprland.nixosModules.default
   ];
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  options.modules.hyprland = {
+    enable = lib.mkEnableOption "Hyprland compositor and graphics";
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  config = lib.mkIf config.modules.hyprland.enable {
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
 }

@@ -4,7 +4,12 @@ let
   inline = lib.generators.mkLuaInline;
 in
 {
-  wayland.windowManager.hyprland = {
+  options.modules.hyprland = {
+    enable = lib.mkEnableOption "Hyprland desktop environment";
+  };
+
+  config = lib.mkIf config.modules.hyprland.enable {
+    wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
 
@@ -272,5 +277,6 @@ in
         gaps_out = 30;
       };
     };
+  };
   };
 }

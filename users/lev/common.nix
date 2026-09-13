@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   home.username = "lev";
@@ -6,15 +6,20 @@
   home.stateVersion = "26.05";
 
   imports = [
-    ../../modules/home/desktop/hyprland.nix
-    ../../modules/home/desktop/noctalia.nix
-    ../../modules/home/terminal/kitty.nix
-    ../../modules/home/terminal/fastfetch.nix
-    ../../modules/home/terminal/zsh.nix
-    ../../modules/home/terminal/starship.nix
-    ../../modules/home/editors/neovim.nix
-    ../../modules/home/theme
+    ../../modules/home
   ];
+
+  # Enabled user modules
+  modules = {
+    hyprland.enable = lib.mkDefault true;
+    noctalia.enable = lib.mkDefault true;
+    kitty.enable = lib.mkDefault true;
+    fastfetch.enable = lib.mkDefault true;
+    zsh.enable = lib.mkDefault true;
+    starship.enable = lib.mkDefault true;
+    neovim.enable = lib.mkDefault true;
+    theme.enable = lib.mkDefault true;
+  };
 
   home.packages = with pkgs; [
     antigravity-cli

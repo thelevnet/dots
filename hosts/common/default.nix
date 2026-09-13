@@ -2,10 +2,12 @@
 
 {
   imports = [
-    inputs.sops-nix.nixosModules.sops
     inputs.home-manager.nixosModules.home-manager
-    ../../modules/nixos/sops.nix
+    ../../modules/nixos
   ];
+
+  # Enabled base modules
+  modules.sops.enable = lib.mkDefault true;
 
   # Nix Package Manager settings
   nix.settings = {

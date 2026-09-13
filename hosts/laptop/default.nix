@@ -4,11 +4,15 @@
   imports = [
     ./hardware.nix
     ../common
-    ../../modules/nixos/hyprland.nix
-    ../../modules/nixos/tailscale.nix
   ];
 
   networking.hostName = "laptop";
+
+  # Enabled modules
+  modules = {
+    hyprland.enable = true;
+    tailscale.enable = true;
+  };
 
   # Boot loader & kernel
   boot.loader.systemd-boot.enable = true;

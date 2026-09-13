@@ -1,7 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-  programs.noctalia = {
+  options.modules.noctalia = {
+    enable = lib.mkEnableOption "Noctalia desktop shell";
+  };
+
+  config = lib.mkIf config.modules.noctalia.enable {
+    programs.noctalia = {
     enable = true;
     systemd.enable = true;
     checkConfig = true;
@@ -1656,5 +1661,6 @@ try:
 except Exception:
     pass
 '';
+  };
   };
 }

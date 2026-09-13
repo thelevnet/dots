@@ -8,7 +8,12 @@ in
     inputs.nixvim.homeModules.nixvim
   ];
 
-  programs.nixvim = {
+  options.modules.neovim = {
+    enable = lib.mkEnableOption "Neovim editor with Nixvim";
+  };
+
+  config = lib.mkIf config.modules.neovim.enable {
+    programs.nixvim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
@@ -630,5 +635,6 @@ in
     indent_type = "Spaces";
     indent_width = 2;
     column_width = 120;
+  };
   };
 }
