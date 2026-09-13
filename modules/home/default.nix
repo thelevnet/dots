@@ -3,6 +3,7 @@
 {
   imports = [
     ./fastfetch.nix
+    ./gui.nix
     ./hyprland.nix
     ./kitty.nix
     ./neovim.nix
