@@ -87,7 +87,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
-    users.lev = import ../../users/lev;
   };
 
   system.stateVersion = "26.05";

@@ -21,4 +21,7 @@
   # Hardware features
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  # User profile
+  home-manager.users.lev = import ../../users/lev/desktop.nix;
 }
