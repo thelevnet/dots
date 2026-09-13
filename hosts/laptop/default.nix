@@ -19,18 +19,39 @@
 
   # Completely cut power to NVIDIA dGPU and blacklist modules
   boot.kernelParams = [
-    "module_blacklist=nouveau,nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm"
+    "module_blacklist=nouveau,nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,mt7921e,mt7921s,mt7921u,mt7921_common,mt76"
   ];
   boot.blacklistedKernelModules = [
+    # NVIDIA
     "nouveau"
     "nvidia"
     "nvidia_drm"
     "nvidia_modeset"
     "nvidia_uvm"
+
+    # MediaTek MT7921 / MT76
+    "mt7921e"
+    "mt7921s"
+    "mt7921u"
+    "mt7921_common"
+    "mt792x_lib"
+    "mt792x_usb"
+    "mt76_connac_lib"
+    "mt76"
   ];
   boot.extraModprobeConfig = ''
     blacklist nouveau
     options nouveau modeset=0
+
+    # MediaTek MT7921
+    blacklist mt7921e
+    blacklist mt7921s
+    blacklist mt7921u
+    blacklist mt7921_common
+    blacklist mt792x_lib
+    blacklist mt792x_usb
+    blacklist mt76_connac_lib
+    blacklist mt76
   '';
 
   # Power Management & Battery
@@ -38,7 +59,7 @@
   services.upower.enable = true;
   powerManagement.enable = true;
 
-  # Udev rules to remove NVIDIA PCIe devices and enforce runtime power management
+  # Udev rules to remove NVIDIA & MediaTek PCIe devices and enforce runtime power management
   services.udev.extraRules = ''
     # Remove NVIDIA USB xHCI Host Controller devices, if present
     ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
@@ -48,6 +69,9 @@
     ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
     # Remove NVIDIA VGA/3D controller devices
     ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+
+    # Remove MediaTek MT7921 PCIe Wi-Fi card (vendor 0x14c3)
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x14c3", ATTR{power/control}="auto", ATTR{remove}="1"
   '';
 
   # ASUS hardware EC power-cut for dGPU at startup & resume
