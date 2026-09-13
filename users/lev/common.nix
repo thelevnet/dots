@@ -17,15 +17,13 @@
   ];
 
   home.packages = with pkgs; [
+    antigravity-cli
     zoxide
-    libnotify
     fetch
     git
-    rclone
     bat
     eza
     yazi
-    tmux
     bibata-cursors
     qrencode
   ];

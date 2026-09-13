@@ -10,9 +10,10 @@
     zen-browser
     telegram-desktop
     portablemc
+    rclone
+    tmux
 
     # Development tools
-    antigravity-cli
     gcc
     rustup
     gh
