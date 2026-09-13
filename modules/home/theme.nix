@@ -6,9 +6,9 @@
   };
 
   config = lib.mkIf config.modules.theme.enable {
-    home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ../../../assets/fonts/GoogleSansFlex.ttf;
+    home.file.".local/share/fonts/GoogleSansFlex.ttf".source = ../../assets/fonts/GoogleSansFlex.ttf;
     home.file."Pictures" = {
-      source = ../../../assets/wallpapers;
+      source = ../../assets/wallpapers;
       recursive = true;
     };
   };
