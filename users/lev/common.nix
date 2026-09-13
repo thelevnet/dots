@@ -9,9 +9,8 @@
     ../../modules/home
   ];
 
-  # Base CLI tools common to all devices (desktop, laptop, phone)
   home.packages = with pkgs; [
-    antigravity-cli # agy
+    antigravity-cli
     git
     gh
     bat
