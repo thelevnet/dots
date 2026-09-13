@@ -13,8 +13,9 @@
   # Boot loader & kernel
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "i2c-dev" "asus-nb-wmi" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "i2c-dev" "asus-nb-wmi" "8821au" ];
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtl8821au ];
 
   # Completely cut power to NVIDIA dGPU and blacklist modules
   boot.kernelParams = [
