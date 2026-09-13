@@ -10,7 +10,6 @@
     oh-my-zsh = {
       enable = true;
       plugins = [
-        "git"
         "colored-man-pages"
       ];
     };
@@ -28,14 +27,14 @@
         zsh-newuser-install() { :; }
       '')
       (lib.mkAfter ''
-        text() {
-          print -P "%{\e[32m%}%{\e[0m%}%{\e[42m\e[37m%}SYS%{\e[0m%}%{\e[0m%}%{\e[32m%}%{\e[0m%} $1"
+        _text() {
+          print -P "%{\e[32m%}%{\e[0m%}%{\e[42m\e[30m%}󰍪 %{\e[0m%}%{\e[32m%}%{\e[0m%} $1"
         }
         clear
-        text "fastfetch"
         fastfetch
-        text "こんにちは、レフ！"
+        _text "こんにちは、レフ！"
         echo
+        unfunction _text
 
         eval "$(zoxide init zsh)"
       '')

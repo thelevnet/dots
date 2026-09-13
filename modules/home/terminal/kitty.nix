@@ -28,6 +28,9 @@
       cursor_blink_interval = 0;
       cursor_trail = 3;
 
+      allow_remote_control = "socket-only";
+      listen_on = "unix:@mykitty";
+
       "include" = "~/.cache/noctalia/kitty-theme.conf";
     };
 

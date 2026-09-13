@@ -36,6 +36,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -43,6 +48,13 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/desktop
+      ];
+    };
+
+    nixosConfigurations."laptop" = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./hosts/laptop
       ];
     };
 
@@ -70,7 +82,6 @@
             nh
             nix-output-monitor
             nvd
-            neovim
             nil
             nixfmt
             alejandra

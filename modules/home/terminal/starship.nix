@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.starship = {
@@ -9,14 +14,15 @@
       add_newline = false;
 
       format = lib.concatStrings [
-        "[](green)[ ](fg:white bg:green)[ ](fg:green bg:black)$directory[](black)"
+        "[](green)[ ](fg:black bg:green)[ ](fg:green bg:black)$directory[ ](black)"
         "$fill"
-        "[](black)$username$hostname"
-        "[](fg:green bg:black)[ ](fg:white bg:green)[](green)\n"
+        "[ ](black)$username$hostname"
+        "[](fg:green bg:black)[ ](fg:black bg:green)[](green)\n"
+        "$character"
       ];
 
       fill = {
-        symbol = " ";
+        symbol = "·";
       };
 
       directory = {
@@ -30,7 +36,7 @@
       username = {
         show_always = true;
         style_user = "fg:white bg:black";
-        format = "[ $user]($style)" ;
+        format = "[ $user]($style)";
       };
 
       hostname = {
@@ -40,33 +46,24 @@
       };
 
       character = {
-        success_symbol = "[](green) ";
-        error_symbol = "[](green) ";
+        format = "[](green) ";
       };
     };
   };
 
-  # Transient prompt: collapses executed line down to  on Enter
   programs.zsh.initContent = lib.mkAfter ''
-    autoload -Uz add-zsh-hook
+    _starship_full_prompt="$PROMPT"
 
     _starship_precmd() {
-      PROMPT='$(starship prompt --terminal-width="$COLUMNS" --keymap="''${KEYMAP:-}" --status="''${STARSHIP_CMD_STATUS:-}" --pipestatus="''${STARSHIP_PIPE_STATUS[*]:-}" --cmd-duration="''${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
-      RPROMPT=""
+      PROMPT="$_starship_full_prompt"
     }
     add-zsh-hook precmd _starship_precmd
 
     _starship_accept_line() {
-      PROMPT=$'%{\e[32m%} %{\e[0m%}'
-      RPROMPT=""
+      PROMPT="$(starship module character)"
       zle reset-prompt
       zle .accept-line
     }
     zle -N accept-line _starship_accept_line
-
-    preexec() {
-      PROMPT=$'%{\e[32m%} %{\e[0m%}'
-      RPROMPT=""
-    }
   '';
 }
