@@ -30,7 +30,7 @@ enabled = false
 tint_intensity = 0.30000001192092896
 
 [bar]
-order = [ "left", "right" ]
+order = [ "left", "right", "bottom" ]
 
     [bar.left]
     auto_hide = false
@@ -116,6 +116,30 @@ order = [ "left", "right" ]
     widget_spacing = 6
 
         [bar.right.dead_zone.actions]
+        right = "none"
+
+    [bar.bottom]
+    capsule = true
+    capsule_padding = 14.0
+    capsule_thickness = 0.76000000000000001
+    center = [ "workspaces" ]
+    end = [ "clock", "session" ]
+    font_weight = 900
+    layer = "top"
+    margin_ends = 0
+    padding = 10
+    panel_overlap = 0
+    position = "bottom"
+    radius = 30
+    radius_bottom_left = 0
+    radius_bottom_right = 0
+    radius_top_left = 30
+    reserve_space = true
+    shadow = true
+    start = [ "screenshot", "media", "clipboard" ]
+    thickness = 58
+
+        [bar.bottom.dead_zone.actions]
         right = "none"
 
 [battery]
