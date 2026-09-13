@@ -21,7 +21,10 @@
     zen-browser
     zoxide
     fetch
+    gh
+    portablemc
     git
+    telegram-desktop
     bat
     eza
     yazi
