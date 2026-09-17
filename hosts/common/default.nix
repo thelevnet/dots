@@ -9,7 +9,7 @@
   # Enabled base modules across all NixOS hosts
   modules = {
     sops.enable = lib.mkDefault true;
-    hyprland.enable = lib.mkDefault true;
+    niri.enable = lib.mkDefault true;
     tailscale.enable = lib.mkDefault true;
   };
 
@@ -30,6 +30,10 @@
   # Common Hardware Features
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   # Memory & ZRAM
   zramSwap = {
@@ -97,38 +101,24 @@
     next
   ];
 
-  # Home Manager Integration & Workstation Profile
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
-    users.lev = {
-      imports = [ ../../users/lev/common.nix ];
-
-      # Workstation modules enabled on all NixOS hosts
-      modules = {
-        hyprland.enable = lib.mkDefault true;
-        noctalia.enable = lib.mkDefault true;
-        kitty.enable = lib.mkDefault true;
-        fastfetch.enable = lib.mkDefault true;
-        zsh.enable = lib.mkDefault true;
-        starship.enable = lib.mkDefault true;
-        neovim.enable = lib.mkDefault true;
-        theme.enable = lib.mkDefault true;
-      };
-
-      # Common desktop GUI & workstation packages
-      home.packages = with pkgs; [
-        zen-browser
-        telegram-desktop
-        portablemc
-        bibata-cursors
-        zoxide
-        fetch
-        qrencode
-      ];
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+      bigclock = "en";
+      hide_borders = false;
+      clear_password = true;
     };
   };
+
+  # Home Manager Integration
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = false;
+    backupFileExtension = "backup";
+    extraSpecialArgs = { inherit inputs; };
+  };
+
 
   system.stateVersion = "26.05";
 }

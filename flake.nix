@@ -2,11 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,17 +54,7 @@
     };
 
     homeConfigurations = let
-      mkPhone = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-linux";
-          config.allowUnfree = true;
-          overlays = import ./overlays { inherit inputs; };
-        };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [ ./users/lev/phone.nix ];
-      };
-
-      mkWorkstation = userModule: inputs.home-manager.lib.homeManagerConfiguration {
+      mkHome = userModule: inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
@@ -78,35 +63,11 @@
         extraSpecialArgs = { inherit inputs; };
         modules = [
           userModule
-          ({ pkgs, ... }: {
-            modules = {
-              hyprland.enable = true;
-              noctalia.enable = true;
-              kitty.enable = true;
-              fastfetch.enable = true;
-              zsh.enable = true;
-              starship.enable = true;
-              neovim.enable = true;
-              theme.enable = true;
-            };
-            home.packages = with pkgs; [
-              zen-browser
-              telegram-desktop
-              portablemc
-              bibata-cursors
-              zoxide
-              fetch
-              qrencode
-            ];
-          })
         ];
       };
     in {
-      "phone" = mkPhone;
-      "termux" = mkPhone;
-      "lev@desktop" = mkWorkstation ./users/lev/desktop.nix;
-      "lev@laptop" = mkWorkstation ./users/lev/laptop.nix;
-      "lev" = mkWorkstation ./users/lev/desktop.nix;
+      "lev@desktop" = mkHome ./users/lev/desktop.nix;
+      "lev@laptop" = mkHome ./users/lev/laptop.nix;
     };
 
     devShells = let

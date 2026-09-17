@@ -36,18 +36,7 @@
     "mt76"
   ];
   boot.extraModprobeConfig = ''
-    blacklist nouveau
     options nouveau modeset=0
-
-    # MediaTek MT7921
-    blacklist mt7921e
-    blacklist mt7921s
-    blacklist mt7921u
-    blacklist mt7921_common
-    blacklist mt792x_lib
-    blacklist mt792x_usb
-    blacklist mt76_connac_lib
-    blacklist mt76
   '';
 
   # Power Management & Battery

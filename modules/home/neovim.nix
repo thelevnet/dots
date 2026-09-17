@@ -1,7 +1,66 @@
 { config, pkgs, inputs, lib, ... }:
 
 let
-  tomlFormat = pkgs.formats.toml { };
+  # Pure declarative LazyVim plugins from nixpkgs
+  lazyPlugins = with pkgs.vimPlugins; [
+    # Core LazyVim
+    LazyVim
+    lazy-nvim
+
+    # UI & Appearance
+    bufferline-nvim
+    lualine-nvim
+    noice-nvim
+    nui-nvim
+    snacks-nvim
+    which-key-nvim
+    tokyonight-nvim
+    base16-nvim
+
+    # Mini plugins
+    { name = "mini.ai"; path = mini-nvim; }
+    { name = "mini.icons"; path = mini-nvim; }
+    { name = "mini.pairs"; path = mini-nvim; }
+    { name = "catppuccin"; path = catppuccin-nvim; }
+
+    # Coding & Completion
+    blink-cmp
+    friendly-snippets
+    ts-comments-nvim
+    lazydev-nvim
+    luvit-meta
+
+    # Editor & Navigation
+    flash-nvim
+    grug-far-nvim
+    persistence-nvim
+    plenary-nvim
+    todo-comments-nvim
+    trouble-nvim
+    telescope-nvim
+    telescope-fzf-native-nvim
+    indent-blankline-nvim
+    dashboard-nvim
+    dressing-nvim
+    neo-tree-nvim
+
+    # LSP & Linting
+    nvim-lspconfig
+    nvim-lint
+
+    # Treesitter (with all pre-compiled grammars)
+    nvim-treesitter.withAllGrammars
+    nvim-treesitter-textobjects
+    nvim-ts-autotag
+  ];
+
+  mkEntryFromDrv = drv:
+    if lib.isDerivation drv then
+      { name = "${lib.getName drv}"; path = drv; }
+    else
+      drv;
+
+  lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv lazyPlugins);
 in
 {
   imports = [
@@ -9,632 +68,295 @@ in
   ];
 
   options.modules.neovim = {
-    enable = lib.mkEnableOption "Neovim editor with Nixvim";
+    enable = lib.mkEnableOption "Neovim editor with pure-Nix LazyVim";
   };
 
   config = lib.mkIf config.modules.neovim.enable {
     programs.nixvim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    nixpkgs.useGlobalPackages = true;
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      nixpkgs.useGlobalPackages = true;
 
-    globals = {
-      mapleader = " ";
-      maplocalleader = "\\";
-    };
+      # Only Rust LSP and editor CLI utilities (no git, no extra LSPs, no formatters)
+      extraPackages = with pkgs; [
+        rust-analyzer
+        ripgrep
+        fd
+        gcc
+        gnumake
+        kitty
+      ];
 
-    opts = {
-      # Line numbers
-      number = true;
-      relativenumber = false;
+      # Only lazy-nvim and base16-nvim are loaded into initial runtimepath
+      extraPlugins = with pkgs.vimPlugins; [
+        lazy-nvim
+        base16-nvim
+      ];
 
-      # Clipboard
-      clipboard = "unnamedplus";
-
-      # Indentation
-      expandtab = true;
-      shiftwidth = 2;
-      tabstop = 2;
-      smartindent = true;
-      shiftround = true;
-
-      # Search
-      ignorecase = true;
-      smartcase = true;
-      incsearch = true;
-      hlsearch = true;
-
-      # UI & Window behavior
-      termguicolors = true;
-      signcolumn = "yes";
-      cursorline = true;
-      scrolloff = 4;
-      sidescrolloff = 8;
-      wrap = false;
-      splitbelow = true;
-      splitright = true;
-      pumheight = 10;
-      conceallevel = 2;
-
-      # Undo & Persistence
-      undofile = true;
-      undolevels = 10000;
-      swapfile = false;
-      updatetime = 200;
-      timeoutlen = 300;
-      mouse = "a";
-      confirm = true;
-
-      # Remove '~' squiggly lines past the end of the buffer
-      fillchars = {
-        eob = " ";
-      };
-    };
-
-    plugins = {
-      # Completion & Snippets
-      blink-cmp = {
-        enable = true;
-        settings = {
-          keymap = {
-            preset = "default";
-          };
-          appearance = {
-            nerd_font_variant = "mono";
-          };
-          sources = {
-            default = [
-              "lsp"
-              "path"
-              "snippets"
-              "buffer"
-            ];
-          };
-        };
-      };
-      friendly-snippets.enable = true;
-
-      # UI
-      bufferline = {
-        enable = true;
-        settings = {
-          options = {
-            diagnostics = "nvim_lsp";
-            always_show_bufferline = false;
-            offsets = [
-              {
-                filetype = "snacks_layout_box";
-                text = "File Explorer";
-                text_align = "left";
-              }
-            ];
-          };
+      opts = {
+        number = true;
+        relativenumber = false;
+        # Disable all code folding (show the entire code at all times)
+        foldenable = false;
+        foldlevel = 99;
+        foldlevelstart = 99;
+        foldcolumn = "0";
+        statuscolumn = "";
+        clipboard = "unnamedplus";
+        expandtab = true;
+        shiftwidth = 2;
+        tabstop = 2;
+        smartindent = true;
+        shiftround = true;
+        ignorecase = true;
+        smartcase = true;
+        incsearch = true;
+        hlsearch = true;
+        termguicolors = true;
+        signcolumn = "yes";
+        cursorline = true;
+        scrolloff = 4;
+        sidescrolloff = 8;
+        wrap = false;
+        splitbelow = true;
+        splitright = true;
+        pumheight = 10;
+        conceallevel = 2;
+        undofile = true;
+        swapfile = false;
+        updatetime = 200;
+        timeoutlen = 300;
+        mouse = "a";
+        confirm = true;
+        fillchars = {
+          eob = " ";
+          fold = " ";
+          foldopen = " ";
+          foldclose = " ";
+          foldsep = " ";
         };
       };
 
-      lualine = {
-        enable = true;
-        settings = {
-          options = {
-            globalstatus = true;
-            theme = "auto";
-            section_separators = {
-              left = "";
-              right = "";
-            };
-            component_separators = {
-              left = "";
-              right = "";
-            };
-          };
-          sections = {
-            lualine_a = [ "mode" ];
-            lualine_b.__raw = "{}";
-            lualine_c.__raw = "{}";
-            lualine_x.__raw = "{}";
-            lualine_y.__raw = "{}";
-            lualine_z = [ "location" ];
-          };
-        };
+      globals = {
+        mapleader = " ";
+        maplocalleader = "\\";
+        # Disable autoformatting globally
+        autoformat = false;
       };
 
-      which-key.enable = true;
+      # Run before LazyVim loads: Matugen base16 colorscheme setup & Kitty padding
+      extraConfigLuaPre = ''
+        -- Ensure Noctalia Matugen Lua configuration can be loaded
+        local cache_path = vim.fn.expand("~/.cache/noctalia")
+        if not string.find(package.path, cache_path, 1, true) then
+          package.path = package.path .. ";" .. cache_path .. "/?.lua"
+        end
+        local ok, matugen = pcall(require, "matugen")
+        if ok and matugen.setup then
+          matugen.setup()
+        end
 
-      noice = {
-        enable = true;
-        settings = {
-          lsp = {
-            override = {
-              "vim.lsp.util.convert_input_to_markdown_lines" = true;
-              "vim.lsp.util.set_lines_to_formatting" = true;
-              "cmp.entry.get_documentation" = true;
-            };
-          };
-          presets = {
-            bottom_search = true;
-            command_palette = true;
-            long_message_to_split = true;
-          };
-        };
-      };
-
-      # Snacks (Explorer, Picker, Dashboard, etc.)
-      snacks = {
-        enable = true;
-        settings = {
-          bigfile.enabled = true;
-          dashboard.enabled = true;
-          explorer.enabled = true;
-          indent = {
-            enabled = true;
-            hl = "LineNr";
-          };
-          input.enabled = true;
-          notifier.enabled = true;
-          picker.enabled = true;
-          quickfile.enabled = true;
-          scope = {
-            enabled = true;
-            hl = "Comment";
-          };
-          scroll.enabled = true;
-          statuscolumn.enabled = true;
-          words.enabled = true;
-        };
-      };
-
-      # Navigation, Git & Tools
-      flash.enable = true;
-      gitsigns.enable = false;
-      grug-far.enable = true;
-      trouble.enable = true;
-      todo-comments.enable = true;
-      persistence.enable = true;
-      lazydev.enable = true;
-      ts-comments.enable = true;
-
-      mini = {
-        enable = true;
-        modules = {
-          ai = { };
-          pairs = { };
-          icons = { };
-        };
-      };
-
-      # Treesitter syntax highlighting (includes slint)
-      treesitter = {
-        enable = true;
-        settings = {
-          highlight.enable = true;
-          indent.enable = true;
-        };
-      };
-      treesitter-textobjects.enable = true;
-      ts-autotag.enable = true;
-
-      # Formatting (manual only, never auto-format on save)
-      conform-nvim = {
-        enable = true;
-        settings = {
-          formatters_by_ft = {
-            lua = [ "stylua" ];
-          };
-        };
-      };
-
-      lint.enable = true;
-
-      # Language Server Protocol (LSP)
-      lsp = {
-        enable = true;
-        keymaps = {
-          silent = true;
-          diagnostic = {
-            "[d" = "goto_prev";
-            "]d" = "goto_next";
-          };
-          lspBuf = {
-            "gd" = "definition";
-            "gD" = "declaration";
-            "gr" = "references";
-            "gI" = "implementation";
-            "gy" = "type_definition";
-            "K" = "hover";
-            "gK" = "signature_help";
-            "<leader>ca" = "code_action";
-            "<leader>cr" = "rename";
-          };
-        };
-        servers = {
-          asm_lsp = {
-            enable = true;
-            filetypes = [
-              "asm"
-              "vmasm"
-              "nasm"
-            ];
-          };
-          lua_ls.enable = true;
-          nil_ls.enable = true;
-        };
-      };
-    };
-
-    # Extra plugins (Base16 theme support)
-    extraPlugins = with pkgs.vimPlugins; [
-      base16-nvim
-    ];
-
-    # Extra runtime tools & packages
-    extraPackages = with pkgs; [
-      git
-      gcc
-      gnumake
-      ripgrep
-      fd
-      stylua
-      asm-lsp
-      kitty
-    ];
-
-    # Keymaps matching LazyVim defaults
-    keymaps = [
-      # Window navigation
-      {
-        mode = "n";
-        key = "<C-h>";
-        action = "<C-w>h";
-        options.desc = "Go to Left Window";
-      }
-      {
-        mode = "n";
-        key = "<C-j>";
-        action = "<C-w>j";
-        options.desc = "Go to Lower Window";
-      }
-      {
-        mode = "n";
-        key = "<C-k>";
-        action = "<C-w>k";
-        options.desc = "Go to Upper Window";
-      }
-      {
-        mode = "n";
-        key = "<C-l>";
-        action = "<C-w>l";
-        options.desc = "Go to Right Window";
-      }
-
-      # Resize window
-      {
-        mode = "n";
-        key = "<C-Up>";
-        action = "<cmd>resize +2<cr>";
-        options.desc = "Increase Window Height";
-      }
-      {
-        mode = "n";
-        key = "<C-Down>";
-        action = "<cmd>resize -2<cr>";
-        options.desc = "Decrease Window Height";
-      }
-      {
-        mode = "n";
-        key = "<C-Left>";
-        action = "<cmd>vertical resize -2<cr>";
-        options.desc = "Decrease Window Width";
-      }
-      {
-        mode = "n";
-        key = "<C-Right>";
-        action = "<cmd>vertical resize +2<cr>";
-        options.desc = "Increase Window Width";
-      }
-
-      # Buffers
-      {
-        mode = "n";
-        key = "<S-h>";
-        action = "<cmd>bprevious<cr>";
-        options.desc = "Prev Buffer";
-      }
-      {
-        mode = "n";
-        key = "<S-l>";
-        action = "<cmd>bnext<cr>";
-        options.desc = "Next Buffer";
-      }
-      {
-        mode = "n";
-        key = "[b";
-        action = "<cmd>bprevious<cr>";
-        options.desc = "Prev Buffer";
-      }
-      {
-        mode = "n";
-        key = "]b";
-        action = "<cmd>bnext<cr>";
-        options.desc = "Next Buffer";
-      }
-
-      # Clear search with <esc>
-      {
-        mode = [
-          "i"
-          "n"
-        ];
-        key = "<esc>";
-        action = "<cmd>noh<cr><esc>";
-        options.desc = "Escape and Clear hlsearch";
-      }
-
-      # Better indenting
-      {
-        mode = "v";
-        key = "<";
-        action = "<gv";
-      }
-      {
-        mode = "v";
-        key = ">";
-        action = ">gv";
-      }
-
-      # Move lines
-      {
-        mode = "n";
-        key = "<A-j>";
-        action = "<cmd>execute 'move .+' . v:count1<cr>==";
-        options.desc = "Move Down";
-      }
-      {
-        mode = "n";
-        key = "<A-k>";
-        action = "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==";
-        options.desc = "Move Up";
-      }
-      {
-        mode = "i";
-        key = "<A-j>";
-        action = "<esc><cmd>m .+1<cr>==gi";
-        options.desc = "Move Down";
-      }
-      {
-        mode = "i";
-        key = "<A-k>";
-        action = "<esc><cmd>m .-2<cr>==gi";
-        options.desc = "Move Up";
-      }
-      {
-        mode = "v";
-        key = "<A-j>";
-        action = ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv";
-        options.desc = "Move Down";
-      }
-      {
-        mode = "v";
-        key = "<A-k>";
-        action = ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv";
-        options.desc = "Move Up";
-      }
-
-      # Snacks Picker / Explorer
-      {
-        mode = "n";
-        key = "<leader><space>";
-        action = "<cmd>lua Snacks.picker.files()<cr>";
-        options.desc = "Find Files";
-      }
-      {
-        mode = "n";
-        key = "<leader>/";
-        action = "<cmd>lua Snacks.picker.grep()<cr>";
-        options.desc = "Grep";
-      }
-      {
-        mode = "n";
-        key = "<leader>,";
-        action = "<cmd>lua Snacks.picker.buffers()<cr>";
-        options.desc = "Buffers";
-      }
-      {
-        mode = "n";
-        key = "<leader>e";
-        action = "<cmd>lua Snacks.explorer()<cr>";
-        options.desc = "File Explorer";
-      }
-      {
-        mode = "n";
-        key = "<leader>ff";
-        action = "<cmd>lua Snacks.picker.files()<cr>";
-        options.desc = "Find Files";
-      }
-      {
-        mode = "n";
-        key = "<leader>sg";
-        action = "<cmd>lua Snacks.picker.grep()<cr>";
-        options.desc = "Grep";
-      }
-      {
-        mode = "n";
-        key = "<leader>bd";
-        action = "<cmd>lua Snacks.bufdelete()<cr>";
-        options.desc = "Delete Buffer";
-      }
-      {
-        mode = "n";
-        key = "<leader>gg";
-        action = "<cmd>lua Snacks.lazygit()<cr>";
-        options.desc = "Lazygit";
-      }
-
-      # Trouble
-      {
-        mode = "n";
-        key = "<leader>xx";
-        action = "<cmd>Trouble diagnostics toggle<cr>";
-        options.desc = "Diagnostics (Trouble)";
-      }
-      {
-        mode = "n";
-        key = "<leader>xX";
-        action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
-        options.desc = "Buffer Diagnostics (Trouble)";
-      }
-      {
-        mode = "n";
-        key = "<leader>cs";
-        action = "<cmd>Trouble symbols toggle focus=false<cr>";
-        options.desc = "Symbols (Trouble)";
-      }
-      {
-        mode = "n";
-        key = "<leader>cl";
-        action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
-        options.desc = "LSP References (Trouble)";
-      }
-      {
-        mode = "n";
-        key = "<leader>xL";
-        action = "<cmd>Trouble loclist toggle<cr>";
-        options.desc = "Location List (Trouble)";
-      }
-      {
-        mode = "n";
-        key = "<leader>xQ";
-        action = "<cmd>Trouble qflist toggle<cr>";
-        options.desc = "Quickfix List (Trouble)";
-      }
-
-      # Flash
-      {
-        mode = [
-          "n"
-          "x"
-          "o"
-        ];
-        key = "s";
-        action = "<cmd>lua require('flash').jump()<cr>";
-        options.desc = "Flash";
-      }
-      {
-        mode = [
-          "n"
-          "x"
-          "o"
-        ];
-        key = "S";
-        action = "<cmd>lua require('flash').treesitter()<cr>";
-        options.desc = "Flash Treesitter";
-      }
-
-      # Persistence
-      {
-        mode = "n";
-        key = "<leader>qs";
-        action = "<cmd>lua require('persistence').load()<cr>";
-        options.desc = "Restore Session";
-      }
-      {
-        mode = "n";
-        key = "<leader>ql";
-        action = "<cmd>lua require('persistence').load({ last = true })<cr>";
-        options.desc = "Restore Last Session";
-      }
-      {
-        mode = "n";
-        key = "<leader>qd";
-        action = "<cmd>lua require('persistence').stop()<cr>";
-        options.desc = "Don't Save Current Session";
-      }
-
-      # Formatting
-      {
-        mode = [
-          "n"
-          "v"
-        ];
-        key = "<leader>cf";
-        action = "<cmd>lua require('conform').format({ async = true, lsp_format = 'never' })<cr>";
-        options.desc = "Format Document";
-      }
-    ];
-
-    # Autocommands
-    autoCmd = [
-      {
-        event = [ "TextYankPost" ];
-        callback.__raw = "function() vim.highlight.on_yank() end";
-      }
-
-      # Dynamically remove Kitty window padding inside Neovim, restore on exit/suspend
-      {
-        event = [ "VimEnter" "VimResume" ];
-        callback.__raw = ''
-          function()
+        -- Dynamically remove Kitty window padding inside Neovim, restore on exit/suspend
+        vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+          callback = function()
             if vim.env.KITTY_WINDOW_ID and vim.fn.executable("kitty") == 1 then
               pcall(vim.system, { "kitty", "@", "set-spacing", "padding=0" })
             end
-          end
-        '';
-      }
-      {
-        event = [ "VimLeavePre" "VimSuspend" ];
-        callback.__raw = ''
-          function()
+          end,
+        })
+        vim.api.nvim_create_autocmd({ "VimLeavePre", "VimSuspend" }, {
+          callback = function()
             if vim.env.KITTY_WINDOW_ID and vim.fn.executable("kitty") == 1 then
               pcall(function()
                 vim.system({ "kitty", "@", "set-spacing", "padding=default" }):wait()
               end)
             end
-          end
-        '';
-      }
-    ];
-
-    # Pure Nix compatibility: mock lazy.stats for plugins (e.g. snacks.dashboard)
-    extraConfigLuaPre = ''
-      local cache_path = vim.fn.expand("~/.cache/noctalia")
-      if not string.find(package.path, cache_path, 1, true) then
-        package.path = package.path .. ";" .. cache_path .. "/?.lua"
-      end
-      local ok, matugen = pcall(require, "matugen")
-      if ok and matugen.setup then
-        matugen.setup()
-      end
-
-      local _start_time = vim.fn.reltime()
-      package.preload["lazy.stats"] = function()
-        return {
-          stats = function()
-            local count = #vim.api.nvim_list_runtime_paths()
-            return {
-              count = count,
-              loaded = count,
-              startuptime = vim.fn.reltimefloat(vim.fn.reltime(_start_time)) * 1000,
-            }
           end,
-        }
-      end
-    '';
+        })
+      '';
 
-    # Noctalia / Matugen dynamic colorscheme loader
-    extraConfigLua = ''
-      local ok, matugen = pcall(require, "matugen")
-      if ok and matugen.setup then
-        matugen.setup()
-      end
-    '';
-  };
+      # Declarative LazyVim initialization
+      extraConfigLua = ''
+        -- Configure project root detection (without git)
+        vim.g.root_spec = { "lsp", { "flake.nix", "Cargo.toml", "package.json", "lua" }, "cwd" }
 
-  # Stylua configuration file
-  xdg.configFile."nvim/stylua.toml".source = tomlFormat.generate "stylua.toml" {
-    indent_type = "Spaces";
-    indent_width = 2;
-    column_width = 120;
-  };
+        require("lazy").setup({
+          defaults = {
+            lazy = true,
+          },
+          dev = {
+            path = "${lazyPath}",
+            patterns = { "" },
+            fallback = false,
+          },
+          spec = {
+            -- Import all standard LazyVim core plugins
+            {
+              "LazyVim/LazyVim",
+              import = "lazyvim.plugins",
+              opts = {
+                colorscheme = function()
+                  local cache_path = vim.fn.expand("~/.cache/noctalia")
+                  if not string.find(package.path, cache_path, 1, true) then
+                    package.path = package.path .. ";" .. cache_path .. "/?.lua"
+                  end
+                  local ok, matugen = pcall(require, "matugen")
+                  if ok and matugen.setup then
+                    matugen.setup()
+                  else
+                    vim.cmd.colorscheme("tokyonight")
+                  end
+                end,
+                news = {
+                  lazyvim = false,
+                  neovim = false,
+                },
+              },
+            },
+
+            -- Enable telescope-fzf-native
+            { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
+
+            -- Disable Mason (tools are declaratively installed via Nix extraPackages)
+            { "williamboman/mason.nvim", enabled = false },
+            { "williamboman/mason-lspconfig.nvim", enabled = false },
+
+            -- Completely disable git signs / symbols
+            { "lewis6991/gitsigns.nvim", enabled = false },
+
+            -- Completely disable conform.nvim formatter
+            { "stevearc/conform.nvim", enabled = false },
+
+            -- Disable all git features in snacks (lazygit, gitbrowse, git status, git pickers)
+            {
+              "folke/snacks.nvim",
+              opts = {
+                statuscolumn = { enabled = false },
+                git = { enabled = false },
+                gitbrowse = { enabled = false },
+                lazygit = { enabled = false },
+                picker = {
+                  sources = {
+                    explorer = {
+                      git_status = false,
+                      git_untracked = false,
+                    },
+                  },
+                },
+              },
+            },
+
+            -- Hide git group from which-key menu
+            {
+              "folke/which-key.nvim",
+              opts = {
+                spec = {
+                  { "<leader>g", hidden = true },
+                  { "<leader>gh", hidden = true },
+                },
+              },
+            },
+
+            -- Treesitter: use Nix pre-compiled grammars
+            {
+              "nvim-treesitter/nvim-treesitter",
+              opts = function(_, opts)
+                opts.ensure_installed = {}
+              end,
+            },
+
+            -- Blink.cmp completion with Super-Tab preset
+            {
+              "saghen/blink.cmp",
+              opts = {
+                keymap = {
+                  preset = "super-tab",
+                },
+              },
+            },
+
+            -- Minimal Lualine keeping Noctalia rounded style and showing active filename
+            {
+              "nvim-lualine/lualine.nvim",
+              opts = function(_, opts)
+                opts.options = {
+                  globalstatus = true,
+                  theme = "auto",
+                  section_separators = { left = "", right = "" },
+                  component_separators = { left = "", right = "" },
+                }
+                opts.sections = {
+                  lualine_a = { "mode" },
+                  lualine_b = {},
+                  lualine_c = {
+                    {
+                      "filename",
+                      path = 1,
+                    },
+                  },
+                  lualine_x = {},
+                  lualine_y = {},
+                  lualine_z = { "location" },
+                }
+              end,
+            },
+
+            -- ONLY Rust LSP (all other servers completely removed, folding disabled)
+            {
+              "neovim/nvim-lspconfig",
+              opts = {
+                folds = { enabled = false },
+                servers = {
+                  lua_ls = { enabled = false },
+                  rust_analyzer = {},
+                },
+              },
+            },
+          },
+        })
+
+        -- Disable relative line numbers (use normal absolute line numbers)
+        vim.opt.relativenumber = false
+
+        -- Disable all code folding completely (show full code, never collapse)
+        vim.opt.foldenable = false
+        vim.opt.foldlevel = 99
+        vim.opt.foldlevelstart = 99
+        vim.opt.foldcolumn = "0"
+        vim.opt.statuscolumn = ""
+
+        -- Permanently disable all formatting on save and manual triggers
+        vim.g.autoformat = false
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "VeryLazy",
+          callback = function()
+            vim.g.autoformat = false
+            if LazyVim and LazyVim.format then
+              LazyVim.format.format = function() end
+            end
+
+            -- Purge all git keymaps from Neovim
+            local git_keys = { "gg", "gG", "gL", "gb", "gf", "gl", "gB", "gY", "gd", "gD", "gs", "gS", "gi", "gI", "gp", "gP" }
+            for _, k in ipairs(git_keys) do
+              pcall(vim.keymap.del, "n", "<leader>" .. k)
+              pcall(vim.keymap.del, "x", "<leader>" .. k)
+            end
+            pcall(vim.keymap.del, "n", "]h")
+            pcall(vim.keymap.del, "n", "[h")
+          end,
+        })
+
+        -- Ensure buffer windows never enable folding or fold statuscolumn
+        vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+          callback = function()
+            vim.opt_local.foldenable = false
+            vim.opt_local.foldcolumn = "0"
+            vim.opt_local.statuscolumn = ""
+          end,
+        })
+      '';
+    };
   };
 }

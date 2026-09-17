@@ -41,10 +41,13 @@
           _text "こんにちは、レフ！"
           echo
           unfunction _text
-
-          eval "$(zoxide init zsh)"
         '')
       ];
+    };
+
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 }

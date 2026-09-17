@@ -13,168 +13,57 @@
 
     xdg.configFile = {
       "noctalia/config.toml".text = ''
-[accessibility]
-high_contrast = false
-ui_scale = 1.0
-
 [audio]
-enable_overdrive = false
 enable_sounds = false
-notification_sound = ""
-sound_volume = 0.5
-volume_change_sound = ""
-
-[backdrop]
-blur_intensity = 0.5
-enabled = false
-tint_intensity = 0.30000001192092896
 
 [bar]
-order = [ "left", "right", "bottom" ]
+order = [ "left" ]
 
     [bar.left]
-    auto_hide = false
-    background_opacity = 1.0
-    border = "outline"
-    border_width = 0.0
     capsule = true
-    capsule_fill = "surface_variant"
-    capsule_group = []
-    capsule_opacity = 1.0
     capsule_padding = 14.0
-    capsule_thickness = 0.75999999046325684
-    center = [ "clock" ]
-    concave_edge_corners = true
-    contact_shadow = false
-    enabled = true
-    end = [ "clipboard" ]
-    font_scale = 1.0
-    font_weight = 900
-    hover_highlight = true
+    capsule_thickness = 0.76000000000000001
+    end = [ "audio_visualizer", "group:g1", "session" ]
+    font_weight = 1000
     layer = "top"
-    margin_edge = 0
     margin_ends = 0
-    margin_opposite_edge = 0
     padding = 10
     panel_overlap = 0
     position = "left"
     radius = 30
     radius_bottom_left = 0
-    radius_bottom_right = 30
     radius_top_left = 0
-    radius_top_right = 30
     reserve_space = true
-    scale = 1.0
-    shadow = true
-    show_on_workspace_switch = true
-    smart_auto_hide = false
-    start = [ "screenshot" ]
+    start = [ "group:g2", "workspaces" ]
     thickness = 58
-    widget_spacing = 6
 
         [bar.left.dead_zone.actions]
         right = "none"
 
-    [bar.right]
-    auto_hide = false
-    background_opacity = 1.0
-    border = "outline"
-    border_width = 0.0
-    capsule = true
-    capsule_fill = "surface_variant"
-    capsule_group = []
-    capsule_opacity = 1.0
-    capsule_padding = 14.0
-    capsule_thickness = 0.75999999046325684
-    center = [ "workspaces" ]
-    concave_edge_corners = true
-    contact_shadow = false
-    enabled = true
-    end = [ "session" ]
-    font_scale = 1.0
-    font_weight = 900
-    hover_highlight = true
-    layer = "top"
-    margin_edge = 0
-    margin_ends = 0
-    margin_opposite_edge = 0
-    padding = 10
-    panel_overlap = 0
-    position = "right"
-    radius = 30
-    radius_bottom_left = 30
-    radius_bottom_right = 0
-    radius_top_left = 30
-    radius_top_right = 0
-    reserve_space = true
-    scale = 1.0
-    shadow = true
-    show_on_workspace_switch = true
-    smart_auto_hide = false
-    start = [ "widget" ]
-    thickness = 58
-    widget_spacing = 6
+        [[bar.left.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "bluetooth", "network" ]
+        opacity = 1.0
+        padding = 14.0
 
-        [bar.right.dead_zone.actions]
-        right = "none"
-
-    [bar.bottom]
-    capsule = true
-    capsule_padding = 14.0
-    capsule_thickness = 0.76000000000000001
-    center = [ "workspaces" ]
-    end = [ "clock", "session" ]
-    font_weight = 900
-    layer = "top"
-    margin_ends = 0
-    padding = 10
-    panel_overlap = 0
-    position = "bottom"
-    radius = 30
-    radius_bottom_left = 0
-    radius_bottom_right = 0
-    radius_top_left = 30
-    reserve_space = true
-    shadow = true
-    start = [ "screenshot", "media", "clipboard" ]
-    thickness = 58
-
-        [bar.bottom.dead_zone.actions]
-        right = "none"
-
-[battery]
-warning_threshold = 10
-
-[brightness]
-enable_ddcutil = false
-ignore_mmids = []
-minimum_brightness = 0.0
-sync_all_monitors = false
+        [[bar.left.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "launcher", "control-center", "notes_2" ]
+        opacity = 1.0
+        padding = 14.0
 
 [calendar]
-enabled = false
-event_date_format = "%A %e %B"
-event_time_format = "%H:%M"
-refresh_minutes = 15
-
-    [calendar.account.google_account]
-    calendars = []
-    color = "primary"
-    credential_source = "secret-service"
-    name = "Google"
-    password_file = ""
-    path = ""
-    provider = ""
-    server_url = ""
-    type = "google"
-    username = ""
 
 [control_center]
-hidden_tabs = []
-show_session_button = true
 show_shortcut_labels = false
-sidebar = "compact"
-sidebar_section = "compact"
 width = 720
 
     [control_center.calendar]
@@ -191,16 +80,15 @@ width = 720
     type = "caffeine"
 
     [[control_center.shortcuts]]
-    type = "power_profile"
-
-    [[control_center.shortcuts]]
     type = "system"
 
     [[control_center.shortcuts]]
     type = "keyboard_layout"
 
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
 [desktop_widgets]
-enabled = true
 schema_version = 2
 widget_order = [ "desktop-widget-000000000000000a", "desktop-widget-000000000000000b" ]
 
@@ -214,7 +102,6 @@ widget_order = [ "desktop-widget-000000000000000a", "desktop-widget-000000000000
     box_width = 1792.0
     cx = 960.0
     cy = 928.5
-    enabled = true
     output = "eDP-1"
     placement_height = 0.0
     placement_width = 0.0
@@ -231,11 +118,10 @@ widget_order = [ "desktop-widget-000000000000000a", "desktop-widget-000000000000
         show_when_idle = false
 
     [desktop_widgets.widget.desktop-widget-000000000000000b]
-    box_height = 704.0
-    box_width = 2432.0
-    cx = 1282.0
-    cy = 1078.0
-    enabled = true
+    box_height = 736.0
+    box_width = 2528.0
+    cx = 1280.0
+    cy = 1072.0
     output = "DP-1"
     placement_height = 1440.0
     placement_width = 2560.0
@@ -244,150 +130,46 @@ widget_order = [ "desktop-widget-000000000000000a", "desktop-widget-000000000000
 
         [desktop_widgets.widget.desktop-widget-000000000000000b.settings]
         background = false
-        bands = 52
+        bands = 44
         centered = false
         color_1 = "primary"
+        color_2 = "primary"
         mirrored = true
+        reversed = false
         show_when_idle = false
 
 [dock]
-active_monitor_only = false
-active_opacity = 1.0
-active_scale = 1.0
-auto_hide = true
-background_opacity = 1.0
+auto_hide = false
 border = "primary"
-border_width = 3.0
-concave_edge_corners = true
-cross_axis_padding = 8
-enabled = true
-icon_size = 48
+border_width = 0.0
 inactive_opacity = 1.0
 inactive_scale = 1.0
-item_spacing = 6
-launcher_custom_image = ""
-launcher_custom_image_colorize = false
-launcher_icon = "grid-dots"
-launcher_position = "none"
-layer = "top"
-magnification = true
+layer = "overlay"
 magnification_scale = 2.0
-main_axis_padding = 57
-margin_edge = 16
-margin_ends = 0
-monitors = []
+margin_edge = 0
 pinned = [ "zen", "org.telegram.desktop", "kitty" ]
-position = "bottom"
+position = "right"
 radius = 58
-radius_bottom_left = 58
-radius_bottom_right = 58
-radius_top_left = 58
-radius_top_right = 58
 reserve_space = false
-shadow = true
+shadow = false
 show_dots = true
 show_instance_count = false
-show_running = true
-smart_auto_hide = false
-
-[hooks]
-battery_charging = []
-battery_discharging = []
-battery_percentage_changed = []
-battery_plugged = []
-bluetooth_disabled = []
-bluetooth_enabled = []
-colors_changed = []
-logging_out = []
-power_profile_changed = []
-rebooting = []
-session_locked = []
-session_unlocked = []
-shutting_down = []
-started = []
-theme_mode_changed = []
-wallpaper_changed = []
-wifi_disabled = []
-wifi_enabled = []
+smart_auto_hide = true
 
 [hot_corners]
-delay_ms = 0
-enabled = false
+delay_ms = 300
 
     [hot_corners.bottom_left]
-    action = "none"
-    command = ""
+    action = "launcher"
 
     [hot_corners.bottom_right]
-    action = "none"
-    command = ""
-
-    [hot_corners.top_left]
-    action = "none"
-    command = ""
-
-    [hot_corners.top_right]
-    action = "none"
-    command = ""
-
-[idle]
-behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
-pre_action_fade_seconds = 2.0
-
-    [idle.behavior.lock]
-    action = "lock"
-    command = ""
-    enabled = false
-    locked_timeout = 0.0
-    resume_command = ""
-    timeout = 600.0
-
-    [idle.behavior.lock-and-suspend]
-    action = "lock_and_suspend"
-    command = ""
-    enabled = false
-    locked_timeout = 0.0
-    resume_command = ""
-    timeout = 900.0
-
-    [idle.behavior.screen-off]
-    action = "screen_off"
-    command = ""
-    enabled = false
-    locked_timeout = 0.0
-    resume_command = ""
-    timeout = 660.0
-
-[keybinds]
-cancel = [ "Escape" ]
-copy = [ "Ctrl+c" ]
-delete = [ "Delete" ]
-down = [ "Down" ]
-left = [ "Left" ]
-right = [ "Right" ]
-save = [ "Ctrl+s" ]
-tab_next = [ "Tab" ]
-tab_previous = [ "Shift+ISO_Left_Tab" ]
-up = [ "Up" ]
-validate = [ "Return", "KP_Enter", "space" ]
+    action = "window_switcher"
 
 [location]
 address = "Eitorf, Germany"
-auto_locate = false
-custom_schedule = false
-sunrise = ""
-sunset = ""
 
 [lockscreen]
-allow_empty_password = false
-blur_intensity = 0.5
-blurred_desktop = false
-enabled = true
-fingerprint = true
-lock_before_suspend = true
-monitors = []
 tint_intensity = 0.0
-wallpaper = ""
 
 [lockscreen_widgets]
 enabled = true
@@ -410,7 +192,6 @@ widget_order = [
     box_width = 810.0
     cx = 1280.0
     cy = 1258.0
-    enabled = true
     output = "DP-1"
     placement_height = 1440.0
     placement_width = 2560.0
@@ -438,7 +219,6 @@ widget_order = [
     box_width = 810.0
     cx = 960.0
     cy = 898.0
-    enabled = true
     output = "FALLBACK"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -466,7 +246,6 @@ widget_order = [
     box_width = 720.0
     cx = 603.99969482421875
     cy = 1237.9996337890625
-    enabled = true
     output = "WAYLAND-1"
     placement_height = 1420.0
     placement_width = 1207.0
@@ -494,7 +273,6 @@ widget_order = [
     box_width = 720.0
     cx = 944.0
     cy = 1027.0
-    enabled = true
     output = "eDP-1"
     placement_height = 0.0
     placement_width = 0.0
@@ -522,7 +300,6 @@ widget_order = [
     box_width = 656.0
     cx = 944.0
     cy = 868.0
-    enabled = true
     output = "eDP-1"
     placement_height = 0.0
     placement_width = 0.0
@@ -542,63 +319,29 @@ widget_order = [
         format = "{:%H:%M:%S}"
         shadow = false
 
-[nightlight]
-enabled = false
-force = false
-temperature_day = 6500
-temperature_night = 4000
-
 [notification]
-background_opacity = 0.97000002861022949
-border = true
-collapse_on_dismiss = true
-enable_daemon = true
 history_retention_hours = 24
-keep_dismissed_in_history = true
 layer = "overlay"
-max_visible = 0
-monitors = []
-offset_x = 20
-offset_y = 8
-position = "top_right"
-scale = 1.2000000476837158
-show_actions = true
-show_app_name = true
+scale = 1.2
 
 [osd]
-background_opacity = 1.0
-border = true
-enabled = true
-monitors = []
-offset_x = 20
+background_opacity = 0.99999997764825821
 offset_y = 200
-orientation = "horizontal"
 position = "bottom_center"
-position_vertical = "top_center"
-scale = 1.2000000476837158
-
-    [osd.kinds]
-    bluetooth = true
-    brightness = true
-    caffeine = true
-    dnd = true
-    keyboard_backlight = true
-    keyboard_layout = true
-    lock_keys = true
-    media = true
-    nightlight = true
-    power_profile = true
-    privacy = true
-    volume = true
-    volume_input = true
-    volume_output = true
-    wifi = true
+scale = 1.2000000104308128
 
 [plugin_settings."nightwatch75/todo"]
 panel_open_near_click = false
 
 [plugin_settings."noctalia/notes"]
+panel_open_near_click = true
 panel_placement = "attached"
+
+[plugin_settings."samuelskovbakke/calculator-plus"]
+panel_layer = "overlay"
+panel_open_near_click = false
+panel_placement = "floating"
+panel_position = "center"
 
 [plugin_settings."yocraft/qrcode"]
 generate_button = false
@@ -607,117 +350,41 @@ titlebar = false
 
 [plugins]
 auto_update = "all"
-enabled = [ "yocraft/qrcode", "nightwatch75/todo", "noctalia/notes" ]
-
-    [[plugins.source]]
-    enabled = true
-    kind = "git"
-    location = "https://github.com/noctalia-dev/official-plugins"
-    name = "official"
-
-    [[plugins.source]]
-    enabled = true
-    kind = "git"
-    location = "https://github.com/noctalia-dev/community-plugins"
-    name = "community"
+enabled = [ "noctalia/notes" ]
 
 [shell]
 app_icon_color = "primary"
-app_icon_colorize = false
 avatar_path = "/home/lev/Pictures/hole.png"
 button_borders = false
 card_borders = false
-clipboard_auto_paste = "auto"
-clipboard_confirm_clear_history = true
-clipboard_enabled = true
-clipboard_history_max_entries = 100
-clipboard_image_action_command = ""
-clipboard_keep_from_closed_apps = true
-corner_radius_scale = 1.5
-date_format = "%A, %x"
-disable_mipmaps = false
-external_ip_enabled = false
+corner_radius_scale = 1.5000000223517418
 font_family = "Google Sans Flex"
 input_borders = false
-launch_apps_as_systemd_services = false
-launch_apps_custom_command = ""
-niri_overview_type_to_launch_enabled = false
-offline_mode = false
-password_style = "default"
-polkit_agent = false
+niri_overview_type_to_launch_enabled = true
 popup_borders = false
 popup_shadows = false
 screen_time_enabled = true
-settings_show_advanced = true
-settings_window_translucent = false
-setup_wizard_enabled = true
-shared_gl_context = true
-show_location = true
-telemetry_enabled = false
-time_format = "{:%H:%M}"
-
-    [shell.animation]
-    enabled = true
-    speed = 1.0
-
-    [shell.greeter_sync]
-    auto_sync = false
 
     [shell.keyboard_layout.custom_labels]
     "English (US)" = "en"
     Russian = "ru"
 
     [shell.launcher]
-    app_grid = false
-    auto_paste = "auto"
     categories = false
-    compact = false
     fetch_exchange_rates = false
-    pinned = []
-    provider_prefix = "/"
-    show_app_actions = false
-    show_app_origin_indicator = true
-    show_icons = true
-    sort_by_usage = true
-
-        [shell.launcher.dmenu]
+    sort_by_usage = false
 
         [shell.launcher.providers.calculator]
         global = false
-        prefix = ""
-
-    [shell.mpris]
-    blacklist = []
 
     [shell.panel]
-    borders = true
-    clipboard_placement = "floating"
-    clipboard_position = "center"
-    control_center_placement = "attached"
-    control_center_position = "auto"
-    floating_layer = "overlay"
-    floating_offset = 8
-    launcher_placement = "floating"
-    launcher_position = "center"
-    list_item_background = false
-    open_near_click_clipboard = false
-    open_near_click_control_center = false
-    open_near_click_launcher = false
-    open_near_click_session = false
-    open_near_click_wallpaper = false
-    polkit_placement = "floating"
-    polkit_position = "center"
+    open_near_click_clipboard = true
+    open_near_click_session = true
     session_placement = "floating"
     session_position = "center"
     shadow = true
-    transparency_mode = "solid"
     wallpaper_placement = "floating"
     wallpaper_position = "center"
-
-    [shell.privacy]
-    cam_filter_regex = ""
-    mic_filter_regex = ""
-    screen_filter_regex = ""
 
     [shell.screen_corners]
     enabled = true
@@ -725,14 +392,7 @@ time_format = "{:%H:%M}"
 
     [shell.screenshot]
     annotate = true
-    close_on_copy = true
     confirm_region = true
-    copy_to_clipboard = true
-    directory = ""
-    filename_pattern = ""
-    freeze_screen = true
-    pipe_command = ""
-    pipe_to_command = false
     remember_last_region = true
     save_to_file = false
     show_cursor = true
@@ -742,316 +402,178 @@ time_format = "{:%H:%M}"
     grid_columns = 1
     show_shortcuts = false
 
-        [shell.session.power]
-
         [[shell.session.actions]]
         action = "lock"
-        command = ""
         countdown_seconds = 0.0
         enabled = true
-        glyph = ""
-        label = ""
         shortcut = "1"
         variant = "default"
 
         [[shell.session.actions]]
         action = "logout"
-        command = ""
         countdown_seconds = 0.0
         enabled = true
-        glyph = ""
-        label = ""
         shortcut = "2"
         variant = "default"
 
         [[shell.session.actions]]
         action = "lock_and_suspend"
-        command = ""
         countdown_seconds = 0.0
         enabled = false
-        glyph = ""
-        label = ""
         shortcut = "3"
         variant = "default"
 
         [[shell.session.actions]]
         action = "reboot"
-        command = ""
         countdown_seconds = 0.0
         enabled = false
-        glyph = ""
-        label = ""
         shortcut = "4"
         variant = "default"
 
         [[shell.session.actions]]
         action = "shutdown"
-        command = ""
         countdown_seconds = 0.0
         enabled = true
-        glyph = ""
-        label = ""
         shortcut = "5"
         variant = "destructive"
-
-    [shell.shadow]
-    alpha = 0.55000001192092896
-    direction = "down"
-
-    [shell.window_switcher]
-    mru = false
-
-[storage]
-key_file = ""
-key_source = "secret-service"
-
-[system.monitor]
-cpu_freq_activity_threshold = 2.5
-cpu_freq_critical_threshold = 4.5
-cpu_poll_seconds = 2.0
-cpu_temp_activity_threshold = 60.0
-cpu_temp_critical_threshold = 85.0
-cpu_temp_sensor_path = ""
-cpu_usage_activity_threshold = 50.0
-cpu_usage_critical_threshold = 90.0
-disk_free_activity_threshold = 80.0
-disk_free_critical_threshold = 95.0
-disk_free_pct_activity_threshold = 80.0
-disk_free_pct_critical_threshold = 95.0
-disk_poll_seconds = 10.0
-disk_used_activity_threshold = 80.0
-disk_used_critical_threshold = 95.0
-disk_used_pct_activity_threshold = 80.0
-disk_used_pct_critical_threshold = 95.0
-enabled = true
-gpu_poll_seconds = 5.0
-gpu_temp_activity_threshold = 60.0
-gpu_temp_critical_threshold = 85.0
-gpu_usage_activity_threshold = 50.0
-gpu_usage_critical_threshold = 95.0
-gpu_vram_activity_threshold = 50.0
-gpu_vram_critical_threshold = 90.0
-memory_poll_seconds = 2.0
-net_rx_activity_threshold = 1.0
-net_rx_critical_threshold = 50.0
-net_tx_activity_threshold = 1.0
-net_tx_critical_threshold = 50.0
-network_poll_seconds = 3.0
-ram_pct_activity_threshold = 60.0
-ram_pct_critical_threshold = 90.0
-swap_pct_activity_threshold = 20.0
-swap_pct_critical_threshold = 80.0
 
 [theme]
 builtin = "Ayu"
 community_palette = "Tomorrow"
 custom_palette = "torii-ts"
 mode = "dark"
-pure_black_dark = false
-shell_mode = "follow"
 source = "wallpaper"
 wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
-    builtin_ids = [ "btop" ]
-    community_ids = [ "antigravity", "zen-browser", "telegram", "tmux", "yazi" ]
-    enable_builtin_templates = true
-    enable_community_templates = true
+    builtin_ids = [ "kitty", "niri", "starship" ]
+    community_ids = [ "antigravity", "zen-browser", "telegram", "fastfetch", "bat", "yazi" ]
 
         [theme.templates.user.kitty]
-        compare_to = ""
         enabled = true
-        hook_async = true
-        index = 0
         input_path = "templates/kitty.conf"
-        output_path = [ "$XDG_CACHE_HOME/noctalia/kitty-theme.conf" ]
-        output_path_dynamic = ""
-        post_action = ""
+        output_path = "$XDG_CACHE_HOME/noctalia/kitty-theme.conf"
         post_hook = "pkill -f -USR1 kitty"
-        pre_hook = ""
 
         [theme.templates.user.neovim]
-        compare_to = ""
         enabled = true
-        hook_async = true
-        index = 0
         input_path = "templates/neovim.lua"
-        output_path = [ "$XDG_CACHE_HOME/noctalia/matugen.lua" ]
-        output_path_dynamic = ""
-        post_action = ""
+        output_path = "$XDG_CACHE_HOME/noctalia/matugen.lua"
         post_hook = "pkill -f -SIGUSR1 nvim"
-        pre_hook = ""
 
         [theme.templates.user.telegram]
-        compare_to = ""
         enabled = true
-        hook_async = true
-        index = 0
         input_path = "templates/telegram.tdesktop-theme"
-        output_path = [ "$XDG_CACHE_HOME/noctalia/telegram/colors.tdesktop-theme" ]
-        output_path_dynamic = ""
-        post_action = ""
+        output_path = "$XDG_CACHE_HOME/noctalia/telegram/colors.tdesktop-theme"
         post_hook = "kitty +runpy \"import runpy; runpy.run_path('$HOME/.config/noctalia/scripts/pack-telegram.py')\""
-        pre_hook = ""
 
 [wallpaper]
-directory = ""
-directory_dark = ""
-directory_light = ""
-edge_smoothness = 0.30000001192092896
-enabled = true
-fill_color = ""
-fill_mode = "crop"
-per_monitor_directories = false
-transition = [ "disc", "fade", "honeycomb", "stripes", "wipe", "zoom" ]
-transition_duration = 1500.0
+transition = [ "stripes" ]
 transition_on_startup = true
 
     [wallpaper.automation]
     enabled = true
     interval_seconds = 300
-    order = "random"
-    recursive = true
 
-[weather]
-effects = true
-enabled = true
-refresh_minutes = 30
-unit = "metric"
+    [wallpaper.default]
+    path = "/home/lev/Pictures/city.png"
 
-[widget.active_window]
-icon_size = 14.0
-max_length = 260.0
-min_length = 80.0
-title_scroll = "none"
-type = "active_window"
+    [wallpaper.last]
+    path = "/home/lev/Pictures/city.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/lev/Pictures/city.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/lev/Pictures/Wallpapers/torii.jpg"
+
+[widget.audio_visualizer]
+bands = 20
+scale = 1.5
+show_when_idle = true
+width = 85
 
 [widget.battery]
 display_mode = "none"
 scale = 1.5
-type = "battery"
 
 [widget.bluetooth]
 scale = 1.5
-type = "bluetooth"
 
 [widget.caffeine]
 scale = 1.5
-type = "caffeine"
 
 [widget.clipboard]
 scale = 1.5
-type = "clipboard"
 
 [widget.clock]
 color = "primary"
 scale = 1.7
-type = "clock"
 
     [widget.clock.actions]
     left = "panel-toggle control-center home"
 
-[widget.cpu]
-stat = "cpu_usage"
-type = "sysmon"
-
-[widget.date]
-format = "{:%a %d %b}"
-type = "clock"
-
-[widget.input_volume]
-device = "input"
-type = "volume"
+[widget.control-center]
+color = "primary"
+enabled = false
+glyph = "home"
+scale = 1.5
 
 [widget.keyboard_layout]
-hide_when_single_layout = false
 scale = 1.5
 show_glyph = false
-type = "keyboard_layout"
 
-[widget.lock_keys]
-display = "short"
-hide_when_off = false
-show_caps_lock = true
-show_num_lock = true
-show_scroll_lock = false
-type = "lock_keys"
+[widget.launcher]
+color = "primary"
+scale = 1.5
 
 [widget.media]
-art_size = 16.0
-max_length = 220.0
-min_length = 80.0
-title_scroll = "always"
-type = "media"
+artist_first = true
+hide_album_art = true
+hide_when_no_media = true
+max_length = 200
+min_length = 0
 
-[widget.network_rx]
-stat = "net_rx"
-type = "sysmon"
+[widget.network]
+scale = 1.5
+show_label = false
 
-[widget.network_tx]
-stat = "net_tx"
-type = "sysmon"
-
-[widget.notes]
+[widget.notes_2]
 scale = 1.5
 type = "noctalia/notes:notes"
 
-[widget.output_volume]
-device = "output"
-type = "volume"
-
 [widget.power_profile]
 scale = 1.5
-type = "power_profile"
 
-[widget.ram]
-stat = "ram_used"
-type = "sysmon"
+[widget.privacy]
+hide_inactive = true
 
 [widget.screenshot]
 glyph = "border-corners"
 scale = 1.5
-type = "screenshot"
 
 [widget.session]
+color = "primary"
 scale = 1.5
-type = "session"
 
 [widget.settings]
 scale = 1.5
-type = "settings"
 
     [widget.settings.actions]
     left = "settings-toggle"
 
-[widget.spacer]
-interactive = false
-type = "spacer"
-
-[widget.temp]
-stat = "cpu_temp"
-type = "sysmon"
-
-[widget.todo]
-scale = 1.5
-type = "nightwatch75/todo:todo"
-
 [widget.volume]
 scale = 1.5
 show_label = false
-type = "volume"
-
-[widget.widget]
-scale = 1.5
-type = "yocraft/qrcode:widget"
 
 [widget.workspaces]
 active_pill_size = 2.0
 label_source = "name"
+labels_only_when_occupied = true
 scale = 1.5
-type = "workspaces"
+scroll_repeat = "steps"
 urgent_color = "secondary"
-'';
+      '';
 
     "noctalia/templates/kitty.conf".text = ''
 color0 {{colors.terminal_normal_black.default.hex}}

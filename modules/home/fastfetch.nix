@@ -33,7 +33,7 @@
           { key = "│   │"; keyColor = "32"; type = "shell"; format = "{1}"; }
           { key = "│ 󰏓  │"; keyColor = "32"; type = "packages"; format = "{all}"; }
           { key = "│   │"; keyColor = "32"; type = "terminal"; format = "{1}"; }
-          { key = "│   │"; keyColor = "32"; type = "wm"; format = "{1}"; }
+          { key = "│   │"; keyColor = "32"; type = "wm"; format = "{1}"; }
           { key = "│ 󰝚  │"; keyColor = "32"; type = "media"; format = "{artist} - {title}"; }
           { key = "╰────╯"; keyColor = "32"; type = "custom"; }
         ];
