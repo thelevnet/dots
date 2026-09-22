@@ -11,7 +11,7 @@
 
   config = lib.mkIf config.modules.minecraft.enable {
     services.minecraft-servers = {
-      enable = false;
+      enable = true;
       eula = true;
       openFirewall = true;
 
