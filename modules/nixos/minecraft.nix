@@ -18,7 +18,7 @@
       servers.server = {
         enable = true;
         autoStart = true;
-        package = pkgs.vanillaServers.vanilla-1_21_11;
+        package = pkgs.vanillaServers.vanilla-26_1_2;
         jvmOpts = "-Xmx4G -Xms2G";
         serverProperties = {
           server-port = 25565;
@@ -36,7 +36,7 @@
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "minecraft-cloud-sync" ''
           if [ -d "/srv/minecraft/server/world" ]; then
-            ${pkgs.rclone}/bin/rclone --config /home/lev/.config/rclone/rclone.conf \
+            ${pkgs.rclone}/bin/rclone --config ${config.sops.secrets."rclone_conf".path} \
               sync /srv/minecraft/server/world gdrive:MinecraftBackups/server/world --fast-list -q
           fi
         '';

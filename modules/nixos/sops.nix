@@ -19,14 +19,18 @@
         mode = "0600";
         owner = "lev";
         group = "users";
-        path = "/home/lev/.config/gh/hosts.yml";
+        path = "${config.users.users.lev.home}/.config/gh/hosts.yml";
       };
 
       secrets."rclone_conf" = {
         mode = "0600";
         owner = "lev";
         group = "users";
-        path = "/home/lev/.config/rclone/rclone.conf";
+        path = "${config.users.users.lev.home}/.config/rclone/rclone.conf";
+      };
+
+      secrets."lev-password" = {
+        neededForUsers = true;
       };
     };
 

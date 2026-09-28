@@ -26,7 +26,7 @@
     gh
     bat
     eza
-    yazi
+    superfile
 
     # GUI & workstation
     zen-browser

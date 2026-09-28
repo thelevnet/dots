@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   imports = [
@@ -17,6 +17,7 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
+    trusted-users = [ "root" "@wheel" ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -29,7 +30,6 @@
 
   # Common Hardware Features
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -71,8 +71,13 @@
   };
 
   # System User
+  users.mutableUsers = false;
+  users.users.root = {
+    hashedPasswordFile = config.sops.secrets."lev-password".path;
+  };
   users.users.lev = {
     isNormalUser = true;
+    hashedPasswordFile = config.sops.secrets."lev-password".path;
     extraGroups = [ "networkmanager" "wheel" "video" "minecraft" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [

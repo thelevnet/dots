@@ -44,6 +44,7 @@
         environment = {
           XCURSOR_THEME = "Bibata-Modern-Classic";
           XCURSOR_SIZE = "24";
+          QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
         };
 
         prefer-no-csd = { };
@@ -58,7 +59,7 @@
             { proportion = 0.66667; }
           ];
 
-          default-column-width.proportion = 0.5;
+          default-column-width.proportion = 0.50;
 
           focus-ring = {
             width = 2;
@@ -99,29 +100,27 @@
         };
 
         binds = {
-          "Mod+Space".spawn = [ "noctalia" "msg" "panel-toggle" "control-center" ];
-          "Mod+Slash".spawn = [ "noctalia" "msg" "settings-toggle" ];
-          "Ctrl+Alt+Delete".spawn = [ "noctalia" "msg" "panel-toggle" "session" ];
-          "Print".spawn-sh = [ "noctalia msg screenshot-fullscreen; notify-send 'Screenshot'" ];
+          "Home".spawn = [ "noctalia" "msg" "panel-toggle" "session" ];
+          "End".spawn-sh = [ "noctalia msg screenshot-fullscreen; notify-send 'Screenshot'" ];
 
-          "Home".spawn-sh = [ "kitty --title fetch-float -- fetch --size 15.0 --no-info --infinite -s 2.0" ];
           "Mod+Return".spawn = [ "kitty" ];
-          "Mod+E".spawn = [ "kitty" "yazi" ];
           "Mod+W".spawn = [ "zen" ];
           "Mod+X".spawn = [ "kitty" "nvim" ];
-          "Mod+Q".spawn = [ "Telegram" ];
+          "Mod+E".spawn = [ "kitty" "superfile" ];
+          "Mod+T".spawn = [ "Telegram" ];
 
           "Mod+C".close-window = { };
           "Mod+V".toggle-window-floating = { };
-          "Mod+D".maximize-column = { };
           "Mod+F".fullscreen-window = { };
           "Mod+S".toggle-overview = { };
-          "Mod+Semicolon".set-column-width = "-50%";
-          "Mod+Apostrophe".set-column-width = "+50%";
-          "Mod+Comma".consume-window-into-column = { };
-          "Mod+Period".expel-window-from-column = { };
-          "Mod+Tab".toggle-column-tabbed-display = { };
+          "Mod+U".set-column-width = "-25%";
+          "Mod+I".set-column-width = "+25%";
+          "Mod+O".consume-or-expel-window-left = { };
+          "Mod+P".consume-or-expel-window-right = { };
+          "Mod+Y".toggle-column-tabbed-display = { };
 
+          "Mod+B".spawn = [ "noctalia" "msg" "panel-toggle" "control-center" ];
+          "Mod+Slash".spawn = [ "noctalia" "msg" "settings-toggle" ];
           "XF86AudioRaiseVolume" = {
             _props.allow-when-locked = true;
             spawn = [ "noctalia" "msg" "volume-up" ];
@@ -134,39 +133,21 @@
             _props.allow-when-locked = true;
             spawn = [ "noctalia" "msg" "volume-mute" ];
           };
-          "XF86MonBrightnessUp" = {
-            _props.allow-when-locked = true;
-            spawn = [ "noctalia" "msg" "brightness-up" ];
-          };
-          "XF86MonBrightnessDown" = {
-            _props.allow-when-locked = true;
-            spawn = [ "noctalia" "msg" "brightness-down" ];
-          };
 
-          "Mod+Left".focus-column-left = { };
-          "Mod+Right".focus-column-right = { };
-          "Mod+Up".focus-window-up = { };
-          "Mod+Down".focus-window-down = { };
           "Mod+H".focus-column-left = { };
           "Mod+L".focus-column-right = { };
           "Mod+K".focus-window-up = { };
           "Mod+J".focus-window-down = { };
 
-          "Mod+Ctrl+Left".move-column-left = { };
-          "Mod+Ctrl+Right".move-column-right = { };
-          "Mod+Ctrl+Up".move-window-up = { };
-          "Mod+Ctrl+Down".move-window-down = { };
           "Mod+Ctrl+H".move-column-left = { };
           "Mod+Ctrl+L".move-column-right = { };
           "Mod+Ctrl+K".move-window-up = { };
           "Mod+Ctrl+J".move-window-down = { };
 
-          "Mod+Page_Down".focus-workspace-down = { };
-          "Mod+Page_Up".focus-workspace-up = { };
-          "Mod+Ctrl+Page_Down".move-column-to-workspace-down = { };
-          "Mod+Ctrl+Page_Up".move-column-to-workspace-up = { };
-          "Mod+Shift+Page_Down".move-workspace-down = { };
-          "Mod+Shift+Page_Up".move-workspace-up = { };
+          "Page_Down".focus-workspace-down = { };
+          "Page_Up".focus-workspace-up = { };
+          "Ctrl+Page_Down".move-column-to-workspace-down = { };
+          "Ctrl+Page_Up".move-column-to-workspace-up = { };
 
           "Mod+WheelScrollDown" = {
             _props.cooldown-ms = 150;
@@ -256,6 +237,10 @@
       extraConfig = ''
         include "${config.xdg.configHome}/niri/noctalia.kdl"
       '';
+    };
+
+    home.sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
     };
   };
 }

@@ -36,7 +36,7 @@
         allow_remote_control = "socket-only";
         listen_on = "unix:@mykitty";
 
-        "include" = "~/.cache/noctalia/kitty-theme.conf";
+        "include" = "themes/noctalia.conf";
       };
 
       keybindings = {
