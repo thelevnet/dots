@@ -120,6 +120,16 @@
           vsync = false;
         };
       }
+      {
+        name = "toni";
+        version = "26.1.2";
+        username = "toni";
+      }
+      {
+        name = "sepher";
+        version = "26.1.2";
+        username = "sepher";
+      }
     ];
   };
 }

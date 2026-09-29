@@ -28,6 +28,19 @@
           online-mode = false;
         };
       };
+      servers.server-2 = {
+        enable = true;
+        autoStart = true;
+        package = pkgs.vanillaServers.vanilla-26_1_2;
+        jvmOpts = "-Xmx4G -Xms2G";
+        serverProperties = {
+          server-port = 25566;
+          difficulty = "normal";
+          gamemode = "creative";
+          motd = "Second Server";
+          online-mode = false;
+        };
+      };
     };
 
     systemd.services.minecraft-cloud-sync = {
