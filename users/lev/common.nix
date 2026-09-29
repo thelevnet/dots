@@ -31,7 +31,6 @@
     # GUI & workstation
     zen-browser
     telegram-desktop
-    portablemc
     bibata-cursors
   ];
 
