@@ -78,7 +78,7 @@
   users.users.lev = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."lev-password".path;
-    extraGroups = [ "networkmanager" "wheel" "video" "minecraft" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "minecraft" "plugdev" "dialout" ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINcoLI6VTUqHm8P5yMxiKC6JOPTKEQilSDDTkIjYPM+K"
@@ -87,6 +87,20 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+cZp5jhYJbvkFuoN0evWdId76IJ8mfDZP/C7akyacr desktop"
     ];
   };
+
+  # Android flashing / mtkclient
+  users.groups.plugdev = {};
+  services.udev.extraRules = ''
+    # MediaTek BootROM / preloader / DA modes (mtkclient)
+    ATTRS{idVendor}=="0e8d", ENV{ID_MM_DEVICE_IGNORE}="1"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0e8d", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+    KERNEL=="ttyACM*", ATTRS{idVendor}=="0e8d", MODE="0660", GROUP="dialout", TAG+="uaccess"
+    KERNEL=="ttyUSB*", ATTRS{idVendor}=="0e8d", MODE="0660", GROUP="dialout", TAG+="uaccess"
+    # Fastboot (Google / Xiaomi)
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2717", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+  '';
+  boot.blacklistedKernelModules = [ "cdc_acm" "option" "usb_wwan" ];
 
   # Shell registration & Dynamic Linker support
   programs.zsh.enable = true;
@@ -109,10 +123,10 @@
   services.displayManager.ly = {
     enable = true;
     settings = {
-      animation = "matrix";
-      bigclock = "en";
-      hide_borders = false;
-      clear_password = true;
+      animation = "dur_file";
+      dur_file_path = "${../../assets/ly/blackhole.dur}";
+      dur_offset_alignment = "center";
+      full_color = true;
     };
   };
 

@@ -28,7 +28,7 @@
           online-mode = false;
         };
       };
-      servers.server-2 = {
+      servers.server-1= {
         enable = true;
         autoStart = true;
         package = pkgs.vanillaServers.vanilla-26_1_2;
@@ -36,7 +36,7 @@
         serverProperties = {
           server-port = 25566;
           difficulty = "normal";
-          gamemode = "creative";
+          gamemode = "survival";
           motd = "Second Server";
           online-mode = false;
         };

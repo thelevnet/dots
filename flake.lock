@@ -103,11 +103,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790588626,
-        "narHash": "sha256-gi7WJt72h4MqDoQe8LzxuQT695KpK6CZGm2fpJ9siS8=",
+        "lastModified": 1791556191,
+        "narHash": "sha256-PZI8ze0s39DopmGzrZcyKSUje4B7ocmwIHl6MHxhuVE=",
         "owner": "thelevnet",
         "repo": "nite",
-        "rev": "f30d8199d58284891ba9dd1b3ed526e0b71145c3",
+        "rev": "17271d82a902e855d7cd07b19f242afab21b9c97",
         "type": "github"
       },
       "original": {
