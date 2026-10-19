@@ -10,6 +10,8 @@
   };
 
   config = lib.mkIf config.modules.minecraft.enable {
+    networking.firewall.allowedTCPPorts = [ 8100 ];
+
     services.minecraft-servers = {
       enable = true;
       eula = true;
@@ -18,7 +20,7 @@
       servers.server = {
         enable = true;
         autoStart = true;
-        package = pkgs.vanillaServers.vanilla-26_1_2;
+        package = pkgs.paperServers.paper-26_1_2;
         jvmOpts = "-Xmx4G -Xms2G";
         serverProperties = {
           server-port = 25565;
@@ -26,9 +28,22 @@
           gamemode = "survival";
           motd = "Main Server";
           online-mode = false;
+          view-distance = 32;
+          simulation-distance = 32;
+        };
+        symlinks = {
+          "plugins/BlueMap.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/swbUV1cr/versions/uHQIrUdf/bluemap-5.29-paper.jar";
+            sha512 = "e936198eaf7ea83429e1d08b8e2a5447dd359c0252e3410cb3cc101860c933abcc055462a11b034a4dd77b699da54017412ac73728860fd8b68a672c32d9926c";
+          };
+        };
+        files = {
+          "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
+            accept-download: true
+          '';
         };
       };
-      servers.server-1= {
+      servers.server-2= {
         enable = true;
         autoStart = true;
         package = pkgs.vanillaServers.vanilla-26_1_2;
@@ -36,7 +51,7 @@
         serverProperties = {
           server-port = 25566;
           difficulty = "normal";
-          gamemode = "survival";
+          gamemode = "creative";
           motd = "Second Server";
           online-mode = false;
         };

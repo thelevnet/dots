@@ -18,17 +18,15 @@
     starship.enable = lib.mkDefault true;
     neovim.enable = lib.mkDefault true;
     theme.enable = lib.mkDefault true;
+    obsidian.enable = lib.mkDefault true;
   };
 
   home.packages = with pkgs; [
-    # CLI & tools
     antigravity-cli
     gh
     bat
     eza
     superfile
-
-    # GUI & workstation
     zen-browser
     telegram-desktop
     bibata-cursors

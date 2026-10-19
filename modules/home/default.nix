@@ -12,5 +12,6 @@
     ./starship.nix
     ./theme.nix
     ./zsh.nix
+    ./obsidian.nix
   ];
 }

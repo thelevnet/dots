@@ -455,6 +455,11 @@ wallpaper_scheme = "m3-tonal-spot"
         output_path = "$XDG_CACHE_HOME/noctalia/matugen.lua"
         post_hook = "pkill -f -SIGUSR1 nvim"
 
+        [theme.templates.user.kmscon]
+        enabled = true
+        input_path = "templates/kmscon.conf"
+        output_path = "$XDG_CACHE_HOME/noctalia/kmscon.conf"
+
 
 [wallpaper]
 transition = [ "stripes" ]
@@ -637,6 +642,28 @@ signal:start(
 
 return M
 '';
-  };
+
+      "noctalia/templates/kmscon.conf".text = ''
+palette=custom
+palette-background={{colors.terminal_background.default.red}},{{colors.terminal_background.default.green}},{{colors.terminal_background.default.blue}}
+palette-foreground={{colors.terminal_foreground.default.red}},{{colors.terminal_foreground.default.green}},{{colors.terminal_foreground.default.blue}}
+palette-black={{colors.terminal_normal_black.default.red}},{{colors.terminal_normal_black.default.green}},{{colors.terminal_normal_black.default.blue}}
+palette-red={{colors.terminal_normal_red.default.red}},{{colors.terminal_normal_red.default.green}},{{colors.terminal_normal_red.default.blue}}
+palette-green={{colors.terminal_normal_green.default.red}},{{colors.terminal_normal_green.default.green}},{{colors.terminal_normal_green.default.blue}}
+palette-yellow={{colors.terminal_normal_yellow.default.red}},{{colors.terminal_normal_yellow.default.green}},{{colors.terminal_normal_yellow.default.blue}}
+palette-blue={{colors.terminal_normal_blue.default.red}},{{colors.terminal_normal_blue.default.green}},{{colors.terminal_normal_blue.default.blue}}
+palette-magenta={{colors.terminal_normal_magenta.default.red}},{{colors.terminal_normal_magenta.default.green}},{{colors.terminal_normal_magenta.default.blue}}
+palette-cyan={{colors.terminal_normal_cyan.default.red}},{{colors.terminal_normal_cyan.default.green}},{{colors.terminal_normal_cyan.default.blue}}
+palette-light-grey={{colors.terminal_normal_white.default.red}},{{colors.terminal_normal_white.default.green}},{{colors.terminal_normal_white.default.blue}}
+palette-dark-grey={{colors.terminal_bright_black.default.red}},{{colors.terminal_bright_black.default.green}},{{colors.terminal_bright_black.default.blue}}
+palette-light-red={{colors.terminal_bright_red.default.red}},{{colors.terminal_bright_red.default.green}},{{colors.terminal_bright_red.default.blue}}
+palette-light-green={{colors.terminal_bright_green.default.red}},{{colors.terminal_bright_green.default.green}},{{colors.terminal_bright_green.default.blue}}
+palette-light-yellow={{colors.terminal_bright_yellow.default.red}},{{colors.terminal_bright_yellow.default.green}},{{colors.terminal_bright_yellow.default.blue}}
+palette-light-blue={{colors.terminal_bright_blue.default.red}},{{colors.terminal_bright_blue.default.green}},{{colors.terminal_bright_blue.default.blue}}
+palette-light-magenta={{colors.terminal_bright_magenta.default.red}},{{colors.terminal_bright_magenta.default.green}},{{colors.terminal_bright_magenta.default.blue}}
+palette-light-cyan={{colors.terminal_bright_cyan.default.red}},{{colors.terminal_bright_cyan.default.green}},{{colors.terminal_bright_cyan.default.blue}}
+palette-white={{colors.terminal_bright_white.default.red}},{{colors.terminal_bright_white.default.green}},{{colors.terminal_bright_white.default.blue}}
+'';
+    };
   };
 }
