@@ -9,11 +9,6 @@
     programs.kitty = {
       enable = true;
 
-      font = {
-        name = "JetBrainsMono Nerd Font";
-        size = 14.0;
-      };
-
       shellIntegration = {
         mode = "no-cursor";
       };
@@ -23,20 +18,17 @@
         italic_font = "auto";
         bold_italic_font = "auto";
 
-        hide_window_decorations = "yes";
-        background_opacity = "1";
-        background_blur = 20;
         confirm_os_window_close = 0;
         window_padding_width = 5;
 
         cursor_shape = "block";
         cursor_blink_interval = 0;
         cursor_trail = 3;
+        cursor = "#ef934d";
+        cursor_trail_color = "#ef934d";
 
         allow_remote_control = "socket-only";
         listen_on = "unix:@mykitty";
-
-        "include" = "themes/noctalia.conf";
       };
 
       keybindings = {

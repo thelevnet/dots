@@ -9,6 +9,10 @@
     programs.noctalia = {
       enable = true;
       systemd.enable = true;
+      customPalettes.stylix.dark = {
+        mPrimary = lib.mkForce "#ef934d";
+        mHover = lib.mkForce "#ef934d";
+      };
     };
 
     xdg.configFile = {
@@ -440,9 +444,9 @@ screen_time_enabled = true
 [theme]
 builtin = "Ayu"
 community_palette = "Tomorrow"
-custom_palette = "torii-ts"
+custom_palette = "stylix"
 mode = "dark"
-source = "wallpaper"
+source = "custom"
 wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
@@ -462,24 +466,24 @@ wallpaper_scheme = "m3-tonal-spot"
 
 
 [wallpaper]
-transition = [ "stripes" ]
-transition_on_startup = true
+enabled = true
+transition = [ "fade" ]
+transition_on_startup = false
 
     [wallpaper.automation]
-    enabled = true
-    interval_seconds = 300
+    enabled = false
 
     [wallpaper.default]
-    path = "/home/lev/Pictures/city.png"
+    path = "color:#050505"
 
     [wallpaper.last]
-    path = "/home/lev/Pictures/city.png"
+    path = "color:#050505"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/lev/Pictures/city.png"
+    path = "color:#050505"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/lev/Pictures/Wallpapers/torii.jpg"
+    path = "color:#050505"
 
 [widget.audio_visualizer]
 bands = 20

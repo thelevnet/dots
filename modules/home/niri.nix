@@ -6,8 +6,6 @@
   };
 
   config = lib.mkIf config.modules.niri.enable {
-    xdg.configFile."niri/config.kdl".force = true;
-
     wayland.windowManager.niri = {
       enable = true;
       package = pkgs.niri;
@@ -67,14 +65,6 @@
           };
 
           border.off = { };
-
-          shadow = {
-            on = { };
-            softness = 30;
-            spread = 5;
-            offset._props = { x = 0; y = 5; };
-            color = "#0007";
-          };
 
           struts = {
             left = 5;
@@ -194,7 +184,7 @@
 
           {
             window-rule._children = [
-              { geometry-corner-radius = 20; }
+              { geometry-corner-radius = 0; }
               { clip-to-geometry = true; }
             ];
           }
@@ -240,7 +230,7 @@
     };
 
     home.sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
+      QT_QPA_PLATFORMTHEME = lib.mkForce "xdgdesktopportal";
     };
   };
 }

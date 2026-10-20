@@ -15,27 +15,27 @@
           source = "${config.xdg.configHome}/fastfetch/ascii.txt";
           type = "auto";
           color = {
-            "1" = "32";
-            "2" = "32";
+            "1" = "33";
+            "2" = "33";
           };
         };
         display = {
           separator = " ";
           color = {
-            separator = "32";
-            title = "32";
+            separator = "33";
+            title = "33";
           };
         };
         modules = [
-          { key = "╭────╮"; keyColor = "32"; type = "custom"; }
-          { key = "│   │"; keyColor = "32"; type = "title"; format = "{user-name}@{host-name}"; }
-          { key = "│   │"; keyColor = "32"; type = "os"; format = "{name}"; }
-          { key = "│   │"; keyColor = "32"; type = "shell"; format = "{1}"; }
-          { key = "│ 󰏓  │"; keyColor = "32"; type = "packages"; format = "{all}"; }
-          { key = "│   │"; keyColor = "32"; type = "terminal"; format = "{1}"; }
-          { key = "│   │"; keyColor = "32"; type = "wm"; format = "{1}"; }
-          { key = "│ 󰝚  │"; keyColor = "32"; type = "media"; format = "{artist} - {title}"; }
-          { key = "╰────╯"; keyColor = "32"; type = "custom"; }
+          { key = "╭────╮"; keyColor = "33"; type = "custom"; }
+          { key = "│   │"; keyColor = "33"; type = "title"; format = "{user-name}@{host-name}"; }
+          { key = "│   │"; keyColor = "33"; type = "os"; format = "{name}"; }
+          { key = "│   │"; keyColor = "33"; type = "shell"; format = "{1}"; }
+          { key = "│ 󰏓  │"; keyColor = "33"; type = "packages"; format = "{all}"; }
+          { key = "│   │"; keyColor = "33"; type = "terminal"; format = "{1}"; }
+          { key = "│   │"; keyColor = "33"; type = "wm"; format = "{1}"; }
+          { key = "│ 󰝚  │"; keyColor = "33"; type = "media"; format = "{artist} - {title}"; }
+          { key = "╰────╯"; keyColor = "33"; type = "custom"; }
         ];
       };
     };

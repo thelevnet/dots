@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.stylix.nixosModules.stylix
     inputs.home-manager.nixosModules.home-manager
     ../../modules/nixos
   ];
@@ -12,6 +13,7 @@
     niri.enable = lib.mkDefault true;
     tailscale.enable = lib.mkDefault true;
     kmscon.enable = lib.mkDefault true;
+    stylix.enable = lib.mkDefault true;
   };
 
   # Nix Package Manager settings

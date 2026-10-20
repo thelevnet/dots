@@ -16,7 +16,7 @@
         hwaccel = true;
         term = "xterm-256color";
         font-name = "JetBrainsMono Nerd Font";
-        font-size = 24;
+        font-size = lib.mkForce 24;
         font-dpi = 96;
       };
     };

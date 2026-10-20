@@ -10,8 +10,9 @@
     ./nite.nix
     ./noctalia.nix
     ./starship.nix
-    ./theme.nix
     ./zsh.nix
     ./obsidian.nix
+    ./hm/vis.nix
+    ./vis.nix
   ];
 }
