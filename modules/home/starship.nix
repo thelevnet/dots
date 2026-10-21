@@ -17,15 +17,18 @@
 
 
         directory = {
-          style = "white";
-          format = "[|](orange) [$path ]($style)";
+          style = config.lib.stylix.colors.withHashtag.base05;
+          format = "[|](${config.lib.stylix.colors.withHashtag.base09}) [$path ]($style)";
           truncation_length = 3;
           truncation_symbol = "…/";
           truncate_to_repo = false;
+          substitutions = {
+            "/nixos" = "^";
+          };
         };
 
         character = {
-          format = "[\\\$](orange) ";
+          format = "[\\\$](${config.lib.stylix.colors.withHashtag.base09}) ";
         };
       };
     };

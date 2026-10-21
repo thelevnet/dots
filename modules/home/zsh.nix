@@ -12,13 +12,6 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      oh-my-zsh = {
-        enable = true;
-        plugins = [
-          "colored-man-pages"
-        ];
-      };
-
       shellAliases = {
         l = "eza --icons --group-directories-first";
         la = "eza -a --icons --group-directories-first";

@@ -80,6 +80,20 @@
       "lev@laptop" = mkHome ./users/lev/laptop.nix;
     };
 
+    packages = let
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+    in forAllSystems (system:
+      let
+        pkgs = import nixpkgs {
+          system = system;
+          config.allowUnfree = true;
+          overlays = import ./overlays { inherit inputs; };
+        };
+      in {
+        runraw = pkgs.runraw;
+      }
+    );
+
     devShells = let
       forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
     in forAllSystems (system:

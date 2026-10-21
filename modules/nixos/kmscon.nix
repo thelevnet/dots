@@ -31,12 +31,6 @@
         font-size=24
         font-dpi=96
         EOF
-        for f in /home/*/.cache/noctalia/kmscon.conf; do
-          if [ -f "$f" ]; then
-            cat "$f" >> /run/kmscon/kmscon.conf
-            break
-          fi
-        done
       '';
     };
   };

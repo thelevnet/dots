@@ -55,9 +55,15 @@
         };
 
         sizes = {
-          terminal = 16;
+          terminal = 20;
         };
       };
+
+      targets.qt.enable = false;
+    };
+
+    environment.sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
     };
   };
 }

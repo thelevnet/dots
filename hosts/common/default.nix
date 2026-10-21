@@ -14,6 +14,7 @@
     tailscale.enable = lib.mkDefault true;
     kmscon.enable = lib.mkDefault true;
     stylix.enable = lib.mkDefault true;
+    hex.enable = lib.mkDefault true;
   };
 
   # Nix Package Manager settings

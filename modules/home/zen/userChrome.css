@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Zen Browser - Clean Theme: Caelus Palette, JetBrains Mono, 0px Radius
+   No Gradients, No Drop-Shadows
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --zen-primary-color: #ef934d !important;
+  --zen-colors-primary: #0f0f0f !important;
+  --zen-colors-secondary: #161716 !important;
+  --zen-colors-tertiary: #1e1f1e !important;
+  --zen-colors-border: #3b403c !important;
+  --zen-main-browser-background: #0f0f0f !important;
+  --zen-themed-toolbar-bg: #0f0f0f !important;
+  --zen-urlbar-background: #161716 !important;
+  --zen-colors-input-bg: #161716 !important;
+
+  /* Kill Zen Gradients */
+  --zen-theme-gradient: none !important;
+  --zen-theme-gradient-secondary: none !important;
+
+  --toolbar-bgcolor: #0f0f0f !important;
+  --toolbar-field-background-color: #161716 !important;
+  --toolbar-field-color: #f4decd !important;
+  --toolbar-field-focus-background-color: #1e1f1e !important;
+  --toolbar-field-focus-color: #f4decd !important;
+  --toolbar-color: #f4decd !important;
+  --lwt-text-color: #f4decd !important;
+  --arrowpanel-background: #1e1f1e !important;
+  --arrowpanel-color: #f4decd !important;
+  --arrowpanel-border-color: #3b403c !important;
+}
+
+/* Remove all gradients across chrome containers */
+#navigator-toolbox,
+#TabsToolbar,
+#titlebar,
+#zen-tabbox-wrapper,
+#zen-appcontent-navbar-container,
+#zen-sidebar-top-buttons,
+#zen-sidebar-icons-wrapper,
+#zen-current-workspace-indicator,
+.tabbrowser-tab,
+.tab-background,
+.tab-stack,
+#urlbar,
+#urlbar-background,
+#zen-workspaces-button,
+#zen-sidebar-splitter,
+toolbar,
+toolbarbutton {
+  background-image: none !important;
+}
+
+/* 0px radius everywhere */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* JetBrains Mono everywhere */
+*,
+*::before,
+*::after {
+  font-family: "JetBrains Mono", monospace !important;
+}

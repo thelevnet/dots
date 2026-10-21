@@ -1,6 +1,7 @@
 { inputs }:
 
 [
+  (import ../pkgs)
   inputs.nix-minecraft.overlays.default
   (_: prev: {
     next = inputs.next.packages.${prev.stdenv.hostPlatform.system}.default;

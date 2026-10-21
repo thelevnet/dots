@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 {
   options.modules.niri = {
@@ -6,20 +6,6 @@
   };
 
   config = lib.mkIf config.modules.niri.enable {
-    programs.niri = {
-      enable = true;
-    };
-
-    environment.systemPackages = with pkgs; [
-      xwayland-satellite
-    ];
-
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gnome
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
+    programs.niri.enable = true;
   };
 }

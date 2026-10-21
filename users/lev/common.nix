@@ -16,9 +16,9 @@
     fastfetch.enable = lib.mkDefault true;
     zsh.enable = lib.mkDefault true;
     starship.enable = lib.mkDefault true;
-    neovim.enable = lib.mkDefault true;
     obsidian.enable = lib.mkDefault true;
-    vis.enable = lib.mkDefault true;
+    helix.enable = lib.mkDefault true;
+    zen.enable = lib.mkDefault true;
   };
 
   home.packages = with pkgs; [

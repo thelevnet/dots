@@ -24,8 +24,8 @@
         cursor_shape = "block";
         cursor_blink_interval = 0;
         cursor_trail = 3;
-        cursor = "#ef934d";
-        cursor_trail_color = "#ef934d";
+        cursor = config.lib.stylix.colors.withHashtag.base09;
+        cursor_trail_color = config.lib.stylix.colors.withHashtag.base09;
 
         allow_remote_control = "socket-only";
         listen_on = "unix:@mykitty";
