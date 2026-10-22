@@ -4,6 +4,7 @@
   imports = [
     inputs.stylix.nixosModules.stylix
     inputs.home-manager.nixosModules.home-manager
+    inputs.rnet.nixosModules.rnet
     ../../modules/nixos
   ];
 
@@ -15,6 +16,7 @@
     kmscon.enable = lib.mkDefault true;
     stylix.enable = lib.mkDefault true;
     hex.enable = lib.mkDefault true;
+    rgit.enable = lib.mkDefault true;
   };
 
   # Nix Package Manager settings
@@ -63,6 +65,17 @@
     wireplumber.enable = true;
   };
   security.rtkit.enable = true;
+  security.sudo.enable = false;
+  security.doas = {
+    enable = true;
+    extraRules = [
+      {
+        groups = [ "wheel" ];
+        keepEnv = true;
+        persist = true;
+      }
+    ];
+  };
 
   # SSH
   services.openssh = {
@@ -120,7 +133,6 @@
   # Base System Packages
   environment.systemPackages = with pkgs; [
     git
-    home-manager
     next
   ];
 
@@ -137,7 +149,7 @@
   # Home Manager Integration
   home-manager = {
     useGlobalPkgs = true;
-    useUserPackages = false;
+    useUserPackages = true;
     backupFileExtension = "backup";
     extraSpecialArgs = { inherit inputs; };
   };

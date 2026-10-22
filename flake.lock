@@ -361,6 +361,40 @@
         "type": "github"
       }
     },
+    "rgit": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792683738,
+        "narHash": "sha256-dp5+2FWe5W5qSroXMEURq4Aj3834oSNQnL27fFKq7eY=",
+        "path": "/home/lev/Projects/rgit",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/lev/Projects/rgit",
+        "type": "path"
+      }
+    },
+    "rnet": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792682489,
+        "narHash": "sha256-+c+TUA+5bT0V19LLccDn7DOUhfqn7WzGRwvU9IjHno4=",
+        "path": "/home/lev/Projects/rnet",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/lev/Projects/rnet",
+        "type": "path"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -370,6 +404,8 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
+        "rgit": "rgit",
+        "rnet": "rnet",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "zen-browser": "zen-browser"

@@ -37,6 +37,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    rgit = {
+      url = "path:/home/lev/Projects/rgit";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rnet = {
+      url = "path:/home/lev/Projects/rnet";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,23 +71,6 @@
       modules = [
         ./hosts/laptop
       ];
-    };
-
-    homeConfigurations = let
-      mkHome = userModule: inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-          overlays = import ./overlays { inherit inputs; };
-        };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          userModule
-        ];
-      };
-    in {
-      "lev@desktop" = mkHome ./users/lev/desktop.nix;
-      "lev@laptop" = mkHome ./users/lev/laptop.nix;
     };
 
     packages = let

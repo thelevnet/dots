@@ -19,19 +19,18 @@
     obsidian.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
     zen.enable = lib.mkDefault true;
+    superfile.enable = lib.mkDefault true;
   };
 
   home.packages = with pkgs; [
     antigravity-cli
+    rgit
     gh
     bat
     eza
-    superfile
     zen-browser
     telegram-desktop
     bibata-cursors
   ];
-
-  programs.home-manager.enable = true;
 }
 

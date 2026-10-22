@@ -13,6 +13,7 @@
     ./obsidian.nix
     ../../pkgs/hm
     ./helix.nix
-    ./zen
+    ./superfile.nix
+    ./zen.nix
   ];
 }

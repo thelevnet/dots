@@ -97,6 +97,10 @@
 
           "Mod+Return".spawn = [ "kitty" ];
           "Mod+W".spawn = [ "zen" ];
+          "Mod+R".spawn = [
+            "kitty"
+            "rgit"
+          ];
           "Mod+X".spawn = [
             "kitty"
             "hx"
