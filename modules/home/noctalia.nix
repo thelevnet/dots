@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   tomlFormat = pkgs.formats.toml { };
@@ -21,9 +26,17 @@ let
         capsule_padding = 15.0;
         capsule_radius = 0;
         capsule_thickness = 0.78;
-        start = [ "control-center" "clipboard" "clock" ];
+        start = [
+          "control-center"
+          "clipboard"
+          "clock"
+        ];
         center = [ "workspaces" ];
-        end = [ "bluetooth" "network" "session" ];
+        end = [
+          "bluetooth"
+          "network"
+          "session"
+        ];
         font_scale = 1.20;
         font_weight = 1000;
         layer = "top";
@@ -40,7 +53,12 @@ let
     };
 
     control_center = {
-      hidden_tabs = [ "monitor" "power" "calendar" "notifications" ];
+      hidden_tabs = [
+        "monitor"
+        "power"
+        "calendar"
+        "notifications"
+      ];
       show_session_button = false;
       show_shortcut_labels = false;
       calendar.show_events_card = false;
@@ -117,6 +135,7 @@ let
         fetch_exchange_rates = false;
         show_icons = false;
         sort_by_usage = false;
+        layout = "simple";
       };
 
       panel = {
@@ -200,10 +219,10 @@ let
     let
       rawConfig = tomlFormat.generate "settings.toml" noctaliaSettings;
     in
-      pkgs.runCommand "noctalia-settings.toml" { } ''
-        ${lib.getExe pkgs.noctalia} config validate ${rawConfig}
-        cp ${rawConfig} $out
-      '';
+    pkgs.runCommand "noctalia-settings.toml" { } ''
+      ${lib.getExe pkgs.noctalia} config validate ${rawConfig}
+      cp ${rawConfig} $out
+    '';
 in
 {
   options.modules.noctalia = {
